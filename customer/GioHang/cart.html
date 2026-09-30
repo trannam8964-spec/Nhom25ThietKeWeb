@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Giỏ hàng</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/customer/GioHang/cart.css" />
+  </head>
+
+  <body data-required-role="customer">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="logo">
+        <i class="fa-solid fa-mug-hot"></i>
+        <span>Coffee House</span>
+      </div>
+
+      <ul class="menu">
+        <li>
+          <a href="/customer/Dashboard/customer1.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Trang chủ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="../menu/about.html">
+            <i class="fa-solid fa-store"></i>
+            <span>Về quán</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/customer/menu/menu.html">
+            <i class="fa-solid fa-mug-hot"></i>
+            <span>Menu</span>
+          </a>
+        </li>
+
+        <li class="active">
+          <a href="/customer/GioHang/cart.html">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Giỏ hàng</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/customer/History/history.html">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Lịch sử đơn hàng</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/customer/Account/profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span>Thông tin cá nhân</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/customer/Account/contact.html">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Liên hệ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="logout">
+        <a href="#">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Đăng xuất</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <header>
+        <div>
+          <h2>Giỏ hàng</h2>
+          <p>Các món bạn đã chọn</p>
+        </div>
+
+        <div class="user">
+          <i class="fa-solid fa-circle-user"></i>
+          <span id="customerName">Khách hàng</span>
+        </div>
+      </header>
+
+      <div class="cart-container">
+        <div id="cartItems"></div>
+
+        <div class="cart-summary">
+          <h2>Tổng đơn hàng</h2>
+
+          <div class="summary-row">
+            <span>Tạm tính</span>
+            <span id="subtotal">0đ</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Phí dịch vụ</span>
+            <span id="serviceFee">0đ</span>
+          </div>
+
+          <hr />
+
+          <div class="summary-total">
+            <span>Tổng cộng</span>
+            <span id="totalPrice">0đ</span>
+          </div>
+
+          <button class="checkout-btn" onclick="tienHanhDatHang()">
+            Tiến hành đặt hàng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/customer/Javascript/data.js"></script>
+    <script src="/customer/Javascript/cart.js"></script>
+    <script src="/customer/Javascript/cart-count.js"></script>
+    <script src="/customer/Javascript/auth-session.js"></script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Lịch sử đơn hàng</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/customer/History/history.css" />
+  </head>
+
+  <body data-required-role="customer">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="logo">
+        <i class="fa-solid fa-mug-hot"></i>
+        <span>Coffee Shop</span>
+      </div>
+
+      <a href="/customer/Dashboard/customer1.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Trang chủ</span>
+      </a>
+
+      <a href="/customer/About/about.html" class="menu-item">
+        <i class="fa-solid fa-store"></i>
+        <span>Về quán</span>
+      </a>
+
+      <a href="/customer/menu/menu.html">
+        <i class="fa-solid fa-mug-hot"></i>
+        <span>Menu</span>
+      </a>
+
+      <a href="/customer/GioHang/cart.html">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Giỏ hàng</span>
+      </a>
+
+      <a href="/customer/History/history.html" class="active">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>Lịch sử đơn hàng</span>
+      </a>
+
+      <a href="/customer/Account/profile.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Thông tin cá nhân</span>
+      </a>
+
+      <a href="/customer/Account/contact.html">
+        <i class="fa-solid fa-envelope"></i>
+        <span>Liên hệ</span>
+      </a>
+
+      <a href="#" class="logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Đăng xuất</span>
+      </a>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <!-- HEADER -->
+      <div class="header">
+        <div>
+          <h1>Lịch sử đơn hàng</h1>
+          <p>Xem lại những đơn hàng bạn đã đặt</p>
+        </div>
+
+        <div class="user">
+          <i class="fa-solid fa-circle-user"></i>
+          <span id="customerName">Khách hàng</span>
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="content">
+        <div class="history-container">
+          <div class="history-title">
+            <h2>Đơn hàng của bạn</h2>
+          </div>
+
+          <!-- JS sẽ đưa đơn hàng vào đây -->
+          <div id="orderHistory"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/customer/Javascript/data.js"></script>
+    <script src="/customer/Javascript/history.js"></script>
+    <script src="/customer/Javascript/cart-count.js"></script>
+    <script src="/customer/Javascript/auth-session.js"></script>
+  </body>
+</html>

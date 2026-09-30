@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký | Coffee House</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/register/auth.css" />
+  </head>
+  <body>
+    <main class="auth-page">
+      <section class="auth-visual" aria-label="Coffee House">
+        <a class="auth-brand" href="/register/login.html">
+          <i class="fa-solid fa-mug-hot" aria-hidden="true"></i> Coffee House
+        </a>
+        <div class="visual-copy">
+          <p class="eyebrow">GÓC CỦA BẠN</p>
+          <h1>Lưu lại những điều bạn yêu thích.</h1>
+          <p>
+            Tạo tài khoản khách hàng để giữ thông tin hồ sơ cho lần ghé tiếp
+            theo.
+          </p>
+        </div>
+        <span class="visual-caption"
+          >Coffee, conversations, and a slower moment.</span
+        >
+      </section>
+
+      <section class="auth-main">
+        <div class="auth-card">
+          <p class="eyebrow">TÀI KHOẢN KHÁCH HÀNG</p>
+          <h2>Tạo tài khoản</h2>
+          <p class="auth-subtitle">Điền thông tin bên dưới để đăng ký.</p>
+
+          <form id="registerForm">
+            <div class="field">
+              <label for="registerName">Họ và tên</label>
+              <input
+                id="registerName"
+                name="fullName"
+                type="text"
+                autocomplete="name"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="registerUsername">Tên đăng nhập</label>
+              <input
+                id="registerUsername"
+                name="username"
+                type="text"
+                autocomplete="username"
+                minlength="3"
+                pattern="[A-Za-z0-9_.-]+"
+                required
+              />
+              <small>Dùng từ 3 ký tự, không dấu cách.</small>
+            </div>
+            <div class="field">
+              <label for="registerEmail">Email</label>
+              <input
+                id="registerEmail"
+                name="email"
+                type="email"
+                autocomplete="email"
+              />
+            </div>
+            <div class="field">
+              <label for="registerPassword">Mật khẩu</label>
+              <input
+                id="registerPassword"
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="confirmPassword">Nhập lại mật khẩu</label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+              />
+            </div>
+            <button class="primary-button" type="submit">Đăng ký</button>
+            <p
+              class="auth-message"
+              id="registerMessage"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </form>
+
+          <p class="auth-footer">
+            Đã có tài khoản? <a href="/register/login.html">Đăng nhập</a>
+          </p>
+          <p class="prototype-note">
+            Bản demo lưu tài khoản trên trình duyệt này, chưa có máy chủ xác
+            thực.
+          </p>
+        </div>
+      </section>
+    </main>
+    <script src="/customer/Javascript/auth.js"></script>
+  </body>
+</html>

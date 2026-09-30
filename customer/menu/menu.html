@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Menu - Coffee House</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/customer/menu/menu.css" />
+  </head>
+
+  <body data-required-role="customer">
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="logo">
+          <i class="fa-solid fa-mug-hot"></i>
+          <span>Coffee House</span>
+        </div>
+
+        <nav class="sidebar-menu">
+          <a href="/customer/Dashboard/customer1.html" class="menu-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Trang chủ</span>
+          </a>
+
+          <a href="/customer/About/about.html" class="menu-item">
+            <i class="fa-solid fa-store"></i>
+            <span>Về quán</span>
+          </a>
+
+          <a href="menu.html" class="menu-item active">
+            <i class="fa-solid fa-mug-hot"></i>
+            <span>Menu</span>
+          </a>
+
+          <a href="/customer/GioHang/cart.html" class="menu-item">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Giỏ hàng</span>
+            <span class="cart-count">0</span>
+          </a>
+
+          <a href="/customer/History/history.html" class="menu-item">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Lịch sử đơn hàng</span>
+          </a>
+
+          <a href="/customer/Account/profile.html" class="menu-item">
+            <i class="fa-solid fa-user"></i>
+            <span>Thông tin cá nhân</span>
+          </a>
+
+          <a href="/customer/Account/contact.html" class="menu-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Liên hệ</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="#" class="menu-item">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Đăng xuất</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <header class="header">
+          <h2>Menu</h2>
+
+          <div class="user-info">
+            <i class="fa-solid fa-circle-user"></i>
+
+            <div>
+              <span>Xin chào,</span>
+              <strong id="customerName">Khách hàng</strong>
+            </div>
+          </div>
+        </header>
+
+        <div class="content">
+          <!-- TITLE -->
+          <div class="page-title">
+            <h1>Menu</h1>
+
+            <p>Khám phá các món đồ uống và đồ ăn của Coffee House</p>
+          </div>
+
+          <!-- SEARCH -->
+          <div class="menu-tools">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Tìm kiếm món..."
+              />
+            </div>
+          </div>
+
+          <!-- CATEGORY -->
+          <div class="categories">
+            <button class="category-btn active" data-category="Tất cả">
+              Tất cả
+            </button>
+
+            <button class="category-btn" data-category="Cà phê">Cà phê</button>
+
+            <button class="category-btn" data-category="Đồ ăn">Đồ ăn</button>
+
+            <button class="category-btn" data-category="Nước ép">
+              Nước ép
+            </button>
+
+            <button class="category-btn" data-category="Trà">Trà</button>
+
+            <button class="category-btn" data-category="Trà sữa">
+              Trà sữa
+            </button>
+          </div>
+
+          <!-- PRODUCTS -->
+
+          <div class="product-grid" id="menuProducts"></div>
+        </div>
+      </main>
+    </div>
+
+    <!-- DATA -->
+    <script src="/customer/Javascript/data.js"></script>
+
+    <!-- MENU JAVASCRIPT -->
+    <script src="/customer/Javascript/menu.js"></script>
+    <script src="/customer/Javascript/cart-count.js"></script>
+    <script src="/customer/Javascript/customer-name.js"></script>
+    <script src="/customer/Javascript/auth-session.js"></script>
+  </body>
+</html>

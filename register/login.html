@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập | Coffee House</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/register/auth.css" />
+  </head>
+  <body>
+    <main class="auth-page">
+      <section class="auth-visual" aria-label="Coffee House">
+        <a class="auth-brand" href="/register/login.html">
+          <i class="fa-solid fa-mug-hot" aria-hidden="true"></i> Coffee House
+        </a>
+        <div class="visual-copy">
+          <p class="eyebrow">COFFEE HOUSE</p>
+          <h1>Một góc nhỏ dành cho bạn.</h1>
+          <p>
+            Đăng nhập để tiếp tục hành trình thưởng thức những món quen thuộc.
+          </p>
+        </div>
+        <span class="visual-caption"
+          >Coffee, conversations, and a slower moment.</span
+        >
+      </section>
+
+      <section class="auth-main">
+        <div class="auth-card">
+          <p class="eyebrow">CHÀO MỪNG TRỞ LẠI</p>
+          <h2>Đăng nhập</h2>
+          <p class="auth-subtitle">
+            Dùng tài khoản của bạn hoặc vào nhanh với tên khách.
+          </p>
+
+          <form id="loginForm">
+            <div class="field">
+              <label for="loginUsername">Tên đăng nhập hoặc tên khách</label>
+              <input
+                id="loginUsername"
+                name="username"
+                type="text"
+                autocomplete="username"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="loginPassword">Mật khẩu</label>
+              <input
+                id="loginPassword"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+              />
+              <small
+                >Để trống mật khẩu nếu bạn chỉ muốn vào nhanh với tên
+                khách.</small
+              >
+            </div>
+            <button class="primary-button" type="submit">Đăng nhập</button>
+            <p
+              class="auth-message"
+              id="loginMessage"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </form>
+
+          <details class="demo-accounts">
+            <summary>Tài khoản dùng thử cho vai trò</summary>
+            <p>Admin: <code>admin</code> / <code>admin123</code></p>
+            <p>Nhân viên: <code>staff</code> / <code>staff123</code></p>
+          </details>
+
+          <p class="auth-footer">
+            Chưa có tài khoản? <a href="/register/register.html">Đăng ký</a>
+          </p>
+          <p class="prototype-note">
+            Bản demo lưu dữ liệu trên trình duyệt, chưa có máy chủ xác thực.
+          </p>
+        </div>
+      </section>
+    </main>
+    <script src="/customer/Javascript/auth.js"></script>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông tin cá nhân | Coffee House</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/customer/Account/account.css" />
+  </head>
+
+  <body data-required-role="customer">
+    <div class="layout">
+      <aside class="sidebar">
+        <a class="logo" href="/customer/Dashboard/customer1.html">
+          <i class="fa-solid fa-mug-hot"></i>
+          <span>Coffee House</span>
+        </a>
+
+        <nav class="sidebar-menu" aria-label="Điều hướng chính">
+          <a
+            class="menu-item"
+            href="/customer/Dashboard/customer1.html"
+            title="Trang chủ"
+            aria-label="Trang chủ"
+          >
+            <i class="fa-solid fa-house"></i><span>Trang chủ</span>
+          </a>
+          <a
+            class="menu-item"
+            href="/customer/About/about.html"
+            title="Về quán"
+            aria-label="Về quán"
+          >
+            <i class="fa-solid fa-store"></i><span>Về quán</span>
+          </a>
+          <a
+            class="menu-item"
+            href="/customer/menu/menu.html"
+            title="Menu"
+            aria-label="Menu"
+          >
+            <i class="fa-solid fa-mug-hot"></i><span>Menu</span>
+          </a>
+          <a
+            class="menu-item"
+            href="/customer/GioHang/cart.html"
+            title="Giỏ hàng"
+            aria-label="Giỏ hàng"
+          >
+            <i class="fa-solid fa-cart-shopping"></i><span>Giỏ hàng</span>
+          </a>
+          <a
+            class="menu-item"
+            href="/customer/History/history.html"
+            title="Lịch sử đơn hàng"
+            aria-label="Lịch sử đơn hàng"
+          >
+            <i class="fa-solid fa-clock-rotate-left"></i
+            ><span>Lịch sử đơn hàng</span>
+          </a>
+          <a
+            class="menu-item active"
+            href="/customer/Account/profile.html"
+            title="Thông tin cá nhân"
+            aria-label="Thông tin cá nhân"
+            aria-current="page"
+          >
+            <i class="fa-solid fa-user"></i><span>Thông tin cá nhân</span>
+          </a>
+          <a
+            class="menu-item"
+            href="/customer/Account/contact.html"
+            title="Liên hệ"
+            aria-label="Liên hệ"
+          >
+            <i class="fa-solid fa-envelope"></i><span>Liên hệ</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a
+            class="menu-item logout"
+            href="#"
+            title="Đăng xuất"
+            aria-label="Đăng xuất"
+          >
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Đăng xuất</span>
+          </a>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="header">
+          <div>
+            <h1>Thông tin cá nhân</h1>
+            <p>Cập nhật thông tin liên hệ của bạn</p>
+          </div>
+          <div class="user">
+            <i class="fa-solid fa-circle-user"></i>
+            <span id="customerName">Khách hàng</span>
+          </div>
+        </header>
+
+        <section class="content">
+          <div class="page-intro">
+            <h2>Hồ sơ của bạn</h2>
+            <p>Thông tin được lưu trên trình duyệt đang sử dụng.</p>
+          </div>
+
+          <form class="form-panel" id="profileForm">
+            <div class="form-grid">
+              <div class="field field-full">
+                <label for="fullName">Họ và tên</label>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                />
+              </div>
+              <div class="field">
+                <label for="phone">Số điện thoại</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" />
+              </div>
+              <div class="field field-full">
+                <label for="address">Địa chỉ</label>
+                <input
+                  id="address"
+                  name="address"
+                  type="text"
+                  autocomplete="street-address"
+                />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit">
+                <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+                Lưu thông tin
+              </button>
+              <p
+                class="form-status"
+                id="profileStatus"
+                role="status"
+                aria-live="polite"
+              ></p>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="/customer/Javascript/cart-count.js"></script>
+    <script src="/customer/Javascript/profile.js"></script>
+    <script src="/customer/Javascript/auth-session.js"></script>
+  </body>
+</html>

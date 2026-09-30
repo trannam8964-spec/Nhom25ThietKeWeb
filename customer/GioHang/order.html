@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Đặt hàng</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/customer/GioHang/order.css" />
+  </head>
+
+  <body data-required-role="customer">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="logo">
+        <i class="fa-solid fa-mug-hot"></i>
+        <span>Coffee Shop</span>
+      </div>
+
+      <ul class="menu">
+        <li>
+          <a href="../Dashboard/customer1.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Trang chủ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="menu.html">
+            <i class="fa-solid fa-mug-hot"></i>
+            <span>Menu</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="cart.html">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Giỏ hàng</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Lịch sử đơn hàng</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/customer/Account/profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span>Thông tin cá nhân</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/customer/Account/contact.html">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Liên hệ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Đăng xuất</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <!-- HEADER -->
+      <header>
+        <h1>Tiến hành đặt hàng</h1>
+
+        <div class="user">
+          <i class="fa-solid fa-circle-user"></i>
+          <span id="customerName">Khách hàng</span>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <div class="order-container">
+        <!-- THÔNG TIN ĐƠN HÀNG -->
+        <div class="order-left">
+          <div class="order-card">
+            <h2>
+              <i class="fa-solid fa-cart-shopping"></i>
+              Thông tin đơn hàng
+            </h2>
+
+            <div id="orderItems"></div>
+          </div>
+
+          <!-- HÌNH THỨC NHẬN HÀNG -->
+          <div class="order-card">
+            <h2>
+              <i class="fa-solid fa-location-dot"></i>
+              Hình thức nhận hàng
+            </h2>
+
+            <div class="receive-options">
+              <label class="option">
+                <input
+                  type="radio"
+                  name="receiveMethod"
+                  value="counter"
+                  checked
+                />
+
+                <div>
+                  <strong>Nhận tại quầy</strong>
+                  <p>Khách hàng nhận đồ tại quầy</p>
+                </div>
+              </label>
+
+              <label class="option">
+                <input type="radio" name="receiveMethod" value="table" />
+
+                <div>
+                  <strong>Nhận tại bàn</strong>
+                  <p>Đồ uống sẽ được phục vụ tại bàn</p>
+                </div>
+              </label>
+            </div>
+
+            <!-- CHỌN BÀN -->
+            <div id="tableArea" class="table-area">
+              <label for="tableNumber"> Chọn số bàn </label>
+
+              <select id="tableNumber">
+                <option value="Bàn 01">Bàn 01</option>
+                <option value="Bàn 02">Bàn 02</option>
+                <option value="Bàn 03">Bàn 03</option>
+                <option value="Bàn 04">Bàn 04</option>
+                <option value="Bàn 05">Bàn 05</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- PHƯƠNG THỨC THANH TOÁN -->
+          <div class="order-card">
+            <h2>
+              <i class="fa-solid fa-credit-card"></i>
+              Phương thức thanh toán
+            </h2>
+
+            <div class="payment-options">
+              <label class="option">
+                <input type="radio" name="payment" value="cash" checked />
+
+                <div>
+                  <strong>Tiền mặt</strong>
+                  <p>Thanh toán trực tiếp</p>
+                </div>
+              </label>
+
+              <label class="option">
+                <input type="radio" name="payment" value="bank" />
+
+                <div>
+                  <strong>Chuyển khoản</strong>
+                  <p>Thanh toán qua ngân hàng</p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- TỔNG ĐƠN -->
+        <div class="order-right">
+          <div class="summary-card">
+            <h2>Tổng đơn hàng</h2>
+
+            <div class="summary-row">
+              <span>Tạm tính</span>
+              <strong id="subtotal">0đ</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Phí dịch vụ</span>
+              <strong id="serviceFee">0đ</strong>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="summary-total">
+              <span>Tổng cộng</span>
+              <strong id="totalPrice">0đ</strong>
+            </div>
+
+            <button class="confirm-btn" onclick="xacNhanDatHang()">
+              <i class="fa-solid fa-check"></i>
+              Xác nhận đặt hàng
+            </button>
+
+            <button class="back-btn" onclick="quayLaiGioHang()">
+              <i class="fa-solid fa-arrow-left"></i>
+              Quay lại giỏ hàng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script src="../Javascript/data.js"></script>
+    <script src="../Javascript/order.js"></script>
+    <script src="../Javascript/cart-count.js"></script>
+    <script src="../Javascript/auth-session.js"></script>
+  </body>
+</html>

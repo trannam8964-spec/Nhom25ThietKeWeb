@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Chi tiết sản phẩm</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/customer/menu/product-details.css" />
+  </head>
+
+  <body data-required-role="customer">
+    <div class="layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="logo">
+          <i class="fa-solid fa-mug-hot"></i>
+          <span>Coffee House</span>
+        </div>
+
+        <nav class="sidebar-menu">
+          <a href="/customer/Dashboard/customer1.html" class="menu-item">
+            <i class="fa-solid fa-house"></i>
+            <span>Trang chủ</span>
+          </a>
+
+          <a href="/customer/About/about.html" class="menu-item">
+            <i class="fa-solid fa-store"></i>
+            <span>Về quán</span>
+          </a>
+
+          <a href="/customer/menu/menu.html" class="menu-item active">
+            <i class="fa-solid fa-mug-hot"></i>
+            <span>Menu</span>
+          </a>
+
+          <a href="/customer/GioHang/cart.html" class="menu-item">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Giỏ hàng</span>
+            <span class="cart-count" id="cartCount">0</span>
+          </a>
+
+          <a href="/customer/History/history.html" class="menu-item">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Lịch sử đơn hàng</span>
+          </a>
+
+          <a href="/customer/Account/profile.html" class="menu-item">
+            <i class="fa-solid fa-user"></i>
+            <span>Thông tin cá nhân</span>
+          </a>
+
+          <a href="/customer/Account/contact.html" class="menu-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Liên hệ</span>
+          </a>
+
+          <a href="/register/login.html" class="menu-item logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Đăng xuất</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main">
+        <!-- HEADER -->
+        <header class="header">
+          <div>
+            <h1>Chi tiết sản phẩm</h1>
+            <p>Thông tin chi tiết món</p>
+          </div>
+
+          <div class="user">
+            <i class="fa-solid fa-circle-user"></i>
+
+            <span id="customerName"> Khách hàng </span>
+          </div>
+        </header>
+
+        <!-- PRODUCT DETAIL -->
+        <section class="detail-container">
+          <div class="detail-card">
+            <!-- ẢNH -->
+            <div class="detail-image">
+              <img id="productImage" src="" alt="" />
+            </div>
+
+            <!-- THÔNG TIN -->
+            <div class="detail-info">
+              <span class="product-category" id="productCategory">
+                Danh mục
+              </span>
+
+              <h2 id="productName">Tên sản phẩm</h2>
+
+              <div class="product-price" id="productPrice">0đ</div>
+
+              <div class="product-rating" id="productRating"></div>
+
+              <p class="product-description" id="productDescription">
+                Thông tin sản phẩm
+              </p>
+
+              <!-- SỐ LƯỢNG -->
+              <div class="quantity-box">
+                <span>Số lượng:</span>
+
+                <div class="quantity">
+                  <button id="decreaseBtn">-</button>
+
+                  <span id="quantity"> 1 </span>
+
+                  <button id="increaseBtn">+</button>
+                </div>
+              </div>
+
+              <!-- NÚT -->
+              <button class="add-cart-btn" id="addCartBtn">
+                <i class="fa-solid fa-cart-plus"></i>
+
+                Thêm vào giỏ hàng
+              </button>
+
+              <button class="back-btn" onclick="quayLaiMenu()">
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Quay lại Menu
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- DATA -->
+    <script src="/customer/Javascript/data.js"></script>
+
+    <!-- JS CHI TIẾT -->
+    <script src="/customer/Javascript/product-details.js"></script>
+    <script src="/customer/Javascript/cart-count.js"></script>
+    <script src="/customer/Javascript/auth-session.js"></script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Customer - Coffee Management</title>
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/customer/Dashboard/customer1.css" />
+  </head>
+
+  <body data-required-role="customer">
+    <div class="layout">
+      <!-- ================= SIDEBAR ================= -->
+      <aside class="sidebar">
+        <div class="logo">
+          <i class="fa-solid fa-mug-hot"></i>
+          <span>Coffee House</span>
+        </div>
+
+        <nav class="sidebar-menu">
+          <a href="/customer/Dashboard/customer1.html" class="menu-item active">
+            <i class="fa-solid fa-house"></i>
+            <span>Trang chủ</span>
+          </a>
+
+          <a href="/customer/About/about.html" class="menu-item">
+            <i class="fa-solid fa-store"></i>
+            <span>Về quán</span>
+          </a>
+
+          <a href="/customer/menu/menu.html" class="menu-item">
+            <i class="fa-solid fa-mug-hot"></i>
+            <span>Menu</span>
+          </a>
+
+          <a href="/customer/GioHang/cart.html" class="menu-item">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Giỏ hàng</span>
+            <span class="cart-count">0</span>
+          </a>
+
+          <a href="/customer/History/history.html" class="menu-item">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>Lịch sử đơn hàng</span>
+          </a>
+
+          <a href="/customer/Account/profile.html" class="menu-item">
+            <i class="fa-solid fa-user"></i>
+            <span>Thông tin cá nhân</span>
+          </a>
+
+          <a href="/customer/Account/contact.html" class="menu-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>Liên hệ</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="#" class="menu-item logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Đăng xuất</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- ================= MAIN ================= -->
+      <main class="main">
+        <!-- HEADER -->
+        <header class="header">
+          <div class="header-left">
+            <h2>Trang chủ</h2>
+          </div>
+
+          <div class="user-info">
+            <i class="fa-solid fa-circle-user"></i>
+
+            <div>
+              <span class="welcome-text">Xin chào,</span>
+              <strong id="customerName">Khách hàng</strong>
+            </div>
+          </div>
+        </header>
+
+        <!-- CONTENT -->
+        <div class="content">
+          <!-- ================= WELCOME ================= -->
+          <section class="welcome-section">
+            <h1>
+              Xin chào,
+              <span id="welcomeName">Khách hàng</span>!
+            </h1>
+
+            <p>Chào mừng bạn ghé thăm Coffee House.</p>
+          </section>
+
+          <!-- ================= DASHBOARD ================= -->
+          <section class="dashboard">
+            <!-- Tổng đơn -->
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </div>
+
+              <div class="stat-info">
+                <p>Tổng đơn hàng</p>
+                <h3 id="totalOrders">0</h3>
+              </div>
+            </div>
+
+            <!-- Đang chuẩn bị -->
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fa-solid fa-mug-hot"></i>
+              </div>
+
+              <div class="stat-info">
+                <p>Đang chuẩn bị</p>
+                <h3 id="preparingOrders">0</h3>
+              </div>
+            </div>
+
+            <!-- Hoàn thành -->
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+
+              <div class="stat-info">
+                <p>Đã hoàn thành</p>
+                <h3 id="completedOrders">0</h3>
+              </div>
+            </div>
+
+            <!-- Tổng chi tiêu -->
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fa-solid fa-money-bill-wave"></i>
+              </div>
+
+              <div class="stat-info">
+                <p>Tổng chi tiêu</p>
+                <h3 id="totalSpending">0đ</h3>
+              </div>
+            </div>
+          </section>
+
+          <!-- ================= FEATURED PRODUCTS ================= -->
+          <section class="section">
+            <div class="section-header">
+              <div>
+                <h2>Món nổi bật</h2>
+                <p>Những món được khách hàng yêu thích</p>
+              </div>
+
+              <a href="/customer/menu/menu.html" class="view-all">
+                Xem tất cả
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="product-grid" id="featuredProducts"></div>
+          </section>
+
+          <!-- ================= PROMOTION ================= -->
+          <section class="promotion">
+            <div class="promotion-icon">
+              <i class="fa-solid fa-gift"></i>
+            </div>
+
+            <div class="promotion-content">
+              <h2>Ưu đãi dành cho bạn</h2>
+
+              <p>
+                Khám phá những chương trình ưu đãi hấp dẫn tại Coffee House.
+              </p>
+            </div>
+
+            <button class="promotion-button">Khám phá ngay</button>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/customer/Javascript/data.js"></script>
+    <script src="/customer/Javascript/customer.js"></script>
+    <script src="/customer/Javascript/cart-count.js"></script>
+    <script src="/customer/Javascript/auth-session.js"></script>
+  </body>
+</html>

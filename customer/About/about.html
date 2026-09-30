@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Về quán</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/customer/About/about.css" />
+  </head>
+
+  <body data-required-role="customer">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="logo">
+        <i class="fa-solid fa-mug-hot"></i>
+        <span>Coffee Shop</span>
+      </div>
+
+      <nav>
+        <a href="/customer/Dashboard/customer1.html">
+          <i class="fa-solid fa-house"></i>
+          <span>Trang chủ</span>
+        </a>
+
+        <a href="/customer/About/about.html" class="active">
+          <i class="fa-solid fa-store"></i>
+          <span>Về quán</span>
+        </a>
+
+        <a href="/customer/menu/menu.html">
+          <i class="fa-solid fa-mug-hot"></i>
+          <span>Menu</span>
+        </a>
+
+        <a href="/customer/GioHang/cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Giỏ hàng</span>
+        </a>
+
+        <a href="/customer/History/history.html">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span>Lịch sử đơn hàng</span>
+        </a>
+
+        <a href="/customer/Account/profile.html">
+          <i class="fa-solid fa-user"></i>
+          <span>Thông tin cá nhân</span>
+        </a>
+
+        <a href="/customer/Account/contact.html">
+          <i class="fa-solid fa-envelope"></i>
+          <span>Liên hệ</span>
+        </a>
+      </nav>
+
+      <div class="logout">
+        <a href="#">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Đăng xuất</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- HEADER -->
+      <header class="header">
+        <div>
+          <h1>About Me</h1>
+          <p><b>Một chút miêu tả Coffee Shop</p>
+        </div>
+
+        <div class="user">
+          <i class="fa-solid fa-circle-user"></i>
+          <div class="user-copy">
+            <span class="user-greeting">Xin chào,</span>
+            <strong id="customerName" class="user-name">Trần Đình Nam</strong>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT -->
+      <section class="about-container">
+        <!-- GIỚI THIỆU -->
+        <div class="about-card">
+          <div class="about-image">
+            <img src="/customer/About/banner.jpg" alt="Coffee Shop" />
+          </div>
+
+          <div class="about-content">
+            <h2>Một góc nhỏ đầy thương nhớ</h2>
+
+            <p>
+              Nép mình sau bức tường vàng đặc trưng, quán đón khách bằng giàn hoa
+              giấy hồng rực rỡ và tán lá xanh rợp bóng. Chỉ một góc phố bình dị
+              thôi cũng đủ gợi lên nét duyên rất riêng của Hội An.
+            </p>
+
+            <p>
+              Những bộ bàn ghế gỗ mộc mạc được đặt gần hiên nhà, nơi bạn có thể
+              ngồi nghe phố xá chậm rãi trôi qua, cảm nhận nắng ghé trên bậc cửa
+              và bóng hoa khẽ lay theo gió.
+            </p>
+
+            <p>
+              Quán mong là điểm dừng chân dễ chịu cho một buổi sáng thong thả,
+              một cuộc hẹn thân tình hay vài phút nghỉ ngơi giữa hành trình khám
+              phá phố cổ. Một thức uống yêu thích sẽ khiến khoảnh khắc ấy thêm
+              trọn vẹn.
+            </p>
+
+            <p>
+              Ghé lại bất cứ khi nào bạn muốn tìm chút bình yên, sự gần gũi và
+              một góc Hội An để nhớ lâu hơn.
+            </p>
+          </div>
+        </div>
+
+        <!-- THÔNG TIN -->
+        <div class="info-grid">
+          <div class="info-card">
+            <i class="fa-solid fa-mug-hot"></i>
+
+            <h3>Đồ uống chất lượng</h3>
+
+            <p>
+              Các loại cà phê, trà và đồ uống được lựa chọn và phục vụ mỗi ngày.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <i class="fa-solid fa-heart"></i>
+
+            <h3>Phục vụ tận tâm</h3>
+
+            <p>Luôn cố gắng mang đến trải nghiệm tốt nhất cho khách hàng.</p>
+          </div>
+
+          <div class="info-card">
+            <i class="fa-solid fa-store"></i>
+
+            <h3>Không gian thoải mái</h3>
+
+            <p>Một không gian phù hợp để thưởng thức đồ uống và thư giãn.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="/customer/Javascript/cart-count.js"></script>
+    <script src="/customer/Javascript/customer-name.js"></script>
+    <script src="/customer/Javascript/auth-session.js"></script>
+  </body>
+</html>

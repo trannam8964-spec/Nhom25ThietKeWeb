@@ -1,0 +1,538 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f6f7;
+  color: #333;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  height: 100vh;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  background: #4b2e1f;
+
+  display: flex;
+  flex-direction: column;
+
+  color: white;
+}
+
+/* LOGO */
+
+.logo {
+  height: 74px;
+
+  display: flex;
+  align-items: center;
+
+  padding-left: 28px;
+
+  gap: 12px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.logo i {
+  font-size: 27px;
+}
+
+/* MENU */
+
+.menu {
+  list-style: none;
+
+  padding: 25px 14px;
+}
+
+.menu li {
+  margin-bottom: 8px;
+}
+
+.menu a {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 14px 16px;
+
+  text-decoration: none;
+
+  color: white;
+
+  border-radius: 9px;
+
+  transition: 0.2s;
+
+  font-size: 17px;
+}
+
+.menu a:hover {
+  background: #70442d;
+}
+
+.menu li.active a {
+  background: #8a5435;
+
+  font-weight: bold;
+}
+
+.menu i {
+  width: 24px;
+
+  text-align: center;
+
+  font-size: 18px;
+}
+
+/* LOGOUT */
+
+.logout {
+  margin-top: auto;
+
+  padding: 15px 14px;
+}
+
+.logout a {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  padding: 14px 16px;
+
+  text-decoration: none;
+
+  color: white;
+
+  border-radius: 9px;
+
+  font-size: 17px;
+
+  transition: 0.2s;
+}
+
+.logout a:hover {
+  background: #70442d;
+}
+
+.logout i {
+  width: 24px;
+
+  text-align: center;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+  margin-left: 260px;
+
+  width: calc(100% - 260px);
+
+  min-height: 100vh;
+
+  background: #f5f6f7;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+  height: 74px;
+
+  background: white;
+
+  border-bottom: 1px solid #e5e5e5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 35px;
+}
+
+header h2 {
+  font-size: 26px;
+
+  color: #333;
+}
+
+header p {
+  color: #777;
+
+  font-size: 16px;
+
+  margin-top: 4px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #333;
+
+  font-size: 16px;
+
+  font-weight: bold;
+}
+
+.user i {
+  font-size: 34px;
+
+  color: #8a5435;
+}
+
+/* =========================
+   CART CONTAINER
+========================= */
+
+.cart-container {
+  display: grid;
+
+  grid-template-columns: minmax(0, 1fr) 360px;
+
+  gap: 25px;
+
+  padding: 30px 35px;
+}
+
+/* =========================
+   CART ITEMS
+========================= */
+
+#cartItems {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+.cart-item {
+  background: white;
+
+  border-radius: 10px;
+
+  padding: 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  transition: 0.2s;
+}
+
+.cart-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* IMAGE */
+
+.cart-item img {
+  width: 100px;
+
+  height: 100px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+}
+
+/* INFO */
+
+.cart-info {
+  flex: 1;
+}
+
+.cart-info h3 {
+  font-size: 19px;
+
+  color: #333;
+
+  margin-bottom: 7px;
+}
+
+.cart-info p {
+  color: #888;
+
+  font-size: 14px;
+}
+
+.cart-price {
+  margin-top: 9px;
+
+  font-size: 17px;
+
+  font-weight: bold;
+
+  color: #8a5435;
+}
+
+/* =========================
+   QUANTITY
+========================= */
+
+.quantity {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.quantity button {
+  width: 32px;
+
+  height: 32px;
+
+  border: 1px solid #ddd;
+
+  background: white;
+
+  color: #555;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  font-size: 17px;
+}
+
+.quantity button:hover {
+  background: #f1f1f1;
+}
+
+.quantity span {
+  min-width: 25px;
+
+  text-align: center;
+
+  font-weight: bold;
+}
+
+/* =========================
+   DELETE
+========================= */
+
+.delete-btn {
+  border: none;
+
+  background: transparent;
+
+  color: #888;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  padding: 8px;
+}
+
+.delete-btn:hover {
+  color: #8a5435;
+}
+
+/* =========================
+   ORDER SUMMARY
+========================= */
+
+.cart-summary {
+  background: white;
+
+  border-radius: 10px;
+
+  padding: 25px;
+
+  height: fit-content;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.cart-summary h2 {
+  font-size: 23px;
+
+  color: #333;
+
+  margin-bottom: 25px;
+}
+
+.summary-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 17px;
+
+  color: #666;
+
+  font-size: 16px;
+}
+
+.cart-summary hr {
+  border: none;
+
+  border-top: 1px solid #ddd;
+
+  margin: 20px 0;
+}
+
+.summary-total {
+  display: flex;
+
+  justify-content: space-between;
+
+  font-size: 20px;
+
+  font-weight: bold;
+
+  color: #333;
+
+  margin-bottom: 25px;
+}
+
+.summary-total span:last-child {
+  color: #8a5435;
+}
+
+/* =========================
+   CHECKOUT BUTTON
+========================= */
+
+.checkout-btn {
+  width: 100%;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #8a5435;
+
+  color: white;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.checkout-btn:hover {
+  background: #70442d;
+}
+
+/* =========================
+   EMPTY CART
+========================= */
+
+.empty-cart {
+  background: white;
+
+  border-radius: 10px;
+
+  padding: 70px 20px;
+
+  text-align: center;
+
+  color: #777;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.empty-cart i {
+  font-size: 50px;
+
+  color: #8a5435;
+
+  margin-bottom: 18px;
+}
+
+.empty-cart h2 {
+  color: #444;
+
+  margin-bottom: 8px;
+}
+
+.empty-cart p {
+  color: #888;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+  .cart-container {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-summary {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    width: 75px;
+
+    min-width: 75px;
+  }
+
+  .logo span,
+  .menu span,
+  .logout span {
+    display: none;
+  }
+
+  .logo {
+    justify-content: center;
+
+    padding-left: 0;
+  }
+
+  .menu a,
+  .logout a {
+    justify-content: center;
+  }
+
+  .main {
+    margin-left: 75px;
+
+    width: calc(100% - 75px);
+  }
+
+  .cart-container {
+    padding: 20px;
+  }
+
+  .cart-item {
+    flex-wrap: wrap;
+  }
+}
