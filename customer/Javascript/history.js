@@ -13,14 +13,23 @@ document.getElementById("customerName").innerText = username;
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
 let orderHistory = document.getElementById("orderHistory");
+let clearHistoryButton = document.getElementById("clearHistoryBtn");
+
+function getCustomerOrders() {
+  return orders.filter(function (order) {
+    return order.username === username;
+  });
+}
 
 // ================= HIỂN THỊ LỊCH SỬ =================
 
 function hienThiLichSu() {
   orderHistory.innerHTML = "";
+  let customerOrders = getCustomerOrders();
+  clearHistoryButton.disabled = customerOrders.length === 0;
 
   // Không có đơn hàng
-  if (orders.length === 0) {
+  if (customerOrders.length === 0) {
     orderHistory.innerHTML = `
             <div class="empty-history">
 
@@ -37,11 +46,11 @@ function hienThiLichSu() {
   }
 
   // Duyệt từng đơn hàng
-  for (let order of orders) {
+  for (let order of customerOrders) {
     let productsHTML = "";
 
     // Duyệt các món trong đơn
-    for (let item of order.items) {
+    for (let item of Array.isArray(order.items) ? order.items : []) {
       // Tìm lại sản phẩm trong data.js
       let product = products.find(function (product) {
         return product.id === item.id || product.name === item.name;
@@ -136,6 +145,16 @@ function hienThiLichSu() {
 
                     </div>
 
+                    <button
+                        class="delete-order-btn"
+                        type="button"
+                        data-order-id="${order.id}"
+                        title="Xóa đơn hàng này"
+                        aria-label="Xóa đơn hàng ${order.id}"
+                    >
+                        <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                    </button>
+
                 </div>
 
 
@@ -156,8 +175,8 @@ function hienThiLichSu() {
 
 
                     <div class="order-total">
-
-                        Tổng: ${order.total.toLocaleString("vi-VN")}đ
+                      ${Number(order.promotionDiscount) > 0 ? `<span class="order-discount">${order.promotionName || "Ưu đãi"}: -${Number(order.promotionDiscount).toLocaleString("vi-VN")}đ</span>` : ""}
+                      <span>Tổng: ${(Number(order.total) || 0).toLocaleString("vi-VN")}đ</span>
 
                     </div>
 
@@ -168,6 +187,56 @@ function hienThiLichSu() {
         `;
   }
 }
+
+function luuLichSuDonHang() {
+  localStorage.setItem("orders", JSON.stringify(orders));
+}
+
+function xoaDonHang(orderId) {
+  let orderExists = getCustomerOrders().some(function (order) {
+    return String(order.id) === orderId;
+  });
+
+  if (
+    !orderExists ||
+    !confirm("Bạn có chắc muốn xóa đơn hàng này khỏi lịch sử?")
+  ) {
+    return;
+  }
+
+  orders = orders.filter(function (order) {
+    return !(order.username === username && String(order.id) === orderId);
+  });
+
+  luuLichSuDonHang();
+  hienThiLichSu();
+}
+
+clearHistoryButton.addEventListener("click", function () {
+  let customerOrders = getCustomerOrders();
+
+  if (
+    customerOrders.length === 0 ||
+    !confirm("Bạn có chắc muốn xóa toàn bộ lịch sử đơn hàng của mình?")
+  ) {
+    return;
+  }
+
+  orders = orders.filter(function (order) {
+    return order.username !== username;
+  });
+
+  luuLichSuDonHang();
+  hienThiLichSu();
+});
+
+orderHistory.addEventListener("click", function (event) {
+  let button = event.target.closest(".delete-order-btn");
+
+  if (button) {
+    xoaDonHang(button.dataset.orderId);
+  }
+});
 
 // ================= CHẠY =================
 

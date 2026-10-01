@@ -77,21 +77,89 @@ for (let product of featured) {
 
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
-// Tổng số đơn hàng
+function normalizeCustomerName(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/gi, "d")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+}
 
-let totalOrders = orders.length;
+let authSession = {};
+let customerProfile = {};
+
+try {
+  authSession = JSON.parse(localStorage.getItem("authSession") || "{}");
+} catch {
+  authSession = {};
+}
+
+try {
+  customerProfile = JSON.parse(localStorage.getItem("customerProfile") || "{}");
+} catch {
+  customerProfile = {};
+}
+
+let customerIdentifiers = new Set(
+  [
+    username,
+    authSession.username,
+    authSession.displayName,
+    customerProfile.fullName,
+  ]
+    .map(normalizeCustomerName)
+    .filter(Boolean),
+);
+
+let customerOrders = orders.filter(function (order) {
+  let owner = order.username || order.customerName || order.customer;
+  return owner && customerIdentifiers.has(normalizeCustomerName(owner));
+});
+
+let ordersHaveOwners = orders.some(function (order) {
+  return order.username || order.customerName || order.customer;
+});
+
+if (customerOrders.length === 0 && !ordersHaveOwners) {
+  customerOrders = orders;
+}
+
+// Tổng số đơn hàng của khách hiện tại
+
+let totalOrders = customerOrders.length;
 
 // Đếm số đơn đang chuẩn bị
 
-let preparingOrders = orders.filter(function (order) {
+let preparingOrders = customerOrders.filter(function (order) {
   return order.status === "Đang chuẩn bị";
 }).length;
 
 // Đếm số đơn đã hoàn thành
 
-let completedOrders = orders.filter(function (order) {
+let completedOrders = customerOrders.filter(function (order) {
   return order.status === "Đã hoàn thành";
 }).length;
+
+let totalSpending = customerOrders.reduce(function (total, order) {
+  let savedTotal = Number(order.total);
+
+  if (Number.isFinite(savedTotal) && savedTotal > 0) {
+    return total + savedTotal;
+  }
+
+  let itemsTotal = (Array.isArray(order.items) ? order.items : []).reduce(
+    function (itemsSum, item) {
+      return (
+        itemsSum + (Number(item.price) || 0) * (Number(item.quantity) || 0)
+      );
+    },
+    0,
+  );
+
+  return total + itemsTotal;
+}, 0);
 
 // Hiển thị lên trang chủ
 
@@ -100,3 +168,6 @@ document.getElementById("totalOrders").innerText = totalOrders;
 document.getElementById("preparingOrders").innerText = preparingOrders;
 
 document.getElementById("completedOrders").innerText = completedOrders;
+
+document.getElementById("totalSpending").innerText =
+  totalSpending.toLocaleString("vi-VN") + "đ";
