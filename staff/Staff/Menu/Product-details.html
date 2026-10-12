@@ -1,0 +1,41 @@
+<div class="product-detail-wrapper">
+    <button class="btn-back" id="btnBackToMenu">
+        <i class="fa-solid fa-arrow-left"></i> Quay lại Danh sách Menu
+    </button>
+
+    <div class="product-detail-card">
+        <div class="detail-image-box">
+            <img id="detailImg" src="${product.img}" alt="${product.name}">
+        </div>
+
+        <div class="detail-info-box">
+            <span class="detail-category">${product.category}</span>
+            <h1 class="detail-title">${product.name}</h1>
+            <div class="detail-price-tag" id="detailPrice">${product.price.toLocaleString('vi-VN')}đ</div>
+
+            <div class="detail-description">
+                <h3><i class="fa-solid fa-circle-info"></i> Mô tả sản phẩm</h3>
+                <p>${product.desc}</p>
+            </div>
+
+            <!-- PHẦN MỚI: công thức pha chế -->
+            <div class="detail-recipe">
+                <h3><i class="fa-solid fa-flask-vial"></i> Công thức pha chế</h3>
+                <div class="recipe-block">
+                    <h4>Nguyên liệu</h4>
+                    <ul class="recipe-ingredients">
+                        <li><span>Espresso (2 shot)</span><strong>60ml</strong></li>
+                        ...
+                    </ul>
+                </div>
+                <div class="recipe-block">
+                    <h4>Các bước thực hiện</h4>
+                    <ol class="recipe-steps">
+                        <li>Chiết 2 shot Espresso vào ly.</li>
+                        ...
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

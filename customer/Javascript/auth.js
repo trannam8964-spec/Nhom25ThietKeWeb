@@ -118,7 +118,11 @@ if (loginForm) {
         normalizedUsername,
         demoAccount.displayName,
       );
-      window.location.href = "/" + demoAccount.role + "/index.html";
+      let destination =
+        demoAccount.role === "staff"
+          ? "/staff/Staff/Dashboard/Dashboard.html"
+          : "/" + demoAccount.role + "/index.html";
+      window.location.href = destination;
       return;
     }
 

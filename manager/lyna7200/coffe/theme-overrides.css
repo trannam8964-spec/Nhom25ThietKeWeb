@@ -1,0 +1,107 @@
+/* Hội An Coffee shared theme: same navy palette on every admin page */
+:root{--primary:#123f78;--primary-dark:#0b2d57;--navy:#123f78;--blue:#123f78;--blue-light:#eaf1fb;--bg:#f2f6fc;--text:#15365f;--border:#d5e1f1;--sidebar:#0b2d57;--accent:#123f78}
+html,body{background:#f2f6fc;color:#15365f}
+.sidebar{background:linear-gradient(180deg,#123f78 0%,#09284f 100%)!important;color:#fff}
+.sidebar a,.sidebar .brand{color:#fff}
+.sidebar-menu a:hover,.sidebar-menu a.active,.menu a:hover,.menu a.active{background:#285f9f!important;color:#fff!important}
+.primary-btn,.btn-primary,button.primary,.menu-toggle{background:#123f78!important;border-color:#123f78!important;color:#fff!important}
+.primary-btn:hover,.btn-primary:hover,button.primary:hover,.menu-toggle:hover{background:#0b2d57!important}
+.secondary-btn,.btn-secondary{background:#e7effa!important;color:#123f78!important;border-color:#cbdcf0!important}
+.stat-icon,.stat-icon.blue,.stat-icon.cyan,.stat-icon.green,.stat-icon.orange,.stat-icon.purple{background:#e2ecf9!important;color:#123f78!important}
+.data-table th{background:#eaf1fb!important;color:#123f78!important}
+.stat-card,.data-panel,.panel,.management-toolbar,.table-card{border-color:#d5e1f1!important}
+input:focus,select:focus,textarea:focus{outline-color:#123f78!important;border-color:#123f78!important}
+/* Collapse works with both page-shell and older .main layout */
+.sidebar{transition:width .22s ease,transform .22s ease}
+body.sidebar-collapsed .sidebar{width:78px!important}
+body.sidebar-collapsed .page-shell{margin-left:78px!important}
+body.sidebar-collapsed .main{margin-left:78px!important}
+body.sidebar-collapsed .brand{justify-content:center;padding-left:0!important;padding-right:0!important}
+body.sidebar-collapsed .brand>span:not(.brand-icon),body.sidebar-collapsed .menu a,body.sidebar-collapsed .sidebar-menu a>span:not(.nav-icon),body.sidebar-collapsed .logout{font-size:0!important}
+body.sidebar-collapsed .menu a,body.sidebar-collapsed .sidebar-menu a{justify-content:center;padding-left:0!important;padding-right:0!important;gap:0}
+body.sidebar-collapsed .menu a>span,body.sidebar-collapsed .sidebar-menu a .nav-icon{font-size:19px!important;width:auto}
+body.sidebar-collapsed .brand-icon{margin:auto}
+@media(max-width:760px){.sidebar{width:248px!important;transform:translateX(-100%);z-index:1000;box-shadow:8px 0 28px #0f2d5030}.sidebar-menu,.menu{flex-shrink:0}body.mobile-menu-open .sidebar{transform:translateX(0)}body.sidebar-collapsed .sidebar{width:248px!important}body.sidebar-collapsed .page-shell,body.sidebar-collapsed .main,.page-shell,.main{margin-left:0!important}.menu-toggle{flex-shrink:0}}
+
+/* ===== MENU DUNG CHUNG CHO TAT CA TRANG ===== */
+:root { --sidebar-width: 248px; --sidebar-mini-width: 78px; }
+.sidebar {
+  position: fixed !important; top: 0 !important; left: 0 !important; bottom: 0 !important;
+  width: var(--sidebar-width) !important; height: 100vh !important;
+  padding: 20px 14px !important; margin: 0 !important;
+  display: flex !important; flex-direction: column !important;
+  overflow-x: hidden !important; overflow-y: auto !important;
+  background: linear-gradient(180deg,#123f78 0%,#09284f 100%) !important;
+  color: #fff !important; z-index: 1000 !important;
+  border: 0 !important; border-radius: 0 !important;
+}
+.sidebar .brand {
+  display: flex !important; align-items: center !important; justify-content: flex-start !important;
+  gap: 12px !important; min-height: 58px !important; margin: 0 0 18px !important;
+  padding: 0 8px 18px !important; color: #fff !important;
+  border-bottom: 1px solid rgba(255,255,255,.18) !important; white-space: nowrap !important;
+}
+.sidebar .brand-icon { display: inline-grid !important; place-items: center !important; flex: 0 0 38px !important; width: 38px !important; height: 38px !important; margin: 0 !important; border-radius: 11px !important; background: rgba(255,255,255,.15) !important; font-size: 22px !important; }
+.sidebar .sidebar-menu, .sidebar .menu {
+  display: flex !important; flex-direction: column !important; gap: 6px !important;
+  width: 100% !important; margin: 0 !important; padding: 0 !important; list-style: none !important;
+}
+.sidebar .sidebar-menu a, .sidebar .menu a {
+  display: flex !important; align-items: center !important; justify-content: flex-start !important;
+  gap: 13px !important; width: 100% !important; min-height: 44px !important;
+  margin: 0 !important; padding: 11px 13px !important; border: 0 !important;
+  border-radius: 9px !important; background: transparent !important; color: #eaf2ff !important;
+  font-size: 14px !important; font-weight: 500 !important; line-height: 1.35 !important;
+  text-decoration: none !important; white-space: nowrap !important; box-shadow: none !important;
+  transition: background .18s ease,color .18s ease !important;
+}
+.sidebar .sidebar-menu a > span:first-child, .sidebar .menu a > span:first-child, .sidebar .nav-icon {
+  display: inline-grid !important; place-items: center !important; flex: 0 0 22px !important;
+  width: 22px !important; min-width: 22px !important; font-size: 18px !important; line-height: 1 !important;
+}
+.sidebar .sidebar-menu a:hover, .sidebar .menu a:hover { background: rgba(255,255,255,.12) !important; color: #fff !important; }
+.sidebar .sidebar-menu a.active, .sidebar .menu a.active { background: #fff !important; color: #123f78 !important; font-weight: 700 !important; }
+.sidebar .logout {
+  display: flex !important; align-items: center !important; gap: 13px !important;
+  width: 100% !important; min-height: 44px !important; margin: auto 0 0 !important;
+  padding: 11px 13px !important; border-radius: 9px !important; color: #fff !important;
+  background: rgba(255,255,255,.09) !important; font-size: 14px !important;
+  text-decoration: none !important; white-space: nowrap !important;
+}
+.sidebar .logout:hover { background: rgba(255,255,255,.17) !important; }
+.page-shell, .main { margin-left: var(--sidebar-width) !important; min-width: 0 !important; }
+.menu-toggle { display: inline-grid !important; place-items: center !important; width: 38px !important; height: 38px !important; flex: 0 0 38px !important; border-radius: 9px !important; }
+body.sidebar-collapsed .sidebar { width: var(--sidebar-mini-width) !important; padding: 20px 10px !important; }
+body.sidebar-collapsed .page-shell, body.sidebar-collapsed .main { margin-left: var(--sidebar-mini-width) !important; }
+body.sidebar-collapsed .sidebar .brand { justify-content: center !important; padding: 0 0 18px !important; }
+body.sidebar-collapsed .sidebar .brand > span:not(.brand-icon) { display: none !important; }
+body.sidebar-collapsed .sidebar .sidebar-menu a, body.sidebar-collapsed .sidebar .menu a, body.sidebar-collapsed .sidebar .logout { justify-content: center !important; gap: 0 !important; padding-left: 0 !important; padding-right: 0 !important; font-size: 0 !important; }
+body.sidebar-collapsed .sidebar .sidebar-menu a > span:not(:first-child), body.sidebar-collapsed .sidebar .menu a > span:not(:first-child), body.sidebar-collapsed .sidebar .logout > span:not(:first-child) { display: none !important; }
+body.sidebar-collapsed .sidebar .sidebar-menu a > span:first-child, body.sidebar-collapsed .sidebar .menu a > span:first-child, body.sidebar-collapsed .sidebar .logout > span:first-child { font-size: 19px !important; }
+@media (max-width:760px) {
+  .sidebar { width: var(--sidebar-width) !important; transform: translateX(-105%); box-shadow: 8px 0 28px rgba(10,35,70,.22) !important; }
+  body.mobile-menu-open .sidebar { transform: translateX(0) !important; }
+  body.sidebar-collapsed .sidebar { width: var(--sidebar-width) !important; }
+  .page-shell, .main, body.sidebar-collapsed .page-shell, body.sidebar-collapsed .main { margin-left: 0 !important; }
+  body.sidebar-collapsed .sidebar .brand > span:not(.brand-icon) { display: inline !important; }
+  body.sidebar-collapsed .sidebar .sidebar-menu a, body.sidebar-collapsed .sidebar .menu a, body.sidebar-collapsed .sidebar .logout { justify-content: flex-start !important; gap: 13px !important; padding: 11px 13px !important; font-size: 14px !important; }
+  body.sidebar-collapsed .sidebar .sidebar-menu a > span:not(:first-child), body.sidebar-collapsed .sidebar .menu a > span:not(:first-child), body.sidebar-collapsed .sidebar .logout > span:not(:first-child) { display: inline !important; }
+}
+
+/* FINAL SHARED SIDEBAR NORMALIZATION — all admin pages */
+.sidebar .menu a, .sidebar .sidebar-menu a { flex-shrink: 0 !important; }
+.sidebar .menu a .nav-icon, .sidebar .sidebar-menu a .nav-icon { flex: 0 0 22px !important; width: 22px !important; min-width: 22px !important; }
+.sidebar .menu a .nav-label, .sidebar .sidebar-menu a .nav-label { display: inline-block !important; flex: 1 1 auto !important; min-width: 0 !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+body.sidebar-collapsed .sidebar .menu a .nav-label,
+body.sidebar-collapsed .sidebar .sidebar-menu a .nav-label,
+body.sidebar-collapsed .sidebar .logout .nav-label { display: none !important; }
+body.sidebar-collapsed .sidebar .menu a,
+body.sidebar-collapsed .sidebar .sidebar-menu a,
+body.sidebar-collapsed .sidebar .logout { justify-content: center !important; }
+.sidebar .menu a.active, .sidebar .sidebar-menu a.active { background: #ffffff !important; color: #123f78 !important; }
+.sidebar .menu a.active .nav-icon, .sidebar .sidebar-menu a.active .nav-icon { color: #123f78 !important; }
+@media (max-width:760px) {
+  body.sidebar-collapsed .sidebar .menu a .nav-label,
+  body.sidebar-collapsed .sidebar .sidebar-menu a .nav-label,
+  body.sidebar-collapsed .sidebar .logout .nav-label { display: inline-block !important; }
+}

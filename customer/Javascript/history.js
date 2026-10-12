@@ -21,6 +21,18 @@ function getCustomerOrders() {
   });
 }
 
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, function (character) {
+    return {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    }[character];
+  });
+}
+
 // ================= HIỂN THỊ LỊCH SỬ =================
 
 function hienThiLichSu() {
@@ -51,6 +63,17 @@ function hienThiLichSu() {
 
     // Duyệt các món trong đơn
     for (let item of Array.isArray(order.items) ? order.items : []) {
+      if (typeof item === "string") {
+        productsHTML += `
+                <div class="order-product">
+                    <div class="product-info">
+                        <h3>${escapeHtml(item)}</h3>
+                    </div>
+                </div>
+            `;
+        continue;
+      }
+
       // Tìm lại sản phẩm trong data.js
       let product = products.find(function (product) {
         return product.id === item.id || product.name === item.name;
@@ -235,6 +258,20 @@ orderHistory.addEventListener("click", function (event) {
 
   if (button) {
     xoaDonHang(button.dataset.orderId);
+  }
+});
+
+window.addEventListener("storage", function (event) {
+  if (event.key !== "orders") {
+    return;
+  }
+
+  try {
+    let updatedOrders = JSON.parse(event.newValue || "[]");
+    orders = Array.isArray(updatedOrders) ? updatedOrders : [];
+    hienThiLichSu();
+  } catch (error) {
+    console.error("Không thể cập nhật lịch sử đơn hàng.", error);
   }
 });
 

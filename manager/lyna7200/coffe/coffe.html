@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hội An Coffee | Tổng quan</title>
+  <link rel="stylesheet" href="./coffe.css">
+  <link rel="stylesheet" href="menu-profile.css">
+  <link rel="stylesheet" href="theme-overrides.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-icon">☕</span>
+      <span>Hội An Coffee</span>
+    </div>
+    <nav class="menu sidebar-menu" aria-label="Menu quản lý">
+      <a href="coffe.html" class="active"><span class="nav-icon">▦</span><span>Trang chủ</span></a>
+      <a href="products.html"><span class="nav-icon">▣</span><span>Sản phẩm</span></a>
+      <a href="orders.html"><span class="nav-icon">🛒</span><span>Đơn hàng</span></a>
+      <a href="customers.html"><span class="nav-icon">♙</span><span>Khách hàng</span></a>
+      <a href="employees.html"><span class="nav-icon">♟</span><span>Nhân viên</span></a>
+      <a href="tables.html"><span class="nav-icon">▦</span><span>Bàn</span></a>
+      <a href="inventory.html"><span class="nav-icon">▣</span><span>Kho</span></a>
+      <a href="promotions.html"><span class="nav-icon">✦</span><span>Khuyến mãi</span></a>
+      <a href="statistics.html"><span class="nav-icon">▥</span><span>Thống kê</span></a>
+      <a href="settings.html"><span class="nav-icon">⚙</span><span>Cài đặt</span></a>
+    </nav>
+    <a href="index.html" class="logout" onclick="sessionStorage.removeItem('hoiAnCoffeeLoggedIn'); sessionStorage.removeItem('hoiAnCoffeeUsername');"><span class="nav-icon">⇥</span><span>Đăng xuất</span></a>
+  </aside>
+  <div class="page-shell">
+    <header class="topbar">
+      <button id="menuToggle" class="menu-toggle" aria-label="Mở hoặc đóng menu" aria-expanded="true" type="button">☰</button>
+      <div class="topbar-right">
+        <button class="notification" aria-label="Thông báo">♧<span class="notification-dot"></span></button>
+        <div class="user-profile">
+          <span class="avatar">♙</span>
+          <span><strong id="loggedInName">Admin</strong><small>Quản lý</small></span>
+          <span class="chevron">⌄</span>
+        </div>
+      </div>
+    </header>
+    <main class="dashboard-content">
+      <section class="page-heading">
+        <div>
+          <h1>Tổng quan</h1>
+          <p>Chào mừng đến với hệ thống quản lý Hội An Coffee!</p>
+        </div>
+        <span class="today-label">▦ &nbsp; Quản lý cửa hàng</span>
+      </section>
+      <section class="stats-grid" aria-label="Chỉ số tổng quan">
+        <article class="stat-card">
+          <div class="stat-icon blue">₫</div>
+          <div class="stat-info"><p>Doanh thu hôm nay</p><h2 id="todayRevenue">0đ</h2><small>Doanh thu trong ngày</small></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon cyan">▤</div>
+          <div class="stat-info"><p>Tổng đơn hàng</p><h2 id="totalOrders">0</h2><small>Tổng số đơn hàng</small></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon purple">♙</div>
+          <div class="stat-info"><p>Khách hàng</p><h2 id="totalCustomers">0</h2><small>Tổng số khách hàng</small></div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-icon orange">☕</div>
+          <div class="stat-info"><p>Sản phẩm</p><h2 id="totalProducts">0</h2><small>Tổng số sản phẩm</small></div>
+        </article>
+      </section>
+      <section class="dashboard-panels">
+        <article class="panel revenue-panel">
+          <div class="panel-heading"><div><h3>Doanh thu 7 ngày gần đây</h3><p>Thống kê doanh thu theo ngày</p></div><span class="panel-menu">•••</span></div>
+          <div class="revenue-chart">
+            <div class="chart-y-labels"><span>20tr</span><span>15tr</span><span>10tr</span><span>5tr</span><span>0đ</span></div>
+            <div class="chart-main">
+              <div class="chart-grid-lines"><span></span><span></span><span></span><span></span><span></span></div>
+              <svg id="revenueLineChart" class="revenue-line" viewBox="0 0 350 170" preserveAspectRatio="none" role="img" aria-label="Biểu đồ doanh thu 7 ngày">
+                <defs><linearGradient id="revenueFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3986d7" stop-opacity=".28"/><stop offset="100%" stop-color="#3986d7" stop-opacity=".02"/></linearGradient></defs>
+                <polygon id="revenueArea" points="" fill="url(#revenueFill)"/>
+                <polyline id="revenuePolyline" points="" fill="none" stroke="#3986d7" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+                <g id="revenuePoints" fill="#3986d7"></g>
+              </svg>
+              <div class="chart-x-labels"><span>22/09</span><span>23/09</span><span>24/09</span><span>25/09</span><span>26/09</span><span>27/09</span><span>28/09</span></div>
+            </div>
+          </div>
+          <p id="revenueChartNote" class="chart-note">Chưa có dữ liệu doanh thu</p>
+        </article>
+        <article class="panel category-panel">
+          <div class="panel-heading"><div><h3>Doanh thu theo danh mục</h3><p>Tỷ lệ doanh thu từng nhóm món</p></div><span class="panel-menu">•••</span></div>
+          <div class="category-chart">
+            <div class="donut-chart" id="categoryDonut"><div class="donut-center"><strong id="categoryRevenue">0đ</strong><span>Tổng doanh thu</span></div></div>
+            <div class="category-legend">
+              <p><span class="legend-dot coffee"></span><span>Cà phê</span><b id="coffeeRevenue">0đ</b><small>0%</small></p>
+              <p><span class="legend-dot tea"></span><span>Trà</span><b id="teaRevenue">0đ</b><small>0%</small></p>
+              <p><span class="legend-dot milk-tea"></span><span>Trà sữa</span><b id="milkTeaRevenue">0đ</b><small>0%</small></p>
+              <p><span class="legend-dot juice"></span><span>Nước ép</span><b id="juiceRevenue">0đ</b><small>0%</small></p>
+              <p><span class="legend-dot food"></span><span>Đồ ăn</span><b id="foodRevenue">0đ</b><small>0%</small></p>
+            </div>
+          </div>
+        </article>
+        <article class="panel best-panel">
+          <div class="panel-heading"><div><h3>Sản phẩm bán chạy</h3><p>Top 5 sản phẩm bán nhiều nhất</p></div><span class="panel-menu">•••</span></div>
+          <div id="topProducts" class="best-product-list">
+            <p class="empty-message">Chưa có dữ liệu sản phẩm</p>
+          </div>
+          <div class="empty-hint">ⓘ &nbsp; Chưa có dữ liệu sản phẩm</div>
+        </article>
+        <article class="panel status-panel">
+          <div class="panel-heading"><div><h3>Đơn hàng theo trạng thái</h3><p>Thống kê tình trạng đơn hàng</p></div><span class="panel-menu">•••</span></div>
+          <div class="order-progress" aria-label="Tỷ lệ đơn hàng"><span class="progress-pending"></span><span class="progress-preparing"></span><span class="progress-delivering"></span><span class="progress-completed"></span><span class="progress-cancelled"></span></div>
+          <div class="order-summary">
+            <div><span class="status-dot pending"></span><span>Chờ xác nhận</span><strong id="pendingOrders">0</strong><small>0%</small><span class="mini-track"><i></i></span></div>
+            <div><span class="status-dot preparing"></span><span>Đang chuẩn bị</span><strong id="preparingOrders">0</strong><small>0%</small><span class="mini-track"><i></i></span></div>
+            <div><span class="status-dot delivering"></span><span>Đang giao</span><strong id="deliveringOrders">0</strong><small>0%</small><span class="mini-track"><i></i></span></div>
+            <div><span class="status-dot completed"></span><span>Hoàn thành</span><strong id="completedOrders">0</strong><small>0%</small><span class="mini-track"><i></i></span></div>
+            <div><span class="status-dot cancelled"></span><span>Đã hủy</span><strong id="cancelledOrders">0</strong><small>0%</small><span class="mini-track"><i></i></span></div>
+          </div>
+        </article>
+        <article class="panel monthly-panel">
+          <div class="panel-heading"><div><h3>Doanh thu theo tháng</h3><p>Thống kê doanh thu trong năm</p></div><span class="panel-menu">•••</span></div>
+          <div class="monthly-chart">
+            <div class="monthly-y-labels"><span>20tr</span><span>15tr</span><span>10tr</span><span>5tr</span><span>0đ</span></div>
+            <div class="monthly-bars">
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T1</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T2</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T3</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T4</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T5</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T6</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T7</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T8</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T9</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T10</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T11</small></div>
+              <div class="month-column"><div class="bar-space"><span style="height:0%"></span></div><small>T12</small></div>
+            </div>
+          </div>
+          <div class="monthly-total"><span>Tổng doanh thu năm</span><strong id="yearRevenue">0đ</strong></div>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="common.js"></script>
+  <script src="./coffe.js"></script>
+</body>
+</html>
