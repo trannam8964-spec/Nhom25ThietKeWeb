@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng ký | Coffee House</title>
+    <title>ÄÄƒng kÃ½ | Coffee House</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -17,11 +17,11 @@
           <i class="fa-solid fa-mug-hot" aria-hidden="true"></i> Coffee House
         </a>
         <div class="visual-copy">
-          <p class="eyebrow">GÓC CỦA BẠN</p>
-          <h1>Lưu lại những điều bạn yêu thích.</h1>
+          <p class="eyebrow">GÃ“C Cá»¦A Báº N</p>
+          <h1>LÆ°u láº¡i nhá»¯ng Ä‘iá»u báº¡n yÃªu thÃ­ch.</h1>
           <p>
-            Tạo tài khoản khách hàng để giữ thông tin hồ sơ cho lần ghé tiếp
-            theo.
+            Táº¡o tÃ i khoáº£n khÃ¡ch hÃ ng Ä‘á»ƒ giá»¯ thÃ´ng tin há»“ sÆ¡ cho
+            láº§n ghÃ© tiáº¿p theo.
           </p>
         </div>
         <span class="visual-caption"
@@ -31,13 +31,15 @@
 
       <section class="auth-main">
         <div class="auth-card">
-          <p class="eyebrow">TÀI KHOẢN KHÁCH HÀNG</p>
-          <h2>Tạo tài khoản</h2>
-          <p class="auth-subtitle">Điền thông tin bên dưới để đăng ký.</p>
+          <p class="eyebrow">TÃ€I KHOáº¢N KHÃCH HÃ€NG</p>
+          <h2>Táº¡o tÃ i khoáº£n</h2>
+          <p class="auth-subtitle">
+            Äiá»n thÃ´ng tin bÃªn dÆ°á»›i Ä‘á»ƒ Ä‘Äƒng kÃ½.
+          </p>
 
           <form id="registerForm">
             <div class="field">
-              <label for="registerName">Họ và tên</label>
+              <label for="registerName">Há» vÃ  tÃªn</label>
               <input
                 id="registerName"
                 name="fullName"
@@ -47,7 +49,7 @@
               />
             </div>
             <div class="field">
-              <label for="registerUsername">Tên đăng nhập</label>
+              <label for="registerUsername">TÃªn Ä‘Äƒng nháº­p</label>
               <input
                 id="registerUsername"
                 name="username"
@@ -57,7 +59,7 @@
                 pattern="[A-Za-z0-9_.-]+"
                 required
               />
-              <small>Dùng từ 3 ký tự, không dấu cách.</small>
+              <small>DÃ¹ng tá»« 3 kÃ½ tá»±, khÃ´ng dáº¥u cÃ¡ch.</small>
             </div>
             <div class="field">
               <label for="registerEmail">Email</label>
@@ -66,10 +68,23 @@
                 name="email"
                 type="email"
                 autocomplete="email"
+                required
               />
             </div>
             <div class="field">
-              <label for="registerPassword">Mật khẩu</label>
+              <label for="registerPhone">Sá»‘ Ä‘iá»‡n thoáº¡i</label>
+              <input
+                id="registerPhone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                pattern="(0[0-9]{9}|\+84[0-9]{9})"
+                title="Nháº­p sá»‘ Ä‘iá»‡n thoáº¡i Viá»‡t Nam gá»“m 10 chá»¯ sá»‘"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="registerPassword">Máº­t kháº©u</label>
               <input
                 id="registerPassword"
                 name="password"
@@ -80,7 +95,7 @@
               />
             </div>
             <div class="field">
-              <label for="confirmPassword">Nhập lại mật khẩu</label>
+              <label for="confirmPassword">Nháº­p láº¡i máº­t kháº©u</label>
               <input
                 id="confirmPassword"
                 name="confirmPassword"
@@ -90,7 +105,7 @@
                 required
               />
             </div>
-            <button class="primary-button" type="submit">Đăng ký</button>
+            <button class="primary-button" type="submit">ÄÄƒng kÃ½</button>
             <p
               class="auth-message"
               id="registerMessage"
@@ -100,15 +115,17 @@
           </form>
 
           <p class="auth-footer">
-            Đã có tài khoản? <a href="/register/login.html">Đăng nhập</a>
+            ÄÃ£ cÃ³ tÃ i khoáº£n?
+            <a href="/register/login.html">ÄÄƒng nháº­p</a>
           </p>
           <p class="prototype-note">
-            Bản demo lưu tài khoản trên trình duyệt này, chưa có máy chủ xác
-            thực.
+            Báº£n demo lÆ°u tÃ i khoáº£n trÃªn trÃ¬nh duyá»‡t nÃ y, chÆ°a cÃ³
+            mÃ¡y chá»§ xÃ¡c thá»±c.
           </p>
         </div>
       </section>
     </main>
+    <script src="/shared-data.js"></script>
     <script src="/customer/Javascript/auth.js"></script>
   </body>
 </html>

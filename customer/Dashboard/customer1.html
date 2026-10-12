@@ -18,7 +18,7 @@
 
   <body data-required-role="customer">
     <div class="layout">
-      <!-- ================= SIDEBAR ================= -->
+      <!--  SIDEBAR  -->
       <aside class="sidebar">
         <div class="logo">
           <i class="fa-solid fa-mug-hot"></i>
@@ -71,7 +71,7 @@
         </div>
       </aside>
 
-      <!-- ================= MAIN ================= -->
+      <!--  MAIN  -->
       <main class="main">
         <!-- HEADER -->
         <header class="header">
@@ -91,7 +91,7 @@
 
         <!-- CONTENT -->
         <div class="content">
-          <!-- ================= WELCOME ================= -->
+          <!--  WELCOME  -->
           <section class="welcome-section">
             <h1>
               Xin chào,
@@ -101,7 +101,7 @@
             <p>Chào mừng bạn ghé thăm Coffee House.</p>
           </section>
 
-          <!-- ================= DASHBOARD ================= -->
+          <!--  DASHBOARD  -->
           <section class="dashboard">
             <!-- Tổng đơn -->
             <div class="stat-card">
@@ -130,6 +130,26 @@
             <!-- Hoàn thành -->
             <div class="stat-card">
               <div class="stat-icon">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div class="stat-info">
+                <p>Chờ xác nhận</p>
+                <h3 id="pendingOrders">0</h3>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fa-solid fa-motorcycle"></i>
+              </div>
+              <div class="stat-info">
+                <p>Đang giao</p>
+                <h3 id="deliveringOrders">0</h3>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">
                 <i class="fa-solid fa-circle-check"></i>
               </div>
 
@@ -142,6 +162,16 @@
             <!-- Tổng chi tiêu -->
             <div class="stat-card">
               <div class="stat-icon">
+                <i class="fa-solid fa-ban"></i>
+              </div>
+              <div class="stat-info">
+                <p>Đã hủy</p>
+                <h3 id="cancelledOrders">0</h3>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">
                 <i class="fa-solid fa-money-bill-wave"></i>
               </div>
 
@@ -152,7 +182,7 @@
             </div>
           </section>
 
-          <!-- ================= FEATURED PRODUCTS ================= -->
+          <!--  FEATURED PRODUCTS  -->
           <section class="section">
             <div class="section-header">
               <div>
@@ -169,7 +199,7 @@
             <div class="product-grid" id="featuredProducts"></div>
           </section>
 
-          <!-- ================= PROMOTIONS ================= -->
+          <!--  PROMOTIONS  -->
           <section class="section promotion-section">
             <div class="section-header">
               <div>
@@ -178,7 +208,7 @@
               </div>
             </div>
 
-            <div class="promotion-grid">
+            <div class="promotion-grid" id="customerPromotions">
               <article class="promotion-card">
                 <div class="promotion-heading">
                   <span class="promotion-icon">
@@ -236,6 +266,8 @@
     </div>
 
     <!-- JavaScript -->
+    <script src="/shared-data.js"></script>
+    <script src="/customer/Javascript/promotions.js"></script>
     <script src="/customer/Javascript/data.js"></script>
     <script src="/customer/Javascript/customer.js"></script>
     <script src="/customer/Javascript/cart-count.js"></script>

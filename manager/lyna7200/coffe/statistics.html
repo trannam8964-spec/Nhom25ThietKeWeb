@@ -1,76 +1,247 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hội An Coffee | Thống kê</title>
-  <link rel="stylesheet" href="./coffe.css">
-  <link rel="stylesheet" href="menu-profile.css">
-  <link rel="stylesheet" href="./statistics.css">
-  <link rel="stylesheet" href="theme-overrides.css">
-</head>
-<body>
-  <aside class="sidebar" id="sidebar">
-    <div class="brand"><span class="brand-icon">☕</span><span>Hội An Coffee</span></div>
-    <nav class="menu sidebar-menu" aria-label="Menu quản lý">
-      <a href="coffe.html"><span class="nav-icon">▦</span><span>Trang chủ</span></a>
-      <a href="products.html"><span class="nav-icon">▣</span><span>Sản phẩm</span></a>
-      <a href="orders.html"><span class="nav-icon">🛒</span><span>Đơn hàng</span></a>
-      <a href="customers.html"><span class="nav-icon">♙</span><span>Khách hàng</span></a>
-      <a href="employees.html"><span class="nav-icon">♟</span><span>Nhân viên</span></a>
-      <a href="tables.html"><span class="nav-icon">▦</span><span>Bàn</span></a>
-      <a href="inventory.html"><span class="nav-icon">▣</span><span>Kho</span></a>
-      <a href="promotions.html"><span class="nav-icon">✦</span><span>Khuyến mãi</span></a>
-      <a href="statistics.html" class="active"><span class="nav-icon">▥</span><span>Thống kê</span></a>
-      <a href="settings.html"><span class="nav-icon">⚙</span><span>Cài đặt</span></a>
-    </nav>
-    <a href="index.html" class="logout" onclick="sessionStorage.removeItem('hoiAnCoffeeLoggedIn'); sessionStorage.removeItem('hoiAnCoffeeUsername');"><span class="nav-icon">⇥</span><span>Đăng xuất</span></a>
-  </aside>
-
-  <div class="page-shell">
-    <header class="topbar">
-      <button id="menuToggle" class="menu-toggle" aria-label="Mở hoặc đóng menu" aria-expanded="true" type="button">☰</button>
-      <div class="topbar-right">
-        <button class="notification" aria-label="Thông báo">♧<span class="notification-dot"></span></button>
-        <div class="user-profile"><span class="avatar">♙</span><span><strong id="loggedInName">Admin</strong><small>Quản lý</small></span><span class="chevron">⌄</span></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hội An Coffee | Thống kê</title>
+    <link rel="stylesheet" href="./coffe.css" />
+    <link rel="stylesheet" href="menu-profile.css" />
+    <link rel="stylesheet" href="./statistics.css" />
+    <link rel="stylesheet" href="theme-overrides.css" />
+  </head>
+  <body>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <span class="brand-icon">☕</span><span>Hội An Coffee</span>
       </div>
-    </header>
+      <nav class="menu sidebar-menu" aria-label="Menu quản lý">
+        <a href="coffe.html"
+          ><span class="nav-icon">▦</span><span>Trang chủ</span></a
+        >
+        <a href="products.html"
+          ><span class="nav-icon">▣</span><span>Sản phẩm</span></a
+        >
+        <a href="orders.html"
+          ><span class="nav-icon">🛒</span><span>Đơn hàng</span></a
+        >
+        <a href="customers.html"
+          ><span class="nav-icon">♙</span><span>Khách hàng</span></a
+        >
+        <a href="employees.html"
+          ><span class="nav-icon">♟</span><span>Nhân viên</span></a
+        >
+        <a href="tables.html"
+          ><span class="nav-icon">▦</span><span>Bàn</span></a
+        >
+        <a href="inventory.html"
+          ><span class="nav-icon">▣</span><span>Kho</span></a
+        >
+        <a href="promotions.html"
+          ><span class="nav-icon">✦</span><span>Khuyến mãi</span></a
+        >
+        <a href="statistics.html" class="active"
+          ><span class="nav-icon">▥</span><span>Thống kê</span></a
+        >
+        <a href="settings.html"
+          ><span class="nav-icon">⚙</span><span>Cài đặt</span></a
+        >
+      </nav>
+      <a
+        href="/register/login.html"
+        class="logout"
+        onclick="
+          sessionStorage.removeItem('hoiAnCoffeeLoggedIn');
+          sessionStorage.removeItem('hoiAnCoffeeUsername');
+        "
+        ><span class="nav-icon">⇥</span><span>Đăng xuất</span></a
+      >
+    </aside>
 
-    <main class="dashboard-content statistics-content">
-      <section class="page-heading">
-        <div><h1>Thống kê</h1><p>Theo dõi doanh thu và hiệu quả kinh doanh của Hội An Coffee.</p></div>
-        <label class="period-control">Thời gian
-          <select id="periodSelect"><option value="today">Hôm nay</option><option value="week">7 ngày gần đây</option><option value="month">Tháng này</option><option value="year">Năm nay</option><option value="all">Toàn bộ dữ liệu</option></select>
-        </label>
-      </section>
+    <div class="page-shell">
+      <header class="topbar">
+        <button
+          id="menuToggle"
+          class="menu-toggle"
+          aria-label="Mở hoặc đóng menu"
+          aria-expanded="true"
+          type="button"
+        >
+          ☰
+        </button>
+        <div class="topbar-right">
+          <button class="notification" aria-label="Thông báo">
+            ♧<span class="notification-dot"></span>
+          </button>
+          <div class="user-profile">
+            <span class="avatar">♙</span
+            ><span
+              ><strong id="loggedInName">Admin</strong
+              ><small>Quản lý</small></span
+            ><span class="chevron">⌄</span>
+          </div>
+        </div>
+      </header>
 
-      <section class="stats-grid statistics-cards" aria-label="Chỉ số thống kê">
-        <article class="stat-card"><div class="stat-icon blue">₫</div><div class="stat-info"><p>Tổng doanh thu</p><h2 id="totalRevenue">0đ</h2><small>Đơn hàng hoàn thành</small></div></article>
-        <article class="stat-card"><div class="stat-icon cyan">▤</div><div class="stat-info"><p>Tổng đơn hàng</p><h2 id="totalOrders">0</h2><small>Số đơn hàng ghi nhận</small></div></article>
-        <article class="stat-card"><div class="stat-icon purple">☕</div><div class="stat-info"><p>Sản phẩm bán chạy nhất</p><h2 class="best-name" id="bestProduct">Chưa có dữ liệu</h2><small id="bestProductCount">0 sản phẩm đã bán</small></div></article>
-      </section>
+      <main class="dashboard-content statistics-content">
+        <section class="page-heading">
+          <div>
+            <h1>Thống kê</h1>
+            <p>Theo dõi doanh thu và hiệu quả kinh doanh của Hội An Coffee.</p>
+          </div>
+          <label class="period-control"
+            >Thời gian
+            <select id="periodSelect">
+              <option value="today">Hôm nay</option>
+              <option value="week">7 ngày gần đây</option>
+              <option value="month">Tháng này</option>
+              <option value="year">Năm nay</option>
+              <option value="all">Toàn bộ dữ liệu</option>
+            </select>
+          </label>
+        </section>
 
-      <section class="statistics-grid">
-        <article class="panel revenue-stat-panel">
-          <div class="panel-heading"><div><h3>Doanh thu theo thời gian</h3><p>Lọc theo ngày, tuần, tháng hoặc năm</p></div></div>
-          <div class="line-chart-wrap"><div class="line-y-labels"><span id="maxRevenueLabel">0đ</span><span id="midRevenueLabel">0đ</span><span>0đ</span></div><div class="line-chart-area"><div class="line-grid"><i></i><i></i><i></i><i></i><i></i></div><svg id="statsLineChart" viewBox="0 0 700 220" preserveAspectRatio="none" aria-label="Biểu đồ doanh thu"><defs><linearGradient id="statsFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3986d7" stop-opacity=".25"/><stop offset="100%" stop-color="#3986d7" stop-opacity="0"/></linearGradient></defs><polygon id="statsArea" points="" fill="url(#statsFill)"/><polyline id="statsPolyline" points="" fill="none" stroke="#3986d7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><g id="statsPoints" fill="#3986d7"></g></svg><div id="statsDates" class="line-x-labels"></div></div></div>
-          <p class="chart-note" id="revenueNote">Chưa có dữ liệu doanh thu.</p>
-        </article>
-        <article class="panel">
-          <div class="panel-heading"><div><h3>Sản phẩm bán chạy</h3><p>Top 5 sản phẩm theo số lượng bán</p></div></div>
-          <div id="topProducts" class="best-product-list"><p class="empty-message">Chưa có dữ liệu sản phẩm</p></div>
-        </article>
-        <article class="panel category-panel statistics-category">
-          <div class="panel-heading"><div><h3>Tỷ lệ doanh thu theo danh mục</h3><p>Đóng góp doanh thu của từng nhóm món</p></div></div>
-          <div class="category-chart"><div class="donut-chart" id="categoryDonut"><div class="donut-center"><strong id="categoryRevenue">0đ</strong><span>Tổng doanh thu</span></div></div><div class="category-legend" id="categoryLegend">
-            <p><span class="legend-dot coffee"></span><span>Cà phê</span><b>0đ</b><small>0%</small></p><p><span class="legend-dot tea"></span><span>Trà</span><b>0đ</b><small>0%</small></p><p><span class="legend-dot milk-tea"></span><span>Trà sữa</span><b>0đ</b><small>0%</small></p><p><span class="legend-dot juice"></span><span>Nước ép</span><b>0đ</b><small>0%</small></p><p><span class="legend-dot food"></span><span>Đồ ăn</span><b>0đ</b><small>0%</small></p>
-          </div></div>
-        </article>
-      </section>
-      <p class="statistics-footnote">Thống kê được tính từ dữ liệu đơn hàng và sản phẩm lưu trong trình duyệt. Nếu chưa có dữ liệu, các chỉ số sẽ hiển thị 0.</p>
-    </main>
-  </div>
-  <script src="common.js"></script>
-  <script src="./statistics.js"></script>
-</body>
+        <section
+          class="stats-grid statistics-cards"
+          aria-label="Chỉ số thống kê"
+        >
+          <article class="stat-card">
+            <div class="stat-icon blue">₫</div>
+            <div class="stat-info">
+              <p>Tổng doanh thu</p>
+              <h2 id="totalRevenue">0đ</h2>
+              <small>Đơn hàng hoàn thành</small>
+            </div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon cyan">▤</div>
+            <div class="stat-info">
+              <p>Tổng đơn hàng</p>
+              <h2 id="totalOrders">0</h2>
+              <small>Số đơn hàng ghi nhận</small>
+            </div>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon purple">☕</div>
+            <div class="stat-info">
+              <p>Sản phẩm bán chạy nhất</p>
+              <h2 class="best-name" id="bestProduct">Chưa có dữ liệu</h2>
+              <small id="bestProductCount">0 sản phẩm đã bán</small>
+            </div>
+          </article>
+        </section>
+
+        <section class="statistics-grid">
+          <article class="panel revenue-stat-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Doanh thu theo thời gian</h3>
+                <p>Lọc theo ngày, tuần, tháng hoặc năm</p>
+              </div>
+            </div>
+            <div class="line-chart-wrap">
+              <div class="line-y-labels">
+                <span id="maxRevenueLabel">0đ</span
+                ><span id="midRevenueLabel">0đ</span><span>0đ</span>
+              </div>
+              <div class="line-chart-area">
+                <div class="line-grid"><i></i><i></i><i></i><i></i><i></i></div>
+                <svg
+                  id="statsLineChart"
+                  viewBox="0 0 700 220"
+                  preserveAspectRatio="none"
+                  aria-label="Biểu đồ doanh thu"
+                >
+                  <defs>
+                    <linearGradient id="statsFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop
+                        offset="0%"
+                        stop-color="#3986d7"
+                        stop-opacity=".25"
+                      />
+                      <stop
+                        offset="100%"
+                        stop-color="#3986d7"
+                        stop-opacity="0"
+                      />
+                    </linearGradient>
+                  </defs>
+                  <polygon id="statsArea" points="" fill="url(#statsFill)" />
+                  <polyline
+                    id="statsPolyline"
+                    points=""
+                    fill="none"
+                    stroke="#3986d7"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <g id="statsPoints" fill="#3986d7"></g>
+                </svg>
+                <div id="statsDates" class="line-x-labels"></div>
+              </div>
+            </div>
+            <p class="chart-note" id="revenueNote">
+              Chưa có dữ liệu doanh thu.
+            </p>
+          </article>
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Sản phẩm bán chạy</h3>
+                <p>Top 5 sản phẩm theo số lượng bán</p>
+              </div>
+            </div>
+            <div id="topProducts" class="best-product-list">
+              <p class="empty-message">Chưa có dữ liệu sản phẩm</p>
+            </div>
+          </article>
+          <article class="panel category-panel statistics-category">
+            <div class="panel-heading">
+              <div>
+                <h3>Tỷ lệ doanh thu theo danh mục</h3>
+                <p>Đóng góp doanh thu của từng nhóm món</p>
+              </div>
+            </div>
+            <div class="category-chart">
+              <div class="donut-chart" id="categoryDonut">
+                <div class="donut-center">
+                  <strong id="categoryRevenue">0đ</strong
+                  ><span>Tổng doanh thu</span>
+                </div>
+              </div>
+              <div class="category-legend" id="categoryLegend">
+                <p>
+                  <span class="legend-dot coffee"></span><span>Cà phê</span
+                  ><b>0đ</b><small>0%</small>
+                </p>
+                <p>
+                  <span class="legend-dot tea"></span><span>Trà</span><b>0đ</b
+                  ><small>0%</small>
+                </p>
+                <p>
+                  <span class="legend-dot milk-tea"></span><span>Trà sữa</span
+                  ><b>0đ</b><small>0%</small>
+                </p>
+                <p>
+                  <span class="legend-dot juice"></span><span>Nước ép</span
+                  ><b>0đ</b><small>0%</small>
+                </p>
+                <p>
+                  <span class="legend-dot food"></span><span>Đồ ăn</span
+                  ><b>0đ</b><small>0%</small>
+                </p>
+              </div>
+            </div>
+          </article>
+        </section>
+        <p class="statistics-footnote">
+          Thống kê được tính từ dữ liệu đơn hàng và sản phẩm lưu trong trình
+          duyệt. Nếu chưa có dữ liệu, các chỉ số sẽ hiển thị 0.
+        </p>
+      </main>
+    </div>
+    <script src="/shared-data.js"></script>
+    <script src="common.js"></script>
+    <script src="./statistics.js"></script>
+  </body>
 </html>

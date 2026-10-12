@@ -1,113 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Order - Coffee-House</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link rel="stylesheet" href="./Order.css">
-</head>
-<body data-required-role="staff">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./Order.css" />
+  </head>
+  <body data-required-role="staff">
     <div class="layout">
-        <aside class="sidebar">
-            <div class="logo">
-                <i class="fa-solid fa-mug-hot"></i>
-                <span>Coffee-House</span>
+      <aside class="sidebar">
+        <div class="logo">
+          <i class="fa-solid fa-mug-hot"></i>
+          <span>Coffee-House</span>
+        </div>
+
+        <nav class="sidebar-menu">
+          <a href="../Dashboard/Dashboard.html" class="menu-item">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="../Order/Order.html" class="menu-item active">
+            <i class="fa-solid fa-receipt"></i>
+            <span>Đơn Hàng</span>
+          </a>
+          <a href="../Tables/Tables.html" class="menu-item">
+            <i class="fa-solid fa-chair"></i>
+            <span>Bàn</span>
+          </a>
+          <a href="../Payment/Payment.html" class="menu-item">
+            <i class="fa-solid fa-credit-card"></i>
+            <span>Thanh Toán</span>
+          </a>
+          <a href="../Menu/Menu.html" class="menu-item">
+            <i class="fa-solid fa-utensils"></i>
+            <span>Menu</span>
+          </a>
+          <a href="../Profile/Profile.html" class="menu-item">
+            <i class="fa-solid fa-id-card"></i>
+            <span>Thông Tin Cá Nhân</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="./logout.html" class="menu-item">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Đăng xuất</span>
+          </a>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="header">
+          <h2 id="headerTitle">Đơn Hàng</h2>
+          <a href="../Profile/Profile.html" class="user-info">
+            <i class="fa-solid fa-circle-user"></i>
+            <div>
+              <span>Xin Chào,</span>
+              <strong id="staffname">Nhân viên</strong>
+            </div>
+          </a>
+        </header>
+
+        <div class="content" id="mainContent">
+          <section class="page-card">
+            <div class="page-heading">
+              <h2>Danh sách đơn hàng</h2>
+              <p>Cập nhật trạng thái đơn để khách hàng theo dõi.</p>
             </div>
 
-            <nav class="sidebar-menu">
-                <a href="../Dashboard/Dashboard.html" class="menu-item">
-                    <i class="fa-solid fa-chart-pie"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="../Order/Order.html" class="menu-item active">
-                    <i class="fa-solid fa-receipt"></i>
-                    <span>Đơn Hàng</span>
-                </a>
-                <a href="../Tables/Tables.html" class="menu-item">
-                    <i class="fa-solid fa-chair"></i>
-                    <span>Bàn</span>
-                </a>
-                <a href="../Payment/Payment.html" class="menu-item">
-                    <i class="fa-solid fa-credit-card"></i>
-                    <span>Thanh Toán</span>
-                </a>
-                <a href="../Menu/Menu.html" class="menu-item">
-                    <i class="fa-solid fa-utensils"></i>
-                    <span>Menu</span>
-                </a>
-                <a href="../Profile/Profile.html" class="menu-item">
-                    <i class="fa-solid fa-id-card"></i>
-                    <span>Thông Tin Cá Nhân</span>
-                </a>
-            </nav>
-
-            <div class="sidebar-bottom">
-                <a href="./logout.html" class="menu-item">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Đăng xuất</span>
-                </a>
+            <div class="toolbar">
+              <input
+                id="orderSearch"
+                type="search"
+                placeholder="Tìm mã đơn hoặc tên khách"
+                aria-label="Tìm đơn hàng"
+              />
+              <select id="orderFilter" aria-label="Lọc trạng thái">
+                <option value="">Tất cả trạng thái</option>
+                <option value="pending">Chờ xác nhận</option>
+                <option value="preparing">Đang chuẩn bị</option>
+                <option value="delivering">Đang giao</option>
+                <option value="completed">Đã hoàn thành</option>
+                <option value="cancelled">Đã hủy</option>
+              </select>
             </div>
-        </aside>
 
-        <main class="main">
-            <header class="header">
-                <h2 id="headerTitle">Đơn Hàng</h2>
-                <a href="../Profile/Profile.html" class="user-info">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <div>
-                        <span>Xin Chào,</span>
-                        <strong id="staffname">Nhân viên</strong>
-                    </div>
-                </a>
-            </header>
-
-            <div class="content" id="mainContent">
-                <section class="page-card">
-                    <div class="page-heading">
-                        <h2>Danh sách đơn hàng</h2>
-                        <p>Cập nhật trạng thái đơn để khách hàng theo dõi.</p>
-                    </div>
-
-                    <div class="toolbar">
-                        <input id="orderSearch" type="search" placeholder="Tìm mã đơn hoặc tên khách" aria-label="Tìm đơn hàng">
-                        <select id="orderFilter" aria-label="Lọc trạng thái">
-                            <option value="">Tất cả trạng thái</option>
-                            <option>Chờ xác nhận</option>
-                            <option>Đang chuẩn bị</option>
-                            <option>Đang giao</option>
-                            <option>Đã hoàn thành</option>
-                            <option>Đã hủy</option>
-                        </select>
-                    </div>
-
-                    <div class="table-wrap">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>MÃ ĐƠN</th>
-                                    <th>KHÁCH HÀNG</th>
-                                    <th>THỜI GIAN</th>
-                                    <th>MÓN</th>
-                                    <th>TỔNG</th>
-                                    <th>TRẠNG THÁI</th>
-                                    <th>THAO TÁC</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ordersTableBody">
-                                <tr>
-                                    <td colspan="7" class="empty-state">Đang tải đơn hàng...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>MÃ ĐƠN</th>
+                    <th>KHÁCH HÀNG</th>
+                    <th>THỜI GIAN</th>
+                    <th>MÓN</th>
+                    <th>TỔNG</th>
+                    <th>TRẠNG THÁI</th>
+                    <th>THAO TÁC</th>
+                  </tr>
+                </thead>
+                <tbody id="ordersTableBody">
+                  <tr>
+                    <td colspan="7" class="empty-state">
+                      Đang tải đơn hàng...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-        </main>
+          </section>
+        </div>
+      </main>
     </div>
 
+    <script src="/shared-data.js"></script>
     <script src="../staff-common.js"></script>
     <script src="../Order/Order.js"></script>
     <script src="/customer/Javascript/auth-session.js"></script>
-</body>
+  </body>
 </html>

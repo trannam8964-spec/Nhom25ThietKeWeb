@@ -1,167 +1,231 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hội An Coffee - Quản lý khuyến mãi</title>
-    <link rel="stylesheet" href="promotions.css">
-  <link rel="stylesheet" href="menu-profile.css">
+    <link rel="stylesheet" href="promotions.css" />
+    <link rel="stylesheet" href="menu-profile.css" />
     <script src="promotions.js" defer></script>
-  <link rel="stylesheet" href="theme-overrides.css">
-</head>
-<body>
+    <link rel="stylesheet" href="theme-overrides.css" />
+  </head>
+  <body>
     <!-- SIDEBAR -->
     <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-icon">☕</div>
-            <span>Hội An Coffee</span>
-        </div>
+      <div class="brand">
+        <div class="brand-icon">☕</div>
+        <span>Hội An Coffee</span>
+      </div>
 
-        <nav class="menu">
-            <a href="coffe.html"><span class="nav-icon">▦</span><span class="nav-label">Trang chủ</span></a>
-            <a href="products.html"><span class="nav-icon">▣</span><span class="nav-label">Sản phẩm</span></a>
-            <a href="orders.html"><span class="nav-icon">▤</span><span class="nav-label">Đơn hàng</span></a>
-            <a href="customers.html"><span class="nav-icon">♙</span><span class="nav-label">Khách hàng</span></a>
-            <a href="employees.html"><span class="nav-icon">♟</span><span class="nav-label">Nhân viên</span></a>
-            <a href="tables.html"><span class="nav-icon">▦</span><span class="nav-label">Bàn</span></a>
-            <a href="inventory.html"><span class="nav-icon">▣</span><span class="nav-label">Kho</span></a>
-            <a href="promotions.html" class="active"><span class="nav-icon">✦</span><span class="nav-label">Khuyến mãi</span></a>
-            <a href="statistics.html"><span class="nav-icon">▥</span><span class="nav-label">Thống kê</span></a>
-            <a href="settings.html"><span class="nav-icon">⚙</span><span class="nav-label">Cài đặt</span></a>
-        </nav>
+      <nav class="menu">
+        <a href="coffe.html"
+          ><span class="nav-icon">▦</span
+          ><span class="nav-label">Trang chủ</span></a
+        >
+        <a href="products.html"
+          ><span class="nav-icon">▣</span
+          ><span class="nav-label">Sản phẩm</span></a
+        >
+        <a href="orders.html"
+          ><span class="nav-icon">▤</span
+          ><span class="nav-label">Đơn hàng</span></a
+        >
+        <a href="customers.html"
+          ><span class="nav-icon">♙</span
+          ><span class="nav-label">Khách hàng</span></a
+        >
+        <a href="employees.html"
+          ><span class="nav-icon">♟</span
+          ><span class="nav-label">Nhân viên</span></a
+        >
+        <a href="tables.html"
+          ><span class="nav-icon">▦</span><span class="nav-label">Bàn</span></a
+        >
+        <a href="inventory.html"
+          ><span class="nav-icon">▣</span><span class="nav-label">Kho</span></a
+        >
+        <a href="promotions.html" class="active"
+          ><span class="nav-icon">✦</span
+          ><span class="nav-label">Khuyến mãi</span></a
+        >
+        <a href="statistics.html"
+          ><span class="nav-icon">▥</span
+          ><span class="nav-label">Thống kê</span></a
+        >
+        <a href="settings.html"
+          ><span class="nav-icon">⚙</span
+          ><span class="nav-label">Cài đặt</span></a
+        >
+      </nav>
 
-        <a href="index.html" class="logout" onclick="sessionStorage.removeItem('hoiAnCoffeeLoggedIn'); sessionStorage.removeItem('hoiAnCoffeeUsername');"><span class="nav-icon">⇥</span><span class="nav-label">Đăng xuất</span></a>
+      <a
+        href="/register/login.html"
+        class="logout"
+        onclick="
+          sessionStorage.removeItem('hoiAnCoffeeLoggedIn');
+          sessionStorage.removeItem('hoiAnCoffeeUsername');
+        "
+        ><span class="nav-icon">⇥</span
+        ><span class="nav-label">Đăng xuất</span></a
+      >
     </aside>
 
     <!-- NỘI DUNG CHÍNH -->
     <div class="main">
-        <header class="topbar">
-            <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" type="button">☰</button>
 
-            <div class="profile">
-                <div class="avatar">✦</div>
-                <div>
-                    <strong id="loggedInName">Admin</strong>
-                    <small>Quản trị viên</small>
-                </div>
+        <div class="profile">
+          <div class="avatar">✦</div>
+          <div>
+            <strong id="loggedInName">Admin</strong>
+            <small>Quản trị viên</small>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- TIÊU ĐỀ -->
+        <section class="page-heading">
+          <div>
+            <h1>Quản lý khuyến mãi</h1>
+            <p>Tạo và chỉnh sửa các chương trình giảm giá, ưu đãi.</p>
+          </div>
+
+          <button class="btn-primary" id="addBtn" type="button">
+            ＋ Thêm khuyến mãi
+          </button>
+        </section>
+
+        <!-- THỐNG KÊ KHUYẾN MÃI -->
+        <section class="stats">
+          <div class="stat-card">
+            <div class="stat-icon blue">✦</div>
+            <div>
+              <p>Tổng chương trình</p>
+              <h2 id="totalCount">0</h2>
             </div>
-        </header>
+          </div>
 
-        <main class="content">
-            <!-- TIÊU ĐỀ -->
-            <section class="page-heading">
-                <div>
-                    <h1>Quản lý khuyến mãi</h1>
-                    <p>Tạo và chỉnh sửa các chương trình giảm giá, ưu đãi.</p>
-                </div>
+          <div class="stat-card">
+            <div class="stat-icon green">✓</div>
+            <div>
+              <p>Đang áp dụng</p>
+              <h2 id="activeCount">0</h2>
+            </div>
+          </div>
+        </section>
 
-                <button class="btn-primary" id="addBtn" type="button">
-                    ＋ Thêm khuyến mãi
-                </button>
-            </section>
+        <!-- TÌM KIẾM -->
+        <section class="filter-panel">
+          <div class="search-box">
+            <span>⌕</span>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Tìm tên chương trình hoặc mã giảm giá..."
+            />
+          </div>
 
-            <!-- THỐNG KÊ KHUYẾN MÃI -->
-            <section class="stats">
-                <div class="stat-card">
-                    <div class="stat-icon blue">✦</div>
-                    <div>
-                        <p>Tổng chương trình</p>
-                        <h2 id="totalCount">0</h2>
-                    </div>
-                </div>
+          <button class="btn-secondary" id="resetBtn" type="button">
+            Đặt lại
+          </button>
+        </section>
 
-                <div class="stat-card">
-                    <div class="stat-icon green">✓</div>
-                    <div>
-                        <p>Đang áp dụng</p>
-                        <h2 id="activeCount">0</h2>
-                    </div>
-                </div>
-            </section>
+        <!-- BẢNG KHUYẾN MÃI -->
+        <section class="table-panel">
+          <div class="table-heading">
+            <div>
+              <h2>Danh sách mã giảm giá</h2>
+              <p id="resultCount">0 chương trình</p>
+            </div>
+          </div>
 
-            <!-- TÌM KIẾM -->
-            <section class="filter-panel">
-                <div class="search-box">
-                    <span>⌕</span>
-                    <input type="search" id="searchInput" placeholder="Tìm tên chương trình hoặc mã giảm giá...">
-                </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>MÃ KM</th>
+                  <th>TÊN CHƯƠNG TRÌNH</th>
+                  <th>Mức ưu đãi</th>
+                  <th>HẠN SỬ DỤNG</th>
+                  <th>TRẠNG THÁI</th>
+                  <th>THAO TÁC</th>
+                </tr>
+              </thead>
 
-                <button class="btn-secondary" id="resetBtn" type="button">Đặt lại</button>
-            </section>
+              <tbody id="promotionList"></tbody>
+            </table>
+          </div>
 
-            <!-- BẢNG KHUYẾN MÃI -->
-            <section class="table-panel">
-                <div class="table-heading">
-                    <div>
-                        <h2>Danh sách mã giảm giá</h2>
-                        <p id="resultCount">0 chương trình</p>
-                    </div>
-                </div>
+          <div class="empty-state" id="emptyState">
+            <span>✦</span>
+            <h3>Chưa có khuyến mãi</h3>
+            <p>Các chương trình ưu đãi sẽ hiển thị tại đây.</p>
+          </div>
+        </section>
 
-                <div class="table-scroll">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>MÃ KM</th>
-                                <th>TÊN CHƯƠNG TRÌNH</th>
-                                <th>MỨC GIẢM (%)</th>
-                                <th>HẠN SỬ DỤNG</th>
-                                <th>TRẠNG THÁI</th>
-                                <th>THAO TÁC</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="promotionList"></tbody>
-                    </table>
-                </div>
-
-                <div class="empty-state" id="emptyState">
-                    <span>✦</span>
-                    <h3>Chưa có khuyến mãi</h3>
-                    <p>Các chương trình ưu đãi sẽ hiển thị tại đây.</p>
-                </div>
-            </section>
-
-            <p class="note">Mã giảm giá có thể áp dụng trực tiếp khi khách thanh toán hóa đơn.</p>
-        </main>
+        <p class="note">
+          Mã giảm giá có thể áp dụng trực tiếp khi khách thanh toán hóa đơn.
+        </p>
+      </main>
     </div>
 
     <!-- HỘP THOẠI THÊM / SỬA KHUYẾN MÃI -->
     <dialog id="promotionDialog">
-        <form id="promotionForm">
-            <div class="dialog-heading">
-                <div>
-                    <h2 id="modalTitle">Thêm khuyến mãi</h2>
-                    <p>Thiết lập chi tiết chương trình ưu đãi.</p>
-                </div>
-                <button type="button" class="close-btn" id="closeBtn">×</button>
-            </div>
+      <form id="promotionForm">
+        <div class="dialog-heading">
+          <div>
+            <h2 id="modalTitle">Thêm khuyến mãi</h2>
+            <p>Thiết lập chi tiết chương trình ưu đãi.</p>
+          </div>
+          <button type="button" class="close-btn" id="closeBtn">×</button>
+        </div>
 
-            <input type="hidden" id="promotionId">
+        <input type="hidden" id="promotionId" />
 
-            <label for="promoName">Tên chương trình <span>*</span></label>
-            <input type="text" id="promoName" placeholder="Ví dụ: Khai xuân giảm giá" required>
+        <label for="promoName">Tên chương trình <span>*</span></label>
+        <input type="text" id="promoName" required />
 
-            <label for="discount">Mức giảm (%) <span>*</span></label>
-            <input type="number" id="discount" placeholder="10" min="1" max="100" required>
+        <label for="promoCondition">Điều kiện áp dụng</label>
+        <select id="promoCondition">
+          <option value="drink_quantity">Theo số lượng đồ uống</option>
+          <option value="coffee_food">Cà phê kèm món ăn</option>
+          <option value="order">Toàn đơn hàng</option>
+        </select>
 
-            <label for="expiryDate">Hạn sử dụng <span>*</span></label>
-            <input type="date" id="expiryDate" required>
+        <label for="minimumQuantity">Số lượng đồ uống tối thiểu</label>
+        <input type="number" id="minimumQuantity" min="0" max="99" value="2" />
 
-            <label for="promoStatus">Trạng thái</label>
-            <select id="promoStatus">
-                <option value="Đang áp dụng">Đang áp dụng</option>
-                <option value="Hết hạn">Hết hạn</option>
-            </select>
+        <label for="discountType">Loại giảm</label>
+        <select id="discountType">
+          <option value="percent">Phần trăm (%)</option>
+          <option value="fixed">Số tiền (đ)</option>
+        </select>
 
-            <p id="formError" class="form-error"></p>
+        <label for="discount">Mức ưu đãi <span>*</span></label>
+        <input type="number" id="discount" min="1" required />
 
-            <div class="dialog-actions">
-                <button type="button" class="btn-secondary" id="cancelBtn">Hủy</button>
-                <button type="submit" class="btn-primary">Lưu chương trình</button>
-            </div>
-        </form>
+        <label for="expiryDate">Hạn sử dụng <span>*</span></label>
+        <input type="date" id="expiryDate" required />
+
+        <label for="promoStatus">Trạng thái</label>
+        <select id="promoStatus">
+          <option value="active">Đang áp dụng</option>
+          <option value="inactive">Hết hạn</option>
+        </select>
+
+        <p id="formError" class="form-error"></p>
+
+        <div class="dialog-actions">
+          <button type="button" class="btn-secondary" id="cancelBtn">
+            Hủy
+          </button>
+          <button type="submit" class="btn-primary">Lưu chương trình</button>
+        </div>
+      </form>
     </dialog>
-  <script src="common.js"></script>
-</body>
+    <script src="/shared-data.js"></script>
+    <script src="common.js"></script>
+  </body>
 </html>

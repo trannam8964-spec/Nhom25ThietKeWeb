@@ -75,7 +75,7 @@ for (let product of featured) {
 
 // Lấy danh sách đơn hàng từ localStorage
 
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+let orders = window.CoffeeData.readArray("orders");
 
 function normalizeCustomerName(value) {
   return String(value || "")
@@ -133,13 +133,25 @@ let totalOrders = customerOrders.length;
 // Đếm số đơn đang chuẩn bị
 
 let preparingOrders = customerOrders.filter(function (order) {
-  return order.status === "Đang chuẩn bị";
+  return window.CoffeeData.normalizeStatus(order.status) === "preparing";
+}).length;
+
+let pendingOrders = customerOrders.filter(function (order) {
+  return window.CoffeeData.normalizeStatus(order.status) === "pending";
+}).length;
+
+let deliveringOrders = customerOrders.filter(function (order) {
+  return window.CoffeeData.normalizeStatus(order.status) === "delivering";
 }).length;
 
 // Đếm số đơn đã hoàn thành
 
 let completedOrders = customerOrders.filter(function (order) {
-  return order.status === "Đã hoàn thành";
+  return window.CoffeeData.normalizeStatus(order.status) === "completed";
+}).length;
+
+let cancelledOrders = customerOrders.filter(function (order) {
+  return window.CoffeeData.normalizeStatus(order.status) === "cancelled";
 }).length;
 
 let totalSpending = customerOrders.reduce(function (total, order) {
@@ -167,7 +179,61 @@ document.getElementById("totalOrders").innerText = totalOrders;
 
 document.getElementById("preparingOrders").innerText = preparingOrders;
 
+document.getElementById("pendingOrders").innerText = pendingOrders;
+
+document.getElementById("deliveringOrders").innerText = deliveringOrders;
+
 document.getElementById("completedOrders").innerText = completedOrders;
+
+document.getElementById("cancelledOrders").innerText = cancelledOrders;
 
 document.getElementById("totalSpending").innerText =
   totalSpending.toLocaleString("vi-VN") + "đ";
+
+function refreshCustomerOrderStats() {
+  orders = window.CoffeeData.readArray("orders");
+  const latestOrders = orders.filter((order) => {
+    const owner = order.username || order.customerName || order.customer;
+    return owner && customerIdentifiers.has(normalizeCustomerName(owner));
+  });
+  customerOrders =
+    latestOrders.length || ordersHaveOwners ? latestOrders : orders;
+  totalOrders = customerOrders.length;
+  preparingOrders = customerOrders.filter(
+    (order) => window.CoffeeData.normalizeStatus(order.status) === "preparing",
+  ).length;
+  pendingOrders = customerOrders.filter(
+    (order) => window.CoffeeData.normalizeStatus(order.status) === "pending",
+  ).length;
+  deliveringOrders = customerOrders.filter(
+    (order) => window.CoffeeData.normalizeStatus(order.status) === "delivering",
+  ).length;
+  completedOrders = customerOrders.filter(
+    (order) => window.CoffeeData.normalizeStatus(order.status) === "completed",
+  ).length;
+  cancelledOrders = customerOrders.filter(
+    (order) => window.CoffeeData.normalizeStatus(order.status) === "cancelled",
+  ).length;
+  totalSpending = customerOrders.reduce(
+    (sum, order) => sum + (Number(order.total) || 0),
+    0,
+  );
+  document.getElementById("totalOrders").innerText = totalOrders;
+  document.getElementById("pendingOrders").innerText = pendingOrders;
+  document.getElementById("preparingOrders").innerText = preparingOrders;
+  document.getElementById("deliveringOrders").innerText = deliveringOrders;
+  document.getElementById("completedOrders").innerText = completedOrders;
+  document.getElementById("cancelledOrders").innerText = cancelledOrders;
+  document.getElementById("totalSpending").innerText =
+    totalSpending.toLocaleString("vi-VN") + "đ";
+}
+
+window.addEventListener("storage", (event) => {
+  if (event.key === "orders") refreshCustomerOrderStats();
+});
+window.addEventListener("coffee:datachange", (event) => {
+  if (event.detail === "orders") refreshCustomerOrderStats();
+});
+
+window.addEventListener("focus", refreshCustomerOrderStats);
+window.addEventListener("pageshow", refreshCustomerOrderStats);

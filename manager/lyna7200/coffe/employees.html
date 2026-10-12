@@ -1,184 +1,231 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hội An Coffee - Quản lý nhân viên</title>
 
-    <link rel="stylesheet" href="employees.css">
-  <link rel="stylesheet" href="menu-profile.css">
+    <link rel="stylesheet" href="employees.css" />
+    <link rel="stylesheet" href="menu-profile.css" />
     <script src="employees.js" defer></script>
-  <link rel="stylesheet" href="theme-overrides.css">
-</head>
-<body>
+    <link rel="stylesheet" href="theme-overrides.css" />
+  </head>
+  <body>
     <!-- SIDEBAR -->
     <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-icon">☕</div>
-            <span>Hội An Coffee</span>
-        </div>
+      <div class="brand">
+        <div class="brand-icon">☕</div>
+        <span>Hội An Coffee</span>
+      </div>
 
-        <nav class="menu">
-            <a href="coffe.html"><span class="nav-icon">▦</span><span class="nav-label">Trang chủ</span></a>
-            <a href="products.html"><span class="nav-icon">▣</span><span class="nav-label">Sản phẩm</span></a>
-            <a href="orders.html"><span class="nav-icon">▤</span><span class="nav-label">Đơn hàng</span></a>
-            <a href="customers.html"><span class="nav-icon">♙</span><span class="nav-label">Khách hàng</span></a>
-            <a href="employees.html" class="active"><span class="nav-icon">♟</span><span class="nav-label">Nhân viên</span></a>
-            <a href="tables.html"><span class="nav-icon">▦</span><span class="nav-label">Bàn</span></a>
-            <a href="inventory.html"><span class="nav-icon">▣</span><span class="nav-label">Kho</span></a>
-            <a href="promotions.html"><span class="nav-icon">✦</span><span class="nav-label">Khuyến mãi</span></a>
-            <a href="statistics.html"><span class="nav-icon">▥</span><span class="nav-label">Thống kê</span></a>
-            <a href="settings.html"><span class="nav-icon">⚙</span><span class="nav-label">Cài đặt</span></a>
-        </nav>
+      <nav class="menu">
+        <a href="coffe.html"
+          ><span class="nav-icon">▦</span
+          ><span class="nav-label">Trang chủ</span></a
+        >
+        <a href="products.html"
+          ><span class="nav-icon">▣</span
+          ><span class="nav-label">Sản phẩm</span></a
+        >
+        <a href="orders.html"
+          ><span class="nav-icon">▤</span
+          ><span class="nav-label">Đơn hàng</span></a
+        >
+        <a href="customers.html"
+          ><span class="nav-icon">♙</span
+          ><span class="nav-label">Khách hàng</span></a
+        >
+        <a href="employees.html" class="active"
+          ><span class="nav-icon">♟</span
+          ><span class="nav-label">Nhân viên</span></a
+        >
+        <a href="tables.html"
+          ><span class="nav-icon">▦</span><span class="nav-label">Bàn</span></a
+        >
+        <a href="inventory.html"
+          ><span class="nav-icon">▣</span><span class="nav-label">Kho</span></a
+        >
+        <a href="promotions.html"
+          ><span class="nav-icon">✦</span
+          ><span class="nav-label">Khuyến mãi</span></a
+        >
+        <a href="statistics.html"
+          ><span class="nav-icon">▥</span
+          ><span class="nav-label">Thống kê</span></a
+        >
+        <a href="settings.html"
+          ><span class="nav-icon">⚙</span
+          ><span class="nav-label">Cài đặt</span></a
+        >
+      </nav>
 
-        <a href="index.html" class="logout" onclick="sessionStorage.removeItem('hoiAnCoffeeLoggedIn'); sessionStorage.removeItem('hoiAnCoffeeUsername');"><span class="nav-icon">⇥</span><span class="nav-label">Đăng xuất</span></a>
+      <a
+        href="/register/login.html"
+        class="logout"
+        onclick="
+          sessionStorage.removeItem('hoiAnCoffeeLoggedIn');
+          sessionStorage.removeItem('hoiAnCoffeeUsername');
+        "
+        ><span class="nav-icon">⇥</span
+        ><span class="nav-label">Đăng xuất</span></a
+      >
     </aside>
 
     <!-- NỘI DUNG CHÍNH -->
     <div class="main">
-        <header class="topbar">
-            <button class="menu-toggle" id="menuToggle" type="button">
-                ☰
-            </button>
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" type="button">☰</button>
 
-            <div class="profile">
-                <div class="avatar">♟</div>
-                <div>
-                    <strong id="loggedInName">Admin</strong>
-                    <small>Quản trị viên</small>
-                </div>
+        <div class="profile">
+          <div class="avatar">♟</div>
+          <div>
+            <strong id="loggedInName">Admin</strong>
+            <small>Quản trị viên</small>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- TIÊU ĐỀ -->
+        <section class="page-heading">
+          <div>
+            <h1>Quản lý nhân viên</h1>
+            <p>Quản lý thông tin và phân quyền tài khoản nhân viên.</p>
+          </div>
+
+          <button class="btn-primary" id="addBtn" type="button">
+            ＋ Thêm nhân viên
+          </button>
+        </section>
+
+        <!-- THỐNG KÊ -->
+        <section class="stats">
+          <div class="stat-card">
+            <div class="stat-icon blue">♟</div>
+            <div>
+              <p>Tổng nhân viên</p>
+              <h2 id="totalCount">0</h2>
             </div>
-        </header>
+          </div>
 
-        <main class="content">
-            <!-- TIÊU ĐỀ -->
-            <section class="page-heading">
-                <div>
-                    <h1>Quản lý nhân viên</h1>
-                    <p>Quản lý thông tin và phân quyền tài khoản nhân viên.</p>
-                </div>
+          <div class="stat-card">
+            <div class="stat-icon green">✦</div>
+            <div>
+              <p>Đang làm việc</p>
+              <h2 id="activeCount">0</h2>
+            </div>
+          </div>
+        </section>
 
-                <button class="btn-primary" id="addBtn" type="button">
-                    ＋ Thêm nhân viên
-                </button>
-            </section>
+        <!-- TÌM KIẾM & LỌC -->
+        <section class="filter-panel">
+          <div class="search-box">
+            <span>⌕</span>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Tìm tên hoặc số điện thoại nhân viên..."
+            />
+          </div>
 
-            <!-- THỐNG KÊ -->
-            <section class="stats">
-                <div class="stat-card">
-                    <div class="stat-icon blue">♟</div>
-                    <div>
-                        <p>Tổng nhân viên</p>
-                        <h2 id="totalCount">0</h2>
-                    </div>
-                </div>
+          <button class="btn-secondary" id="resetBtn" type="button">
+            Đặt lại
+          </button>
+        </section>
 
-                <div class="stat-card">
-                    <div class="stat-icon green">✦</div>
-                    <div>
-                        <p>Đang làm việc</p>
-                        <h2 id="activeCount">0</h2>
-                    </div>
-                </div>
-            </section>
+        <!-- BẢNG NHÂN VIÊN -->
+        <section class="table-panel">
+          <div class="table-heading">
+            <div>
+              <h2>Danh sách nhân viên</h2>
+              <p id="resultCount">0 nhân viên</p>
+            </div>
+          </div>
 
-            <!-- TÌM KIẾM & LỌC -->
-            <section class="filter-panel">
-                <div class="search-box">
-                    <span>⌕</span>
-                    <input
-                        type="search"
-                        id="searchInput"
-                        placeholder="Tìm tên hoặc số điện thoại nhân viên..."
-                    >
-                </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>MÃ NV</th>
+                  <th>HỌ VÀ TÊN</th>
+                  <th>SỐ ĐIỆN THOẠI</th>
+                  <th>CHỨC VỤ</th>
+                  <th>TRẠNG THÁI</th>
+                  <th>THAO TÁC</th>
+                </tr>
+              </thead>
 
-                <button class="btn-secondary" id="resetBtn" type="button">
-                    Đặt lại
-                </button>
-            </section>
+              <tbody id="employeeList"></tbody>
+            </table>
+          </div>
 
-            <!-- BẢNG NHÂN VIÊN -->
-            <section class="table-panel">
-                <div class="table-heading">
-                    <div>
-                        <h2>Danh sách nhân viên</h2>
-                        <p id="resultCount">0 nhân viên</p>
-                    </div>
-                </div>
+          <div class="empty-state" id="emptyState">
+            <span>♟</span>
+            <h3>Chưa có nhân viên</h3>
+            <p>Nhân viên mới sẽ hiển thị tại đây.</p>
+          </div>
+        </section>
 
-                <div class="table-scroll">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>MÃ NV</th>
-                                <th>HỌ VÀ TÊN</th>
-                                <th>SỐ ĐIỆN THOẠI</th>
-                                <th>CHỨC VỤ</th>
-                                <th>TRẠNG THÁI</th>
-                                <th>THAO TÁC</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="employeeList"></tbody>
-                    </table>
-                </div>
-
-                <div class="empty-state" id="emptyState">
-                    <span>♟</span>
-                    <h3>Chưa có nhân viên</h3>
-                    <p>Nhân viên mới sẽ hiển thị tại đây.</p>
-                </div>
-            </section>
-
-            <p class="note">
-                Dữ liệu nhân viên được lưu trên trình duyệt hiện tại.
-            </p>
-        </main>
+        <p class="note">
+          Dữ liệu nhân viên được lưu trên trình duyệt hiện tại.
+        </p>
+      </main>
     </div>
 
     <!-- HỘP THOẠI THÊM / SỬA NHÂN VIÊN -->
     <dialog id="employeeDialog">
-        <form id="employeeForm">
-            <div class="dialog-heading">
-                <div>
-                    <h2 id="modalTitle">Thêm nhân viên</h2>
-                    <p>Nhập thông tin nhân viên mới.</p>
-                </div>
+      <form id="employeeForm">
+        <div class="dialog-heading">
+          <div>
+            <h2 id="modalTitle">Thêm nhân viên</h2>
+            <p>Nhập thông tin nhân viên mới.</p>
+          </div>
 
-                <button type="button" class="close-btn" id="closeBtn">×</button>
-            </div>
+          <button type="button" class="close-btn" id="closeBtn">×</button>
+        </div>
 
-            <input type="hidden" id="employeeId">
+        <input type="hidden" id="employeeId" />
 
-            <label for="employeeName">Họ và tên <span>*</span></label>
-            <input type="text" id="employeeName" placeholder="Nhập họ và tên" required>
+        <label for="employeeName">Họ và tên <span>*</span></label>
+        <input
+          type="text"
+          id="employeeName"
+          placeholder="Nhập họ và tên"
+          required
+        />
 
-            <label for="phone">Số điện thoại <span>*</span></label>
-            <input type="tel" id="phone" placeholder="Nhập số điện thoại" required>
+        <label for="phone">Số điện thoại <span>*</span></label>
+        <input
+          type="tel"
+          id="phone"
+          placeholder="Nhập số điện thoại"
+          required
+        />
 
-            <label for="role">Chức vụ <span>*</span></label>
-            <select id="role" required>
-                <option value="Quản lý">Quản lý</option>
-                <option value="Thu ngân">Thu ngân</option>
-                <option value="Pha chế">Pha chế</option>
-                <option value="Phục vụ">Phục vụ</option>
-            </select>
+        <label for="role">Chức vụ <span>*</span></label>
+        <select id="role" required>
+          <option value="Quản lý">Quản lý</option>
+          <option value="Thu ngân">Thu ngân</option>
+          <option value="Pha chế">Pha chế</option>
+          <option value="Phục vụ">Phục vụ</option>
+        </select>
 
-            <label for="status">Trạng thái</label>
-            <select id="status">
-                <option value="Đang làm việc">Đang làm việc</option>
-                <option value="Nghỉ việc">Nghỉ việc</option>
-            </select>
+        <label for="status">Trạng thái</label>
+        <select id="status">
+          <option value="Đang làm việc">Đang làm việc</option>
+          <option value="Nghỉ việc">Nghỉ việc</option>
+        </select>
 
-            <p id="formError" class="form-error"></p>
+        <p id="formError" class="form-error"></p>
 
-            <div class="dialog-actions">
-                <button type="button" class="btn-secondary" id="cancelBtn">Hủy</button>
-                <button type="submit" class="btn-primary">Lưu nhân viên</button>
-            </div>
-        </form>
+        <div class="dialog-actions">
+          <button type="button" class="btn-secondary" id="cancelBtn">
+            Hủy
+          </button>
+          <button type="submit" class="btn-primary">Lưu nhân viên</button>
+        </div>
+      </form>
     </dialog>
-  <script src="common.js"></script>
-</body>
+    <script src="common.js"></script>
+  </body>
 </html>

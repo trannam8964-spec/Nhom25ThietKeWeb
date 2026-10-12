@@ -116,3 +116,10 @@ function themVaoGio(id) {
 function xemChiTiet(id) {
   window.location.href = "product-details.html?id=" + id;
 }
+
+window.addEventListener("storage", (event) => {
+  if (event.key === "hoianCoffeeProducts" && window.loadCoffeeProducts) {
+    products = window.loadCoffeeProducts();
+    hienThiSanPham(products);
+  }
+});

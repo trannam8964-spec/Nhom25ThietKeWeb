@@ -161,39 +161,65 @@ function xacNhanDatHang() {
 
   if (receiveMethod === "table") {
     tableNumber = document.getElementById("tableNumber").value;
+    const table = window.CoffeeData.readArray("tables").find(
+      (item) => item.id === tableNumber,
+    );
+    if (!tableNumber || !table || table.status !== "Trống") {
+      alert("Bàn vừa được chọn không còn trống. Vui lòng chọn bàn khác.");
+      return;
+    }
   }
 
   // Tạo thông tin đơn hàng
 
+  let customerProfile = {};
+  let authSession = {};
+  try {
+    customerProfile = JSON.parse(
+      localStorage.getItem("customerProfile") || "{}",
+    );
+    authSession = JSON.parse(localStorage.getItem("authSession") || "{}");
+  } catch {
+    customerProfile = {};
+    authSession = {};
+  }
+  const customer = window.CoffeeData?.upsertCustomer(
+    {
+      fullName: customerProfile.fullName || username,
+      email: customerProfile.email || "",
+      phone: customerProfile.phone || "",
+      address: customerProfile.address || "",
+    },
+    authSession.username || username,
+  );
+  const createdAt = new Date().toISOString();
   let order = {
     id: "DH" + Date.now(),
-
-    username: username,
-
-    items: cart,
-
-    receiveMethod: receiveMethod,
-
-    tableNumber: tableNumber,
-
-    paymentMethod: paymentMethod,
-
+    customerId: customer?.id || "",
+    username: authSession.username || username,
+    customerName: customerProfile.fullName || username,
+    customerEmail: customerProfile.email || "",
+    customerPhone: customerProfile.phone || "",
+    items: cart.map((item) => ({
+      ...item,
+      productId: item.productId || item.id,
+    })),
+    receiveMethod,
+    tableNumber,
+    paymentMethod,
+    orderType: receiveMethod === "table" ? "onsite" : "takeaway",
     subtotal: tinhTongTruocUuDai(),
-
     promotionName: getPromotionForOrder().name,
-
     promotionDiscount: getPromotionForOrder().discount,
-
     total: tinhTongDonHang(),
-
-    status: "Chờ xác nhận",
-
-    date: new Date().toLocaleString("vi-VN"),
+    status: "pending",
+    createdAt,
+    date: createdAt,
   };
 
   // Lấy các đơn hàng cũ
 
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+  let orders = window.CoffeeData.readArray("orders");
 
   // Thêm đơn mới
 
@@ -201,7 +227,16 @@ function xacNhanDatHang() {
 
   // Lưu lại
 
-  localStorage.setItem("orders", JSON.stringify(orders));
+  window.CoffeeData.writeArray("orders", orders);
+
+  if (receiveMethod === "table" && tableNumber) {
+    const tables = window.CoffeeData.readArray("tables");
+    const table = tables.find((item) => item.id === tableNumber);
+    if (table) {
+      table.status = "Đang sử dụng";
+      window.CoffeeData.writeArray("tables", tables);
+    }
+  }
 
   // Xóa giỏ hàng
 

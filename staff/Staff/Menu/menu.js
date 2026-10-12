@@ -116,6 +116,34 @@ const recipes = {
 
 let selectedCategory = 'Tất cả';
 
+function loadManagedMenu() {
+    try {
+        const saved = JSON.parse(localStorage.getItem('hoianCoffeeProducts') || '[]');
+        if (Array.isArray(saved) && saved.length) {
+            return saved.filter(item => item.active !== false).map(item => ({
+                ...item,
+                img: item.image?.startsWith('/')
+                    ? item.image
+                    : '/manager/lyna7200/coffe/' + String(item.image || ''),
+                desc: item.description || ''
+            }));
+        }
+    } catch {
+        // Use the bundled staff menu until the manager catalog is initialized.
+    }
+    return products;
+}
+
+products = loadManagedMenu();
+
+function normalizeCategory(value) {
+    return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLocaleLowerCase('vi')
+        .trim();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     renderMenuListUI();
 });
@@ -175,7 +203,7 @@ function renderProductsGrid() {
     const searchValue = (searchInput ? searchInput.value : '').toLowerCase().trim();
 
     const filtered = products.filter(p => {
-        const matchesCat = (selectedCategory === 'Tất cả') || (p.category === selectedCategory);
+        const matchesCat = normalizeCategory(selectedCategory) === normalizeCategory('Tất cả') || normalizeCategory(p.category) === normalizeCategory(selectedCategory);
         const matchesSearch = p.name.toLowerCase().includes(searchValue);
         return matchesCat && matchesSearch;
     });
@@ -272,3 +300,10 @@ function loadProductDetailUI(productId) {
         btnBack.onclick = () => renderMenuListUI();
     }
 }
+
+window.addEventListener("storage", (event) => {
+    if (event.key === "hoianCoffeeProducts") {
+        products = loadManagedMenu();
+        renderMenuListUI();
+    }
+});

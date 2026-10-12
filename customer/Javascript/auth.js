@@ -1,5 +1,5 @@
 const demoRoleAccounts = {
-  admin: { password: "admin123", role: "admin", displayName: "Quản trị viên" },
+  admin: { password: "123456", role: "manager", displayName: "Quản trị viên" },
   staff: { password: "staff123", role: "staff", displayName: "Nhân viên" },
 };
 
@@ -46,10 +46,21 @@ function setCustomerProfile(customer) {
     JSON.stringify({
       fullName: customer.displayName,
       email: customer.email || existingProfile.email || "",
-      phone: existingProfile.phone || "",
+      phone: customer.phone || existingProfile.phone || "",
       address: existingProfile.address || "",
     }),
   );
+  if (window.CoffeeData) {
+    window.CoffeeData.upsertCustomer(
+      {
+        fullName: customer.displayName,
+        email: customer.email || existingProfile.email || "",
+        phone: customer.phone || existingProfile.phone || "",
+        address: existingProfile.address || "",
+      },
+      customer.username || localStorage.getItem("username"),
+    );
+  }
 }
 
 function createSalt() {
@@ -118,17 +129,25 @@ if (loginForm) {
         normalizedUsername,
         demoAccount.displayName,
       );
+      if (demoAccount.role === "manager") {
+        sessionStorage.setItem("hoiAnCoffeeLoggedIn", "true");
+        sessionStorage.setItem("hoiAnCoffeeUsername", demoAccount.displayName);
+      }
       let destination =
         demoAccount.role === "staff"
           ? "/staff/Staff/Dashboard/Dashboard.html"
-          : "/" + demoAccount.role + "/index.html";
+          : demoAccount.role === "manager"
+            ? "/manager/lyna7200/coffe/coffe.html"
+            : "/customer/Dashboard/customer1.html";
       window.location.href = destination;
       return;
     }
 
     let customers = readRegisteredCustomers();
     let registeredCustomer = customers.find(function (customer) {
-      return customer.username.toLowerCase() === normalizedUsername;
+      return (
+        String(customer.username || "").toLowerCase() === normalizedUsername
+      );
     });
 
     if (registeredCustomer) {
@@ -163,6 +182,8 @@ if (loginForm) {
       setCustomerProfile({
         displayName: registeredCustomer.displayName,
         email: registeredCustomer.email,
+        phone: registeredCustomer.phone,
+        username: registeredCustomer.username,
       });
       setAuthSession(
         "customer",
@@ -199,6 +220,7 @@ if (registerForm) {
     let username = formData.get("username").trim();
     let normalizedUsername = username.toLowerCase();
     let email = formData.get("email").trim();
+    let phone = formData.get("phone").trim();
     let password = formData.get("password");
     let confirmPassword = formData.get("confirmPassword");
 
@@ -218,7 +240,13 @@ if (registerForm) {
     let customers = readRegisteredCustomers();
     if (
       customers.some(function (customer) {
-        return customer.username.toLowerCase() === normalizedUsername;
+        return (
+          String(customer.username || "").toLowerCase() ===
+            normalizedUsername ||
+          String(customer.email || "").toLowerCase() === email.toLowerCase() ||
+          String(customer.phone || "").replace(/\s/g, "") ===
+            phone.replace(/\s/g, "")
+        );
       })
     ) {
       showAuthMessage(registerMessage, "Tên đăng nhập đã được sử dụng.");
@@ -232,13 +260,14 @@ if (registerForm) {
         username: username,
         displayName: displayName,
         email: email,
+        phone: phone,
         salt: salt,
         passwordHash: passwordHash,
       };
 
       customers.push(customer);
       localStorage.setItem("registeredCustomers", JSON.stringify(customers));
-      setCustomerProfile({ displayName: displayName, email: email });
+      setCustomerProfile({ username, displayName, email, phone });
       setAuthSession("customer", username, displayName);
       window.location.href = "/customer/Dashboard/customer1.html";
     } catch {

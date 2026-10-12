@@ -1,6 +1,15 @@
 // ================= LẤY TÊN KHÁCH HÀNG =================
 
 let username = localStorage.getItem("username");
+let customerSession = {};
+let customerProfile = {};
+try {
+  customerSession = JSON.parse(localStorage.getItem("authSession") || "{}");
+  customerProfile = JSON.parse(localStorage.getItem("customerProfile") || "{}");
+} catch {
+  customerSession = {};
+  customerProfile = {};
+}
 
 if (!username) {
   username = "Khách hàng";
@@ -10,14 +19,17 @@ document.getElementById("customerName").innerText = username;
 
 // ================= LẤY ĐƠN HÀNG =================
 
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+let orders = window.CoffeeData.readArray("orders");
 
 let orderHistory = document.getElementById("orderHistory");
 let clearHistoryButton = document.getElementById("clearHistoryBtn");
 
 function getCustomerOrders() {
   return orders.filter(function (order) {
-    return order.username === username;
+    return (
+      order.username === (customerSession.username || username) ||
+      order.customerName === (customerProfile.fullName || username)
+    );
   });
 }
 
@@ -142,7 +154,14 @@ function hienThiLichSu() {
 
     // Nếu đơn cũ dùng Completed
     // vẫn hiển thị bình thường
-    let status = order.status || "Không xác định";
+    let status =
+      {
+        pending: "Chờ xác nhận",
+        preparing: "Đang chuẩn bị",
+        delivering: "Đang giao",
+        completed: "Đã hoàn thành",
+        cancelled: "Đã hủy",
+      }[window.CoffeeData.normalizeStatus(order.status)] || order.status;
 
     // Tạo đơn hàng
 
@@ -212,12 +231,12 @@ function hienThiLichSu() {
 }
 
 function luuLichSuDonHang() {
-  localStorage.setItem("orders", JSON.stringify(orders));
+  window.CoffeeData.writeArray("orders", orders);
 }
 
 function xoaDonHang(orderId) {
   let orderExists = getCustomerOrders().some(function (order) {
-    return String(order.id) === orderId;
+    return String(order.id) === orderId && order.status === "pending";
   });
 
   if (
@@ -227,9 +246,7 @@ function xoaDonHang(orderId) {
     return;
   }
 
-  orders = orders.filter(function (order) {
-    return !(order.username === username && String(order.id) === orderId);
-  });
+  orders = orders.filter((order) => String(order.id) !== orderId);
 
   luuLichSuDonHang();
   hienThiLichSu();
@@ -245,9 +262,12 @@ clearHistoryButton.addEventListener("click", function () {
     return;
   }
 
-  orders = orders.filter(function (order) {
-    return order.username !== username;
-  });
+  const pendingIds = new Set(
+    customerOrders
+      .filter((order) => order.status === "pending")
+      .map((order) => String(order.id)),
+  );
+  orders = orders.filter((order) => !pendingIds.has(String(order.id)));
 
   luuLichSuDonHang();
   hienThiLichSu();
@@ -262,16 +282,22 @@ orderHistory.addEventListener("click", function (event) {
 });
 
 window.addEventListener("storage", function (event) {
-  if (event.key !== "orders") {
+  if (!["orders", "customerProfile", "authSession"].includes(event.key)) {
     return;
   }
 
   try {
-    let updatedOrders = JSON.parse(event.newValue || "[]");
-    orders = Array.isArray(updatedOrders) ? updatedOrders : [];
+    orders = window.CoffeeData.readArray("orders");
     hienThiLichSu();
   } catch (error) {
     console.error("Không thể cập nhật lịch sử đơn hàng.", error);
+  }
+});
+
+window.addEventListener("coffee:datachange", (event) => {
+  if (event.detail === "orders") {
+    orders = window.CoffeeData.readArray("orders");
+    hienThiLichSu();
   }
 });
 
