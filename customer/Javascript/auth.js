@@ -1,5 +1,5 @@
 const demoRoleAccounts = {
-  admin: { password: "admin123", role: "admin", displayName: "Quản trị viên" },
+  admin: { password: "123456", role: "manager", displayName: "Quản trị viên" },
   staff: { password: "staff123", role: "staff", displayName: "Nhân viên" },
 };
 
@@ -27,6 +27,7 @@ function setAuthSession(role, username, displayName) {
 
 function setCustomerProfile(customer) {
   let existingProfile = {};
+  let profileUsername = String(customer.username || customer.displayName || "");
 
   try {
     existingProfile = JSON.parse(
@@ -36,7 +37,12 @@ function setCustomerProfile(customer) {
     existingProfile = {};
   }
 
-  if (localStorage.getItem("username") !== customer.displayName) {
+  if (
+    localStorage.getItem("username") !== customer.displayName ||
+    (existingProfile.username &&
+      String(existingProfile.username).toLowerCase() !==
+        profileUsername.toLowerCase())
+  ) {
     existingProfile = {};
   }
 
@@ -44,12 +50,25 @@ function setCustomerProfile(customer) {
   localStorage.setItem(
     "customerProfile",
     JSON.stringify({
+      username: profileUsername,
       fullName: customer.displayName,
       email: customer.email || existingProfile.email || "",
-      phone: existingProfile.phone || "",
+      phone: customer.phone || existingProfile.phone || "",
       address: existingProfile.address || "",
+      avatarDataUrl: existingProfile.avatarDataUrl || "",
     }),
   );
+  if (window.CoffeeData) {
+    window.CoffeeData.upsertCustomer(
+      {
+        fullName: customer.displayName,
+        email: customer.email || existingProfile.email || "",
+        phone: customer.phone || existingProfile.phone || "",
+        address: existingProfile.address || "",
+      },
+      customer.username || localStorage.getItem("username"),
+    );
+  }
 }
 
 function createSalt() {
@@ -57,6 +76,12 @@ function createSalt() {
   return Array.from(bytes, function (byte) {
     return byte.toString(16).padStart(2, "0");
   }).join("");
+}
+
+function normalizePhone(value) {
+  return String(value || "")
+    .replace(/\s+/g, "")
+    .replace(/^\+84/, "0");
 }
 
 async function hashPassword(password, salt) {
@@ -95,6 +120,22 @@ if (loginForm) {
   let loginPassword = document.getElementById("loginPassword");
   let loginMessage = document.getElementById("loginMessage");
   loginUsername.value = localStorage.getItem("username") || "";
+  let loginParams = new URLSearchParams(window.location.search);
+  let noticeUsername = loginParams.get("username");
+  if (noticeUsername) loginUsername.value = noticeUsername;
+  if (loginParams.get("registered") === "1") {
+    showAuthMessage(
+      loginMessage,
+      "Tạo tài khoản thành công. Hãy đăng nhập bằng mật khẩu vừa đăng ký.",
+      true,
+    );
+  } else if (loginParams.get("reset") === "success") {
+    showAuthMessage(
+      loginMessage,
+      "Đổi mật khẩu thành công. Hãy đăng nhập bằng mật khẩu mới.",
+      true,
+    );
+  }
 
   loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -118,20 +159,32 @@ if (loginForm) {
         normalizedUsername,
         demoAccount.displayName,
       );
-      window.location.href = "/" + demoAccount.role + "/index.html";
+      if (demoAccount.role === "manager") {
+        sessionStorage.setItem("hoiAnCoffeeLoggedIn", "true");
+        sessionStorage.setItem("hoiAnCoffeeUsername", demoAccount.displayName);
+      }
+      let destination =
+        demoAccount.role === "staff"
+          ? "/staff/Staff/Dashboard/Dashboard.html"
+          : demoAccount.role === "manager"
+            ? "/manager/lyna7200/coffe/coffe.html"
+            : "/customer/Dashboard/customer1.html";
+      window.location.href = destination;
       return;
     }
 
     let customers = readRegisteredCustomers();
     let registeredCustomer = customers.find(function (customer) {
-      return customer.username.toLowerCase() === normalizedUsername;
+      return (
+        String(customer.username || "").toLowerCase() === normalizedUsername
+      );
     });
 
     if (registeredCustomer) {
       if (!password) {
         showAuthMessage(
           loginMessage,
-          "Tài khoản này cần mật khẩu. Nếu quên, hãy đăng ký bằng tên khác trong bản demo.",
+          "Tài khoản này cần mật khẩu. Nếu quên, hãy chọn Quên mật khẩu để khôi phục.",
         );
         return;
       }
@@ -159,6 +212,8 @@ if (loginForm) {
       setCustomerProfile({
         displayName: registeredCustomer.displayName,
         email: registeredCustomer.email,
+        phone: registeredCustomer.phone,
+        username: registeredCustomer.username,
       });
       setAuthSession(
         "customer",
@@ -195,6 +250,7 @@ if (registerForm) {
     let username = formData.get("username").trim();
     let normalizedUsername = username.toLowerCase();
     let email = formData.get("email").trim();
+    let phone = formData.get("phone").trim();
     let password = formData.get("password");
     let confirmPassword = formData.get("confirmPassword");
 
@@ -214,7 +270,13 @@ if (registerForm) {
     let customers = readRegisteredCustomers();
     if (
       customers.some(function (customer) {
-        return customer.username.toLowerCase() === normalizedUsername;
+        return (
+          String(customer.username || "").toLowerCase() ===
+            normalizedUsername ||
+          String(customer.email || "").toLowerCase() === email.toLowerCase() ||
+          String(customer.phone || "").replace(/\s/g, "") ===
+            phone.replace(/\s/g, "")
+        );
       })
     ) {
       showAuthMessage(registerMessage, "Tên đăng nhập đã được sử dụng.");
@@ -228,19 +290,85 @@ if (registerForm) {
         username: username,
         displayName: displayName,
         email: email,
+        phone: phone,
         salt: salt,
         passwordHash: passwordHash,
       };
 
       customers.push(customer);
       localStorage.setItem("registeredCustomers", JSON.stringify(customers));
-      setCustomerProfile({ displayName: displayName, email: email });
-      setAuthSession("customer", username, displayName);
-      window.location.href = "/customer/Dashboard/customer1.html";
+      window.location.replace(
+        "/register/login.html?registered=1&username=" +
+          encodeURIComponent(username),
+      );
     } catch {
       showAuthMessage(
         registerMessage,
         "Không thể tạo tài khoản trong môi trường hiện tại. Hãy mở trang bằng localhost hoặc HTTPS.",
+      );
+    }
+  });
+}
+
+let forgotPasswordForm = document.getElementById("forgotPasswordForm");
+if (forgotPasswordForm) {
+  let forgotPasswordMessage = document.getElementById("forgotPasswordMessage");
+
+  forgotPasswordForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    let username = document.getElementById("recoveryUsername").value.trim();
+    let email = document
+      .getElementById("recoveryEmail")
+      .value.trim()
+      .toLowerCase();
+    let phone = normalizePhone(
+      document.getElementById("recoveryPhone").value,
+    );
+    let password = document.getElementById("newPassword").value;
+    let confirmPassword = document.getElementById("confirmNewPassword").value;
+
+    if (password !== confirmPassword) {
+      showAuthMessage(
+        forgotPasswordMessage,
+        "Mật khẩu mới nhập lại chưa khớp.",
+      );
+      return;
+    }
+
+    let customers = readRegisteredCustomers();
+    let accountIndex = customers.findIndex(
+      (customer) =>
+        String(customer.username || "").toLowerCase() === username.toLowerCase() &&
+        String(customer.email || "").trim().toLowerCase() === email &&
+        normalizePhone(customer.phone) === phone,
+    );
+
+    if (accountIndex < 0) {
+      showAuthMessage(
+        forgotPasswordMessage,
+        "Thông tin không khớp với tài khoản đã đăng ký. Vui lòng kiểm tra lại.",
+      );
+      return;
+    }
+
+    try {
+      let salt = createSalt();
+      let passwordHash = await hashPassword(password, salt);
+      customers[accountIndex] = {
+        ...customers[accountIndex],
+        salt: salt,
+        passwordHash: passwordHash,
+      };
+      localStorage.setItem("registeredCustomers", JSON.stringify(customers));
+      let loginUrl =
+        "/register/login.html?reset=success&username=" +
+        encodeURIComponent(customers[accountIndex].username);
+      window.location.replace(loginUrl);
+    } catch {
+      showAuthMessage(
+        forgotPasswordMessage,
+        "Không thể đổi mật khẩu trong môi trường này. Hãy mở trang bằng localhost hoặc HTTPS.",
       );
     }
   });

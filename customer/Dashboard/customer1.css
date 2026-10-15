@@ -384,16 +384,16 @@ a {
 }
 
 .product-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* PRODUCT IMAGE */
 
 .product-image {
   width: 100%;
-  height: 180px;
+  height: 200px;
 
   overflow: hidden;
 }
@@ -407,16 +407,26 @@ a {
   display: block;
 }
 
+.featured-product-link {
+  display: block;
+  cursor: pointer;
+}
+
+.featured-product-link:focus-visible {
+  outline: 3px solid #d99a5b;
+  outline-offset: 3px;
+}
+
 /* PRODUCT INFO */
 
 .product-info {
-  padding: 15px;
+  padding: 16px;
 }
 
 .product-info h3 {
   color: #4b2e20;
 
-  font-size: 16px;
+  font-size: 17px;
 
   margin-bottom: 7px;
 }
@@ -424,9 +434,9 @@ a {
 .product-category {
   color: #999;
 
-  font-size: 12px;
+  font-size: 13px;
 
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .product-bottom {
@@ -439,14 +449,14 @@ a {
 .product-price {
   color: #7b4a32;
 
-  font-size: 16px;
+  font-size: 17px;
 
   font-weight: bold;
 }
 
 .add-cart {
-  width: 35px;
-  height: 35px;
+  width: 38px;
+  height: 38px;
 
   border: none;
 
@@ -458,6 +468,8 @@ a {
 
   cursor: pointer;
 
+  font-size: 15px;
+
   transition: 0.2s;
 }
 
@@ -466,99 +478,115 @@ a {
 }
 
 /* =========================
-   PROMOTION
+   PROMOTIONS
 ========================= */
 
-.promotion {
-  background-color: #fff;
+.promotion-section {
+  margin-bottom: 30px;
+}
 
-  border-radius: 12px;
+.promotion-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
 
-  padding: 25px;
-
+.promotion-card {
   display: flex;
+  min-height: 230px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px;
+  border: 1px solid #ece7e3;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
 
+.promotion-heading {
+  display: flex;
   align-items: center;
-
-  gap: 18px;
-
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-
-  margin-bottom: 20px;
+  gap: 12px;
 }
 
 .promotion-icon {
-  width: 55px;
-  height: 55px;
-
-  flex-shrink: 0;
-
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  place-items: center;
   border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: #f0e5df;
-
+  background: #f0e5df;
   color: #7b4a32;
+  font-size: 18px;
+}
 
-  font-size: 22px;
+.promotion-label {
+  color: #8a5435;
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .promotion-content {
   flex: 1;
 }
 
-.promotion-content h2 {
+.promotion-content h3 {
+  margin-bottom: 7px;
   color: #4b2e20;
-
-  font-size: 18px;
-
-  margin-bottom: 5px;
+  font-size: 17px;
+  line-height: 1.4;
 }
 
 .promotion-content p {
   color: #777;
-
   font-size: 14px;
+  line-height: 1.6;
 }
 
 .promotion-button {
-  border: none;
-
-  background-color: #7b4a32;
-
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border-radius: 6px;
+  background: #7b4a32;
   color: white;
-
-  padding: 11px 18px;
-
-  border-radius: 7px;
-
-  cursor: pointer;
-
   font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .promotion-button:hover {
-  background-color: #5f3826;
+  background: #5f3826;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media (max-width: 1100px) {
-  .dashboard {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+@media (max-width: 1200px) {
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1100px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
   .sidebar {
     width: 70px;
     min-width: 70px;
@@ -588,27 +616,28 @@ a {
     grid-template-columns: 1fr 1fr;
   }
 
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .content {
+    padding: 20px;
   }
 }
 
 @media (max-width: 550px) {
-  .content {
-    padding: 20px;
-  }
-
   .dashboard {
     grid-template-columns: 1fr;
   }
 
-  .product-grid {
+  .promotion-grid {
     grid-template-columns: 1fr;
   }
+}
 
-  .promotion {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width: 500px) {
+  .content {
+    padding: 15px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
   }
 
   .header {

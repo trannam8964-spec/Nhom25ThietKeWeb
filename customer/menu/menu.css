@@ -345,6 +345,13 @@ input {
   gap: 20px;
 }
 
+.menu-empty {
+  grid-column: 1 / -1;
+  padding: 24px;
+  color: #777;
+  text-align: center;
+}
+
 /* =========================
    PRODUCT CARD
 ========================= */

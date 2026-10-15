@@ -18,7 +18,7 @@
 
   <body data-required-role="customer">
     <div class="layout">
-      <!-- ================= SIDEBAR ================= -->
+      <!--  SIDEBAR  -->
       <aside class="sidebar">
         <div class="logo">
           <i class="fa-solid fa-mug-hot"></i>
@@ -71,7 +71,7 @@
         </div>
       </aside>
 
-      <!-- ================= MAIN ================= -->
+      <!--  MAIN  -->
       <main class="main">
         <!-- HEADER -->
         <header class="header">
@@ -91,7 +91,7 @@
 
         <!-- CONTENT -->
         <div class="content">
-          <!-- ================= WELCOME ================= -->
+          <!--  WELCOME  -->
           <section class="welcome-section">
             <h1>
               Xin chào,
@@ -101,7 +101,7 @@
             <p>Chào mừng bạn ghé thăm Coffee House.</p>
           </section>
 
-          <!-- ================= DASHBOARD ================= -->
+          <!--  DASHBOARD  -->
           <section class="dashboard">
             <!-- Tổng đơn -->
             <div class="stat-card">
@@ -112,6 +112,17 @@
               <div class="stat-info">
                 <p>Tổng đơn hàng</p>
                 <h3 id="totalOrders">0</h3>
+              </div>
+            </div>
+
+            <!-- Hoàn thành -->
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div class="stat-info">
+                <p>Chờ nhân viên xác nhận</p>
+                <h3 id="pendingOrders">0</h3>
               </div>
             </div>
 
@@ -127,7 +138,16 @@
               </div>
             </div>
 
-            <!-- Hoàn thành -->
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fa-solid fa-motorcycle"></i>
+              </div>
+              <div class="stat-info">
+                <p>Đang giao</p>
+                <h3 id="deliveringOrders">0</h3>
+              </div>
+            </div>
+
             <div class="stat-card">
               <div class="stat-icon">
                 <i class="fa-solid fa-circle-check"></i>
@@ -142,6 +162,16 @@
             <!-- Tổng chi tiêu -->
             <div class="stat-card">
               <div class="stat-icon">
+                <i class="fa-solid fa-ban"></i>
+              </div>
+              <div class="stat-info">
+                <p>Đã hủy</p>
+                <h3 id="cancelledOrders">0</h3>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">
                 <i class="fa-solid fa-money-bill-wave"></i>
               </div>
 
@@ -152,7 +182,7 @@
             </div>
           </section>
 
-          <!-- ================= FEATURED PRODUCTS ================= -->
+          <!--  FEATURED PRODUCTS  -->
           <section class="section">
             <div class="section-header">
               <div>
@@ -169,27 +199,75 @@
             <div class="product-grid" id="featuredProducts"></div>
           </section>
 
-          <!-- ================= PROMOTION ================= -->
-          <section class="promotion">
-            <div class="promotion-icon">
-              <i class="fa-solid fa-gift"></i>
+          <!--  PROMOTIONS  -->
+          <section class="section promotion-section">
+            <div class="section-header">
+              <div>
+                <h2>Khuyến mãi</h2>
+                <p>Mỗi hóa đơn áp dụng một ưu đãi có mức giảm cao nhất.</p>
+              </div>
             </div>
 
-            <div class="promotion-content">
-              <h2>Ưu đãi dành cho bạn</h2>
+            <div class="promotion-grid" id="customerPromotions">
+              <article class="promotion-card">
+                <div class="promotion-heading">
+                  <span class="promotion-icon">
+                    <i class="fa-solid fa-user-group" aria-hidden="true"></i>
+                  </span>
+                  <span class="promotion-label">COMBO ĐÔI</span>
+                </div>
+                <div class="promotion-content">
+                  <h3>Mua 2 thức uống</h3>
+                  <p>Giảm 10% trên tổng tiền thức uống trong đơn.</p>
+                </div>
+                <a class="promotion-button" href="/customer/menu/menu.html">
+                  Chọn món
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </article>
 
-              <p>
-                Khám phá những chương trình ưu đãi hấp dẫn tại Coffee House.
-              </p>
+              <article class="promotion-card">
+                <div class="promotion-heading">
+                  <span class="promotion-icon">
+                    <i class="fa-solid fa-mug-hot" aria-hidden="true"></i>
+                  </span>
+                  <span class="promotion-label">COMBO NHÓM</span>
+                </div>
+                <div class="promotion-content">
+                  <h3>Từ 3 thức uống</h3>
+                  <p>Giảm 15% trên tiền thức uống trong đơn.</p>
+                </div>
+                <a class="promotion-button" href="/customer/menu/menu.html">
+                  Chọn món
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </article>
+
+              <article class="promotion-card">
+                <div class="promotion-heading">
+                  <span class="promotion-icon">
+                    <i class="fa-solid fa-cookie-bite" aria-hidden="true"></i>
+                  </span>
+                  <span class="promotion-label">CÀ PHÊ & MÓN ĂN</span>
+                </div>
+                <div class="promotion-content">
+                  <h3>Mua cà phê kèm món ăn</h3>
+                  <p>Giảm 10.000đ khi có ít nhất 1 cà phê và 1 món ăn.</p>
+                </div>
+                <a class="promotion-button" href="/customer/menu/menu.html">
+                  Chọn món
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </article>
             </div>
-
-            <button class="promotion-button">Khám phá ngay</button>
           </section>
         </div>
       </main>
     </div>
 
     <!-- JavaScript -->
+    <script src="/shared-data.js"></script>
+    <script src="/customer/Javascript/promotions.js"></script>
     <script src="/customer/Javascript/data.js"></script>
     <script src="/customer/Javascript/customer.js"></script>
     <script src="/customer/Javascript/cart-count.js"></script>

@@ -367,3 +367,27 @@ let products = [
     image: "../../Menu/Trà sữa/tranchauduongden.jpg",
   },
 ];
+
+function loadCoffeeProducts() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("hoianCoffeeProducts") || "[]");
+    if (Array.isArray(saved) && saved.length) {
+      return saved
+        .filter((product) => product.active !== false)
+        .map((product) => ({
+          ...product,
+          image: product.image?.startsWith("/")
+            ? product.image
+            : "/manager/lyna7200/coffe/" + String(product.image || ""),
+          sold: Number(product.sold) || 0,
+          rating: Number(product.rating) || 4.7,
+        }));
+    }
+  } catch {
+    // Use the bundled menu if the manager catalog is not available yet.
+  }
+  return products;
+}
+
+products = loadCoffeeProducts();
+window.loadCoffeeProducts = loadCoffeeProducts;

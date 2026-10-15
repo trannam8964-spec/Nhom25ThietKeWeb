@@ -3,6 +3,8 @@
 let cartItems = document.getElementById("cartItems");
 let subtotal = document.getElementById("subtotal");
 let serviceFee = document.getElementById("serviceFee");
+let promotionNameElement = document.getElementById("promotionName");
+let promotionDiscountElement = document.getElementById("promotionDiscount");
 let totalPrice = document.getElementById("totalPrice");
 
 // LẤY TÊN KHÁCH HÀNG
@@ -175,11 +177,20 @@ function tinhTongTien() {
   // Phí dịch vụ hiện tại = 0
   let phiDichVu = 0;
 
-  let tongCong = tong + phiDichVu;
+  let promotion = window.tinhKhuyenMai
+    ? window.tinhKhuyenMai(cart)
+    : { name: "Chưa áp dụng", discount: 0 };
+  let uuDai = promotion.discount;
+  let tongCong = tong + phiDichVu - uuDai;
 
   subtotal.innerText = tong.toLocaleString("vi-VN") + "đ";
 
   serviceFee.innerText = phiDichVu.toLocaleString("vi-VN") + "đ";
+
+  promotionNameElement.innerText = promotion.name;
+
+  promotionDiscountElement.innerText =
+    "-" + uuDai.toLocaleString("vi-VN") + "đ";
 
   totalPrice.innerText = tongCong.toLocaleString("vi-VN") + "đ";
 }

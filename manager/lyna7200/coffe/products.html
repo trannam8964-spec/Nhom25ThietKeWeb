@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hội An Coffee - Quản lý sản phẩm</title>
+    <link rel="stylesheet" href="products.css" />
+    <link rel="stylesheet" href="menu-profile.css" />
+    <link rel="stylesheet" href="theme-overrides.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">☕</div>
+        <span>Hội An Coffee</span>
+      </div>
+      <nav class="menu">
+        <a href="coffe.html"
+          ><span class="nav-icon">▦</span
+          ><span class="nav-label">Trang chủ</span></a
+        >
+        <a href="products.html" class="active"
+          ><span class="nav-icon">▣</span
+          ><span class="nav-label">Sản phẩm</span></a
+        >
+        <a href="orders.html"
+          ><span class="nav-icon">▤</span
+          ><span class="nav-label">Đơn hàng</span></a
+        >
+        <a href="customers.html"
+          ><span class="nav-icon">♙</span
+          ><span class="nav-label">Khách hàng</span></a
+        >
+        <a href="employees.html"
+          ><span class="nav-icon">♟</span
+          ><span class="nav-label">Nhân viên</span></a
+        >
+        <a href="tables.html"
+          ><span class="nav-icon">▦</span><span class="nav-label">Bàn</span></a
+        >
+        <a href="inventory.html"
+          ><span class="nav-icon">▣</span><span class="nav-label">Kho</span></a
+        >
+        <a href="promotions.html"
+          ><span class="nav-icon">✦</span
+          ><span class="nav-label">Khuyến mãi</span></a
+        >
+        <a href="statistics.html"
+          ><span class="nav-icon">▥</span
+          ><span class="nav-label">Thống kê</span></a
+        >
+        <a href="settings.html"
+          ><span class="nav-icon">⚙</span
+          ><span class="nav-label">Cài đặt</span></a
+        >
+      </nav>
+      <a
+        href="/register/login.html"
+        class="logout"
+        onclick="
+          sessionStorage.removeItem('hoiAnCoffeeLoggedIn');
+          sessionStorage.removeItem('hoiAnCoffeeUsername');
+        "
+        ><span class="nav-icon">⇥</span
+        ><span class="nav-label">Đăng xuất</span></a
+      >
+    </aside>
+    <div class="main">
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+
+        <div class="profile">
+          <div class="avatar">♙</div>
+          <div>
+            <strong id="loggedInName">Admin</strong>
+            <small>Quản trị viên</small>
+          </div>
+        </div>
+      </header>
+      <main class="content">
+        <section class="page-heading">
+          <div>
+            <h1>Quản lý sản phẩm</h1>
+            <p>Quản lý đồ uống và đồ ăn của Hội An Coffee.</p>
+          </div>
+          <button class="btn-primary" id="addBtn">＋ Thêm sản phẩm</button>
+        </section>
+        <section class="stats">
+          <div class="stat-card">
+            <div class="stat-icon blue">▣</div>
+            <div>
+              <p>Tổng sản phẩm</p>
+              <h2 id="totalCount">32</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">✓</div>
+            <div>
+              <p>Đang kinh doanh</p>
+              <h2 id="activeCount">32</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon orange">Ⅱ</div>
+            <div>
+              <p>Ngừng kinh doanh</p>
+              <h2 id="inactiveCount">0</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon purple">▤</div>
+            <div>
+              <p>Danh mục</p>
+              <h2 id="categoryCount">5</h2>
+            </div>
+          </div>
+        </section>
+        <section class="filter-panel">
+          <div class="search-box">
+            <span>⌕</span>
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Tìm tên hoặc mã sản phẩm..."
+            />
+          </div>
+          <select id="categoryFilter">
+            <option value="">Tất cả danh mục</option>
+            <option value="Cà phê">Cà phê</option>
+            <option value="Trà">Trà</option>
+            <option value="Trà sữa">Trà sữa</option>
+            <option value="Nước ép">Nước ép</option>
+            <option value="Đồ ăn">Đồ ăn</option>
+          </select>
+          <select id="statusFilter">
+            <option value="">Tất cả trạng thái</option>
+            <option value="active">Đang kinh doanh</option>
+            <option value="inactive">Ngừng kinh doanh</option>
+          </select>
+          <button class="btn-secondary" id="resetBtn">Đặt lại</button>
+        </section>
+        <section class="table-panel">
+          <div class="table-heading">
+            <div>
+              <h2>Danh sách sản phẩm</h2>
+              <p id="resultCount">32 sản phẩm</p>
+            </div>
+            <button class="btn-secondary" id="exportBtn">⇩ Xuất CSV</button>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>MÃ SẢN PHẨM</th>
+                  <th>TÊN SẢN PHẨM</th>
+                  <th>DANH MỤC</th>
+                  <th>GIÁ BÁN</th>
+                  <th>TRẠNG THÁI</th>
+                  <th>THAO TÁC</th>
+                </tr>
+              </thead>
+              <tbody id="productList"></tbody>
+            </table>
+          </div>
+          <div class="empty-state" id="emptyState" hidden>
+            <span>☕</span>
+            <h3>Không tìm thấy sản phẩm</h3>
+            <p>Thử thay đổi từ khóa tìm kiếm.</p>
+          </div>
+        </section>
+        <p class="note">
+          Dữ liệu hiện được lưu trên trình duyệt đang sử dụng. Muốn đồng bộ với
+          trang nhân viên và đơn hàng, cần kết nối chung với Flask và SQLite.
+        </p>
+      </main>
+    </div>
+    <dialog id="productDialog">
+      <form id="productForm">
+        <div class="dialog-heading">
+          <div>
+            <h2 id="dialogTitle">Thêm sản phẩm</h2>
+            <p>Nhập thông tin sản phẩm</p>
+          </div>
+          <button type="button" class="close-btn" id="closeBtn">×</button>
+        </div>
+        <input type="hidden" id="productId" />
+        <label for="productName">Tên sản phẩm <span>*</span></label>
+        <input
+          type="text"
+          id="productName"
+          maxlength="100"
+          required
+          placeholder="Nhập tên sản phẩm"
+        />
+        <div class="form-row">
+          <div>
+            <label for="productCategory">Danh mục <span>*</span></label>
+            <select id="productCategory" required>
+              <option value="">Chọn danh mục</option>
+              <option value="Cà phê">Cà phê</option>
+              <option value="Trà">Trà</option>
+              <option value="Trà sữa">Trà sữa</option>
+              <option value="Nước ép">Nước ép</option>
+              <option value="Đồ ăn">Đồ ăn</option>
+            </select>
+          </div>
+          <div>
+            <label for="productPrice">Giá bán (đ) <span>*</span></label>
+            <input
+              type="number"
+              id="productPrice"
+              min="0"
+              step="1000"
+              required
+              placeholder="35000"
+            />
+          </div>
+        </div>
+        <label for="productImage">Đường dẫn hình ảnh</label>
+        <input
+          type="text"
+          id="productImage"
+          placeholder="/manager/lyna7200/coffe/product_images/ten-anh.jpg"
+        />
+        <label for="productDescription">Mô tả</label>
+        <textarea
+          id="productDescription"
+          rows="3"
+          placeholder="Mô tả sản phẩm..."
+        ></textarea>
+        <label class="checkbox-label">
+          <input type="checkbox" id="productActive" checked />Đang kinh doanh
+        </label>
+        <p id="formError" class="form-error"></p>
+        <div class="dialog-actions">
+          <button type="button" class="btn-secondary" id="cancelBtn">
+            Hủy
+          </button>
+          <button type="submit" class="btn-primary">Lưu sản phẩm</button>
+        </div>
+      </form>
+    </dialog>
+    <script src="common.js"></script>
+    <script src="products.js"></script>
+  </body>
+</html>

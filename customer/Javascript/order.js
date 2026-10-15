@@ -6,6 +6,10 @@ let subtotal = document.getElementById("subtotal");
 
 let serviceFee = document.getElementById("serviceFee");
 
+let promotionNameElement = document.getElementById("promotionName");
+
+let promotionDiscountElement = document.getElementById("promotionDiscount");
+
 let totalPrice = document.getElementById("totalPrice");
 
 // LẤY TÊN KHÁCH
@@ -96,11 +100,20 @@ function tinhTongTien() {
 
   let phiDichVu = 0;
 
-  let tongCong = tong + phiDichVu;
+  let promotion = getPromotionForOrder();
+
+  let uuDai = promotion.discount;
+
+  let tongCong = tong + phiDichVu - uuDai;
 
   subtotal.innerText = tong.toLocaleString("vi-VN") + "đ";
 
   serviceFee.innerText = phiDichVu.toLocaleString("vi-VN") + "đ";
+
+  promotionNameElement.innerText = promotion.name;
+
+  promotionDiscountElement.innerText =
+    "-" + uuDai.toLocaleString("vi-VN") + "đ";
 
   totalPrice.innerText = tongCong.toLocaleString("vi-VN") + "đ";
 }
@@ -148,33 +161,65 @@ function xacNhanDatHang() {
 
   if (receiveMethod === "table") {
     tableNumber = document.getElementById("tableNumber").value;
+    const table = window.CoffeeData.readArray("tables").find(
+      (item) => item.id === tableNumber,
+    );
+    if (!tableNumber || !table || table.status !== "Trống") {
+      alert("Bàn vừa được chọn không còn trống. Vui lòng chọn bàn khác.");
+      return;
+    }
   }
 
   // Tạo thông tin đơn hàng
 
+  let customerProfile = {};
+  let authSession = {};
+  try {
+    customerProfile = JSON.parse(
+      localStorage.getItem("customerProfile") || "{}",
+    );
+    authSession = JSON.parse(localStorage.getItem("authSession") || "{}");
+  } catch {
+    customerProfile = {};
+    authSession = {};
+  }
+  const customer = window.CoffeeData?.upsertCustomer(
+    {
+      fullName: customerProfile.fullName || username,
+      email: customerProfile.email || "",
+      phone: customerProfile.phone || "",
+      address: customerProfile.address || "",
+    },
+    authSession.username || username,
+  );
+  const createdAt = new Date().toISOString();
   let order = {
     id: "DH" + Date.now(),
-
-    username: username,
-
-    items: cart,
-
-    receiveMethod: receiveMethod,
-
-    tableNumber: tableNumber,
-
-    paymentMethod: paymentMethod,
-
+    customerId: customer?.id || "",
+    username: authSession.username || username,
+    customerName: customerProfile.fullName || username,
+    customerEmail: customerProfile.email || "",
+    customerPhone: customerProfile.phone || "",
+    items: cart.map((item) => ({
+      ...item,
+      productId: item.productId || item.id,
+    })),
+    receiveMethod,
+    tableNumber,
+    paymentMethod,
+    orderType: receiveMethod === "table" ? "onsite" : "takeaway",
+    subtotal: tinhTongTruocUuDai(),
+    promotionName: getPromotionForOrder().name,
+    promotionDiscount: getPromotionForOrder().discount,
     total: tinhTongDonHang(),
-
-    status: "Chờ xác nhận",
-
-    date: new Date().toLocaleString("vi-VN"),
+    status: "pending",
+    createdAt,
+    date: createdAt,
   };
 
   // Lấy các đơn hàng cũ
 
-  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+  let orders = window.CoffeeData.readArray("orders");
 
   // Thêm đơn mới
 
@@ -182,7 +227,17 @@ function xacNhanDatHang() {
 
   // Lưu lại
 
-  localStorage.setItem("orders", JSON.stringify(orders));
+  window.CoffeeData.writeArray("orders", orders);
+
+  if (receiveMethod === "table" && tableNumber) {
+    const tables = window.CoffeeData.readArray("tables");
+    const table = tables.find((item) => item.id === tableNumber);
+    if (table) {
+      // Đơn mới chỉ giữ bàn; nhân viên chuyển sang "Đang sử dụng" khi khách nhận bàn.
+      table.status = "Đặt trước";
+      window.CoffeeData.writeArray("tables", tables);
+    }
+  }
 
   // Xóa giỏ hàng
 
@@ -202,6 +257,10 @@ function xacNhanDatHang() {
 // TÍNH TỔNG ĐƠN
 
 function tinhTongDonHang() {
+  return tinhTongTruocUuDai() - getPromotionForOrder().discount;
+}
+
+function tinhTongTruocUuDai() {
   let tong = 0;
 
   for (let item of cart) {
@@ -209,6 +268,12 @@ function tinhTongDonHang() {
   }
 
   return tong;
+}
+
+function getPromotionForOrder() {
+  return window.tinhKhuyenMai
+    ? window.tinhKhuyenMai(cart)
+    : { name: "Chưa áp dụng", discount: 0 };
 }
 
 //  QUAY LẠI GIỎ HÀNG
