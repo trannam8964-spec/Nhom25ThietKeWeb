@@ -54,10 +54,10 @@ const initialProducts = [
   active: true,
 }));
 let products = loadProducts();
-const $ = (id) => document.getElementById(id);
-const productList = $("productList");
-const productDialog = $("productDialog");
-const productForm = $("productForm");
+const getProductElement = (id) => document.getElementById(id);
+const productList = getProductElement("productList");
+const productDialog = getProductElement("productDialog");
+const productForm = getProductElement("productForm");
 function loadProducts() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
@@ -97,9 +97,9 @@ function nextProductId() {
   return "P" + String(maxId + 1).padStart(3, "0");
 }
 function renderProducts() {
-  const keyword = $("searchInput").value.trim().toLocaleLowerCase("vi");
-  const category = $("categoryFilter").value;
-  const status = $("statusFilter").value;
+  const keyword = getProductElement("searchInput").value.trim().toLocaleLowerCase("vi");
+  const category = getProductElement("categoryFilter").value;
+  const status = getProductElement("statusFilter").value;
   const filtered = products.filter((product) => {
     const matchesKeyword =
       product.name.toLocaleLowerCase("vi").includes(keyword) ||
@@ -159,27 +159,27 @@ function renderProducts() {
     )
     .join("");
 
-  $("emptyState").hidden = filtered.length > 0;
-  $("resultCount").textContent = `${filtered.length} sản phẩm`;
+  getProductElement("emptyState").hidden = filtered.length > 0;
+  getProductElement("resultCount").textContent = `${filtered.length} sản phẩm`;
 
   updateStatistics();
 }
 
 function updateStatistics() {
-  $("totalCount").textContent = products.length;
-  $("activeCount").textContent = products.filter((p) => p.active).length;
-  $("inactiveCount").textContent = products.filter((p) => !p.active).length;
-  $("categoryCount").textContent = new Set(
+  getProductElement("totalCount").textContent = products.length;
+  getProductElement("activeCount").textContent = products.filter((p) => p.active).length;
+  getProductElement("inactiveCount").textContent = products.filter((p) => !p.active).length;
+  getProductElement("categoryCount").textContent = new Set(
     products.map((p) => p.category),
   ).size;
 }
 
 function openAddDialog() {
   productForm.reset();
-  $("productId").value = "";
-  $("dialogTitle").textContent = "Thêm sản phẩm";
-  $("productActive").checked = true;
-  $("formError").textContent = "";
+  getProductElement("productId").value = "";
+  getProductElement("dialogTitle").textContent = "Thêm sản phẩm";
+  getProductElement("productActive").checked = true;
+  getProductElement("formError").textContent = "";
   productDialog.showModal();
 }
 
@@ -187,35 +187,37 @@ function openEditDialog(id) {
   const product = products.find((p) => p.id === id);
   if (!product) return;
 
-  $("productId").value = product.id;
-  $("productName").value = product.name;
-  $("productCategory").value = product.category;
-  $("productPrice").value = product.price;
-  $("productDescription").value = product.description || "";
-  $("productActive").checked = product.active;
-  $("dialogTitle").textContent = "Chỉnh sửa sản phẩm";
-  $("formError").textContent = "";
+  getProductElement("productId").value = product.id;
+  getProductElement("productName").value = product.name;
+  getProductElement("productCategory").value = product.category;
+  getProductElement("productPrice").value = product.price;
+  getProductElement("productImage").value = product.image || "";
+  getProductElement("productDescription").value = product.description || "";
+  getProductElement("productActive").checked = product.active;
+  getProductElement("dialogTitle").textContent = "Chỉnh sửa sản phẩm";
+  getProductElement("formError").textContent = "";
 
   productDialog.showModal();
 }
 
 function closeDialog() {
   productDialog.close();
-  $("formError").textContent = "";
+  getProductElement("formError").textContent = "";
 }
 
 function saveProduct(event) {
   event.preventDefault();
 
-  const id = $("productId").value;
-  const name = $("productName").value.trim();
-  const category = $("productCategory").value;
-  const price = Number($("productPrice").value);
-  const description = $("productDescription").value.trim();
-  const active = $("productActive").checked;
+  const id = getProductElement("productId").value;
+  const name = getProductElement("productName").value.trim();
+  const category = getProductElement("productCategory").value;
+  const price = Number(getProductElement("productPrice").value);
+  const image = getProductElement("productImage").value.trim();
+  const description = getProductElement("productDescription").value.trim();
+  const active = getProductElement("productActive").checked;
 
   if (!name || !category || !Number.isFinite(price) || price < 0) {
-    $("formError").textContent = "Vui lòng nhập đầy đủ thông tin hợp lệ.";
+    getProductElement("formError").textContent = "Vui lòng nhập đầy đủ thông tin hợp lệ.";
     return;
   }
 
@@ -226,7 +228,7 @@ function saveProduct(event) {
   );
 
   if (duplicate) {
-    $("formError").textContent = "Tên sản phẩm đã tồn tại.";
+    getProductElement("formError").textContent = "Tên sản phẩm đã tồn tại.";
     return;
   }
 
@@ -239,6 +241,7 @@ function saveProduct(event) {
       name,
       category,
       price,
+      image,
       description,
       active,
     };
@@ -250,7 +253,7 @@ function saveProduct(event) {
       price,
       description,
       active,
-      image: "",
+      image,
     });
   }
 
@@ -271,9 +274,9 @@ function deleteProduct(id) {
 }
 
 function exportCSV() {
-  const keyword = $("searchInput").value.trim().toLocaleLowerCase("vi");
-  const category = $("categoryFilter").value;
-  const status = $("statusFilter").value;
+  const keyword = getProductElement("searchInput").value.trim().toLocaleLowerCase("vi");
+  const category = getProductElement("categoryFilter").value;
+  const status = getProductElement("statusFilter").value;
 
   const rows = products.filter((product) => {
     const matchesKeyword =
@@ -331,23 +334,23 @@ function exportCSV() {
 }
 
 /* SỰ KIỆN */
-$("addBtn").addEventListener("click", openAddDialog);
-$("closeBtn").addEventListener("click", closeDialog);
-$("cancelBtn").addEventListener("click", closeDialog);
+getProductElement("addBtn").addEventListener("click", openAddDialog);
+getProductElement("closeBtn").addEventListener("click", closeDialog);
+getProductElement("cancelBtn").addEventListener("click", closeDialog);
 productForm.addEventListener("submit", saveProduct);
 
-$("searchInput").addEventListener("input", renderProducts);
-$("categoryFilter").addEventListener("change", renderProducts);
-$("statusFilter").addEventListener("change", renderProducts);
+getProductElement("searchInput").addEventListener("input", renderProducts);
+getProductElement("categoryFilter").addEventListener("change", renderProducts);
+getProductElement("statusFilter").addEventListener("change", renderProducts);
 
-$("resetBtn").addEventListener("click", () => {
-  $("searchInput").value = "";
-  $("categoryFilter").value = "";
-  $("statusFilter").value = "";
+getProductElement("resetBtn").addEventListener("click", () => {
+  getProductElement("searchInput").value = "";
+  getProductElement("categoryFilter").value = "";
+  getProductElement("statusFilter").value = "";
   renderProducts();
 });
 
-$("exportBtn").addEventListener("click", exportCSV);
+getProductElement("exportBtn").addEventListener("click", exportCSV);
 
 productList.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");

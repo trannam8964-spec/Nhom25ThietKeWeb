@@ -407,6 +407,16 @@ a {
   display: block;
 }
 
+.featured-product-link {
+  display: block;
+  cursor: pointer;
+}
+
+.featured-product-link:focus-visible {
+  outline: 3px solid #d99a5b;
+  outline-offset: 3px;
+}
+
 /* PRODUCT INFO */
 
 .product-info {

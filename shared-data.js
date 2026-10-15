@@ -88,7 +88,8 @@
       .trim()
       .toLocaleLowerCase("vi")
       .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d");
     if (/reserved|booked|dat truoc|da dat truoc/.test(plain)) return "Đặt trước";
     if (
       /busy|occupied|using|serving|dang su dung|dang phuc vu|co khach/.test(

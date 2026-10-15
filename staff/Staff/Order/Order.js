@@ -18,7 +18,10 @@ function drawOrders() {
       .join(" ")
       .toLocaleLowerCase("vi");
     return searchable.includes(search) && (!filter || status === filter);
-  });
+  }).sort(
+    (first, second) =>
+      StaffData.orderTimestamp(second) - StaffData.orderTimestamp(first),
+  );
 
   body.innerHTML = orders.length
     ? orders
@@ -74,15 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         order.tableNumber &&
         ["completed", "cancelled"].includes(order.status)
       ) {
-        const tables = window.CoffeeData.readArray("tables");
-        const table = tables.find(
-          (item) =>
-            item.id === order.tableNumber || item.name === order.tableNumber,
-        );
-        if (table) {
-          table.status = "Trống";
-          window.CoffeeData.writeArray("tables", tables);
-        }
+        StaffData.releaseTableForOrder(order);
       }
       refreshStaffPage();
     });

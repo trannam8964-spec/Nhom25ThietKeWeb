@@ -22,7 +22,7 @@ Manager, staff, customer, and register pages share localStorage keys orders and 
 LƯU Ý
 - Đây là phiên bản frontend chạy bằng Live Server, dữ liệu lưu trong trình duyệt hiện tại, chưa phải cơ sở dữ liệu dùng chung nhiều máy. Đăng nhập demo phía frontend chỉ minh họa giao diện/luồng sử dụng, không phải cơ chế bảo mật cho hệ thống thật.
 - Không xóa dữ liệu trình duyệt nếu muốn giữ dữ liệu đã nhập.
-- Trang nhân viên/bàn/kho/khuyến mãi/cài đặt là liên kết giữ chỗ theo cấu trúc menu hiện tại; phạm vi sửa trong gói này gồm Trang chủ, Sản phẩm, Đơn hàng, Khách hàng và Thống kê.
+- Các trang Staff, Bàn, Kho, Khuyến mãi và Cài đặt có giao diện và luồng lưu riêng trong trình duyệt. Trạng thái bàn, đơn hàng, khách hàng và danh mục sản phẩm được chia sẻ giữa các trang trên cùng origin.
 
 
 Tính năng bổ sung: nút ☰ đóng/mở menu trên máy tính và mở/đóng menu trên điện thoại. Tên ở phần Admin lấy từ tên đăng nhập. Tài khoản demo hiện tại: admin / 123456.

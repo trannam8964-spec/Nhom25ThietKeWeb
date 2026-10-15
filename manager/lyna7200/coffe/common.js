@@ -80,12 +80,12 @@ function normalizeOrderStatus(s) {
 function statusLabel(s) {
   return (
     {
-      pending: "Chờ xác nhận",
+      pending: "Chờ nhân viên xác nhận",
       preparing: "Đang chuẩn bị",
       delivering: "Đang giao",
       completed: "Hoàn thành",
       cancelled: "Đã hủy",
-    }[normalizeOrderStatus(s)] || "Chờ xác nhận"
+    }[normalizeOrderStatus(s)] || "Chờ nhân viên xác nhận"
   );
 }
 function statusClass(s) {

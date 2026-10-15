@@ -236,7 +236,11 @@ function renderProductsGrid() {
 }
 
 function renderRecipeHTML(productId) {
-    const recipe = recipes[productId];
+    const productKey = String(productId);
+    const recipeId = /^P\d+$/i.test(productKey)
+        ? Number(productKey.replace(/\D/g, ''))
+        : productId;
+    const recipe = recipes[productId] || recipes[recipeId];
     if (!recipe) return '';
 
     const ingredientsHTML = recipe.ingredients

@@ -112,6 +112,32 @@
           </div>
 
           <form class="form-panel" id="profileForm">
+            <section class="avatar-settings" aria-labelledby="avatarHeading">
+              <div class="avatar-preview" id="avatarPreview">
+                <i class="fa-solid fa-user" aria-hidden="true"></i>
+                <img id="avatarImage" alt="Ảnh đại diện của bạn" hidden />
+              </div>
+              <div class="avatar-controls">
+                <h3 id="avatarHeading">Ảnh đại diện</h3>
+                <p>Chọn ảnh từ thiết bị để dùng làm ảnh đại diện.</p>
+                <input
+                  id="avatarInput"
+                  class="avatar-file-input"
+                  type="file"
+                  accept="image/*"
+                />
+                <label class="avatar-upload-button" for="avatarInput">
+                  <i class="fa-solid fa-arrow-up-from-bracket" aria-hidden="true"></i>
+                  Chọn ảnh
+                </label>
+                <button class="avatar-remove-button" id="removeAvatar" type="button">
+                  Gỡ ảnh
+                </button>
+                <small>Ảnh sẽ được tự thu nhỏ để lưu trên trình duyệt này.</small>
+                <p class="avatar-status" id="avatarStatus" role="status" aria-live="polite"></p>
+              </div>
+            </section>
+
             <div class="form-grid">
               <div class="field field-full">
                 <label for="fullName">Họ và tên</label>

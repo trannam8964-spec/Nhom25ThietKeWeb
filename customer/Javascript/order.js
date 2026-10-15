@@ -233,7 +233,8 @@ function xacNhanDatHang() {
     const tables = window.CoffeeData.readArray("tables");
     const table = tables.find((item) => item.id === tableNumber);
     if (table) {
-      table.status = "Đang sử dụng";
+      // Đơn mới chỉ giữ bàn; nhân viên chuyển sang "Đang sử dụng" khi khách nhận bàn.
+      table.status = "Đặt trước";
       window.CoffeeData.writeArray("tables", tables);
     }
   }

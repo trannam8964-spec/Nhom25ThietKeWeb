@@ -300,6 +300,41 @@ header h1 {
   font-size: 15px;
 }
 
+.table-status-help {
+  margin: 16px 0 9px;
+  color: #777;
+  font-size: 13px;
+}
+
+.customer-table-status {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.customer-table-tile {
+  padding: 9px 5px;
+  border: 1px solid #c9e8d7;
+  border-radius: 7px;
+  background: #e0f5e9;
+  color: #21804b;
+  font-size: 12px;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.customer-table-tile.busy {
+  border-color: #f3dfb5;
+  background: #fff2d9;
+  color: #9a6500;
+}
+
+.customer-table-tile.reserved {
+  border-color: #ddd3ff;
+  background: #eee9ff;
+  color: #6850ae;
+}
+
 /* ================= SUMMARY ================= */
 
 .summary-card {
@@ -487,5 +522,9 @@ header h1 {
 @media (max-width: 500px) {
   .order-container {
     padding: 15px;
+  }
+
+  .customer-table-status {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

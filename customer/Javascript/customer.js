@@ -33,11 +33,11 @@ for (let product of featured) {
 
         <div class="product-card">
 
-            <div class="product-image">
-
+            <a class="product-image featured-product-link"
+               href="/customer/menu/menu.html?search=${encodeURIComponent(product.name)}"
+               aria-label="Xem ${product.name} trong menu">
                 <img src="${product.image}" alt="${product.name}">
-
-            </div>
+            </a>
 
 
             <div class="product-info">
@@ -56,7 +56,9 @@ for (let product of featured) {
                     </span>
 
 
-                    <button class="add-cart">
+                    <button class="add-cart" type="button"
+                            data-product-id="${product.id}"
+                            aria-label="Đặt ${product.name}">
 
                         <i class="fa-solid fa-cart-plus"></i>
 
@@ -70,6 +72,44 @@ for (let product of featured) {
 
     `;
 }
+
+featuredProducts.addEventListener("click", function (event) {
+  const addButton = event.target.closest(".add-cart[data-product-id]");
+  if (!addButton) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  const product = products.find(
+    (item) => String(item.id) === String(addButton.dataset.productId),
+  );
+  if (!product) return;
+
+  let cart = [];
+  try {
+    cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    if (!Array.isArray(cart)) cart = [];
+  } catch {
+    cart = [];
+  }
+
+  const cartItem = cart.find((item) => String(item.id) === String(product.id));
+  if (cartItem) {
+    cartItem.quantity = (Number(cartItem.quantity) || 0) + 1;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      category: product.category,
+      image: product.image,
+      quantity: 1,
+    });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.location.href = "/customer/GioHang/cart.html";
+});
 
 // ================= THỐNG KÊ ĐƠN HÀNG =================
 

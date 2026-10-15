@@ -33,6 +33,12 @@ function getCustomerOrders() {
   });
 }
 
+function orderTimestamp(order) {
+  const value = order.createdAt || order.orderDate || order.date || order.time;
+  const timestamp = Date.parse(value || "");
+  return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, function (character) {
     return {
@@ -49,7 +55,9 @@ function escapeHtml(value) {
 
 function hienThiLichSu() {
   orderHistory.innerHTML = "";
-  let customerOrders = getCustomerOrders();
+  let customerOrders = getCustomerOrders().sort(
+    (first, second) => orderTimestamp(second) - orderTimestamp(first),
+  );
   clearHistoryButton.disabled = customerOrders.length === 0;
 
   // Không có đơn hàng
@@ -156,7 +164,7 @@ function hienThiLichSu() {
     // vẫn hiển thị bình thường
     let status =
       {
-        pending: "Chờ xác nhận",
+        pending: "Chờ nhân viên xác nhận",
         preparing: "Đang chuẩn bị",
         delivering: "Đang giao",
         completed: "Đã hoàn thành",
@@ -234,18 +242,31 @@ function luuLichSuDonHang() {
   window.CoffeeData.writeArray("orders", orders);
 }
 
+function releaseReservedTable(order) {
+  if (!order.tableNumber) return;
+  const tables = window.CoffeeData.readArray("tables");
+  const table = tables.find(
+    (item) => item.id === order.tableNumber || item.name === order.tableNumber,
+  );
+  if (table && table.status === "Đặt trước") {
+    table.status = "Trống";
+    window.CoffeeData.writeArray("tables", tables);
+  }
+}
+
 function xoaDonHang(orderId) {
-  let orderExists = getCustomerOrders().some(function (order) {
+  const orderToRemove = getCustomerOrders().find(function (order) {
     return String(order.id) === orderId && order.status === "pending";
   });
 
   if (
-    !orderExists ||
+    !orderToRemove ||
     !confirm("Bạn có chắc muốn xóa đơn hàng này khỏi lịch sử?")
   ) {
     return;
   }
 
+  releaseReservedTable(orderToRemove);
   orders = orders.filter((order) => String(order.id) !== orderId);
 
   luuLichSuDonHang();
@@ -267,6 +288,9 @@ clearHistoryButton.addEventListener("click", function () {
       .filter((order) => order.status === "pending")
       .map((order) => String(order.id)),
   );
+  customerOrders
+    .filter((order) => pendingIds.has(String(order.id)))
+    .forEach(releaseReservedTable);
   orders = orders.filter((order) => !pendingIds.has(String(order.id)));
 
   luuLichSuDonHang();

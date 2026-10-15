@@ -64,7 +64,7 @@ const StaffData = {
 
   statusLabel(status) {
     const labels = {
-      pending: "Chờ xác nhận",
+      pending: "Chờ nhân viên xác nhận",
       preparing: "Đang chuẩn bị",
       delivering: "Đang giao",
       completed: "Đã hoàn thành",
@@ -85,6 +85,13 @@ const StaffData = {
 
   orderTime(order) {
     return order.time || order.date || "";
+  },
+
+  orderTimestamp(order) {
+    const timestamp = Date.parse(
+      order.createdAt || order.orderDate || order.date || order.time || "",
+    );
+    return Number.isFinite(timestamp) ? timestamp : 0;
   },
 
   orderItems(order) {
@@ -117,6 +124,19 @@ const StaffData = {
       return;
     }
     this.set("tables", value);
+  },
+
+  releaseTableForOrder(order) {
+    if (!order?.tableNumber) return;
+    const tables = this.tables();
+    const table = tables.find(
+      (item) =>
+        String(item.id) === String(order.tableNumber) ||
+        item.name === order.tableNumber,
+    );
+    if (!table) return;
+    table.status = "Trống";
+    this.saveTables(tables);
   },
 
   profile() {
@@ -153,6 +173,7 @@ const StaffData = {
     const plain = String(status || "")
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[đĐ]/g, "d")
       .toLocaleLowerCase("vi");
     const tableStatus = /^(trong|dang su dung|dat truoc|da dat truoc)$/.test(
       plain,

@@ -4,35 +4,47 @@ function refreshStaffPage() {
   if (!grid) return;
 
   grid.innerHTML = StaffData.tables()
-    .map(
-      (table) => `
+    .map((table) => {
+      const status = window.CoffeeData.normalizeTableStatus(table.status);
+      const statuses = ["Trống", "Đặt trước", "Đang sử dụng"];
+      return `
         <article class="table-card">
           <div class="table-card-top">
             <i class="fa-solid fa-chair"></i>
-            ${StaffData.badge(table.status)}
+            ${StaffData.badge(status)}
           </div>
           <h3>${StaffData.escape(table.name)}</h3>
-          <p>${StaffData.escape(table.area)} · ${StaffData.escape(table.status)}</p>
-          <label class="visually-hidden" for="table-${table.id}">Trạng thái ${StaffData.escape(table.name)}</label>
-          <select class="table-select" id="table-${table.id}" data-table-id="${table.id}">
-            <option value="Trống" ${table.status === "Trống" ? "selected" : ""}>Trống</option>
-            <option value="Đang sử dụng" ${table.status === "Đang sử dụng" ? "selected" : ""}>Đang sử dụng</option>
-            <option value="Đặt trước" ${table.status === "Đặt trước" ? "selected" : ""}>Đặt trước</option>
-          </select>
-        </article>`,
-    )
+          <p>${StaffData.escape(table.area)} · ${StaffData.escape(status)}</p>
+          <div class="table-status-actions" role="group" aria-label="Đổi trạng thái ${StaffData.escape(table.name)}">
+            ${statuses
+              .map(
+                (choice) => `
+                  <button type="button"
+                    class="table-status-button ${status === choice ? "active" : ""}"
+                    data-table-id="${StaffData.escape(table.id)}"
+                    data-status="${choice}"
+                    aria-pressed="${status === choice}">
+                    ${choice}
+                  </button>`,
+              )
+              .join("")}
+          </div>
+        </article>`;
+    })
     .join("");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   StaffData.updateStaffName();
-  document.getElementById("tablesGrid").addEventListener("change", (event) => {
-    const select = event.target.closest("select[data-table-id]");
-    if (!select) return;
+  document.getElementById("tablesGrid").addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-table-id][data-status]");
+    if (!button) return;
     const tables = StaffData.tables();
-    const table = tables.find((item) => item.id === select.dataset.tableId);
+    const table = tables.find(
+      (item) => String(item.id) === String(button.dataset.tableId),
+    );
     if (!table) return;
-    table.status = select.value;
+    table.status = window.CoffeeData.normalizeTableStatus(button.dataset.status);
     StaffData.saveTables(tables);
     refreshStaffPage();
   });

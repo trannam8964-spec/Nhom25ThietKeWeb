@@ -4,6 +4,9 @@ function refreshStaffPage() {
   if (!body) return;
   const orders = StaffData.orders().filter((order) =>
     ["delivering", "completed"].includes(StaffData.orderStatus(order)),
+  ).sort(
+    (first, second) =>
+      StaffData.orderTimestamp(second) - StaffData.orderTimestamp(first),
   );
 
   body.innerHTML = orders.length
@@ -39,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       order.status = "completed";
       order.updatedAt = new Date().toISOString();
       StaffData.saveOrders(orders);
+      StaffData.releaseTableForOrder(order);
       refreshStaffPage();
     });
   refreshStaffPage();

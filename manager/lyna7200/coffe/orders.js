@@ -5,6 +5,18 @@ const dialog = $("orderDialog"),
   form = $("orderForm");
 const saleTypeLabel = (type) =>
   type === "takeaway" ? "Mang về" : "Bán tại chỗ";
+function releaseTableForOrder(order) {
+  if (!order?.tableNumber || !window.CoffeeData) return;
+  const tables = window.CoffeeData.readArray("tables");
+  const table = tables.find(
+    (item) =>
+      String(item.id) === String(order.tableNumber) ||
+      item.name === order.tableNumber,
+  );
+  if (!table) return;
+  table.status = "Trống";
+  window.CoffeeData.writeArray("tables", tables);
+}
 function total(order) {
   return (
     Number(order.total) ||
@@ -14,6 +26,12 @@ function total(order) {
       0,
     )
   );
+}
+function orderTimestamp(order) {
+  const timestamp = Date.parse(
+    order.createdAt || order.orderDate || order.date || order.time || "",
+  );
+  return Number.isFinite(timestamp) ? timestamp : 0;
 }
 function fillOptions() {
   products = read(KEYS.products);
@@ -49,7 +67,7 @@ function render() {
           .toLocaleLowerCase("vi")
           .includes(query),
     )
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    .sort((a, b) => orderTimestamp(b) - orderTimestamp(a));
   $("orderTotalCount").textContent = orders.length;
   $("orderCompletedCount").textContent = orders.filter(
     (o) => normalizeOrderStatus(o.status) === "completed",
@@ -70,7 +88,7 @@ function render() {
         .map(
           (o) =>
             `<tr><td><strong>${safe(o.id)}</strong></td><td>${safe(o.customerName || "Khách lẻ")}<br><small>${safe(o.customerPhone || "")}</small></td><td>${(o.items || []).map((i) => `${safe(i.name)} × ${Number(i.quantity) || 1}`).join("<br>")}</td><td>${saleTypeLabel(o.orderType || o.saleType)}</td><td>${new Date(o.createdAt).toLocaleString("vi-VN")}</td><td><strong>${money(total(o))}</strong></td><td><select aria-label="Trạng thái ${safe(o.id)}" data-status-id="${safe(o.id)}" class="status-pill ${statusClass(o.status)}">${[
-              ["pending", "Chờ xác nhận"],
+              ["pending", "Chờ nhân viên xác nhận"],
               ["preparing", "Đang chuẩn bị"],
               ["delivering", "Đang giao"],
               ["completed", "Hoàn thành"],
@@ -132,6 +150,7 @@ form.addEventListener("submit", (e) => {
   }
   const existing = orders.find((o) => o.id === id);
   const order = {
+    ...existing,
     id: id || "DH" + Date.now().toString().slice(-8),
     customerId: existing?.customerId || "",
     customerName: existing?.customerName || "Khách lẻ",
@@ -155,6 +174,12 @@ form.addEventListener("submit", (e) => {
   if (id) orders = orders.map((o) => (o.id === id ? order : o));
   else orders.push(order);
   write(KEYS.orders, orders);
+  if (
+    existing &&
+    ["completed", "cancelled"].includes(normalizeOrderStatus(order.status))
+  ) {
+    releaseTableForOrder(order);
+  }
   dialog.close();
   render();
 });
@@ -166,6 +191,8 @@ $("orderRows").addEventListener("click", (e) => {
     if (order) openDialog(order);
   }
   if (remove && confirm("Bạn có chắc muốn xóa đơn hàng này?")) {
+    const order = orders.find((item) => item.id === remove.dataset.delete);
+    releaseTableForOrder(order);
     orders = orders.filter((o) => o.id !== remove.dataset.delete);
     write(KEYS.orders, orders);
     render();
@@ -174,12 +201,15 @@ $("orderRows").addEventListener("click", (e) => {
 $("orderRows").addEventListener("change", (e) => {
   const id = e.target.dataset.statusId;
   if (!id) return;
-  orders = read(KEYS.orders).map((o) =>
-    o.id === id
-      ? { ...o, status: e.target.value, updatedAt: new Date().toISOString() }
-      : o,
-  );
+  const changedOrder = read(KEYS.orders).find((order) => order.id === id);
+  if (!changedOrder) return;
+  changedOrder.status = e.target.value;
+  changedOrder.updatedAt = new Date().toISOString();
+  orders = orders.map((order) => (order.id === id ? changedOrder : order));
   write(KEYS.orders, orders);
+  if (["completed", "cancelled"].includes(normalizeOrderStatus(changedOrder.status))) {
+    releaseTableForOrder(changedOrder);
+  }
   render();
 });
 $("orderSearch").addEventListener("input", render);

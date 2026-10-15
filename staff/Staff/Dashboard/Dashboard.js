@@ -27,6 +27,9 @@ function refreshStaffPage() {
     ["pending", "preparing", "delivering"].includes(
       StaffData.orderStatus(order),
     ),
+  ).sort(
+    (first, second) =>
+      StaffData.orderTimestamp(second) - StaffData.orderTimestamp(first),
   );
   document.getElementById("dashboardOrders").innerHTML = active.length
     ? active
