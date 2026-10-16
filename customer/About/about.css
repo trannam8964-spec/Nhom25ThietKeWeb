@@ -10,7 +10,7 @@ body {
   color: #333;
 }
 
-/* ================= SIDEBAR ================= */
+/* SIDEBAR */
 
 .sidebar {
   position: fixed;
@@ -100,7 +100,7 @@ body {
   padding: 10px;
 }
 
-/* ================= MAIN ================= */
+/* MAIN */
 
 .main {
   margin-left: 220px;
@@ -164,7 +164,7 @@ body {
   font-size: 16px;
 }
 
-/* ================= CONTENT ================= */
+/* CONTENT */
 
 .about-container {
   padding: 30px;
@@ -225,7 +225,7 @@ body {
   margin-bottom: 15px;
 }
 
-/* ================= INFO ================= */
+/* INFO */
 
 .info-grid {
   display: grid;

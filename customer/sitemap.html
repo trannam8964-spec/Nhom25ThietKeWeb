@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Customer Sitemap | Coffee House</title>
+    <style>
+      :root { color-scheme: light; --ink:#252525; --muted:#686868; --line:#b8b8b8; --paper:#fff; --canvas:#f4f4f4; --accent:#80543d; }
+      * { box-sizing:border-box; }
+      body { margin:0; background:#e9e9e9; color:var(--ink); font:15px/1.5 Arial,sans-serif; }
+      header { padding:30px max(22px,calc((100vw - 1240px)/2)); background:var(--paper); border-bottom:1px solid #d0d0d0; }
+      h1 { margin:0 0 7px; font-size:clamp(26px,4vw,38px); }
+      header p { max-width:900px; margin:0; color:var(--muted); }
+      main { max-width:1280px; margin:26px auto 50px; padding:0 20px; }
+      .toolbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+      .toolbar p { margin:0; color:var(--muted); }
+      .open-home { display:inline-block; padding:9px 13px; border:1px solid #8b8b8b; background:#fff; color:var(--ink); text-decoration:none; }
+      .open-home:hover { background:#eee; }
+      .diagram-wrap { overflow:auto; border:1px solid var(--line); background:var(--paper); }
+      svg { display:block; width:100%; min-width:1000px; height:auto; background:var(--canvas); }
+      .edge { fill:none; stroke:#777; stroke-width:2; }
+      .edge.secondary { stroke:#999; stroke-dasharray:7 6; }
+      .edge-label { fill:#5c5c5c; font-size:13px; }
+      .node rect { fill:#fff; stroke:#777; stroke-width:1.5; rx:5; }
+      .node.auth rect { fill:#ededed; }
+      .node.shell rect { fill:#dedede; stroke:#555; stroke-width:2; }
+      .node.sub rect { fill:#f8f8f8; }
+      .node:hover rect, .node:focus rect { fill:#e8ded8; stroke:var(--accent); stroke-width:2.5; }
+      .node-title { fill:var(--ink); font-size:16px; font-weight:700; }
+      .node-path { fill:#666; font-size:11px; }
+      .node-detail { fill:#555; font-size:12px; }
+      .hint-card { margin-top:16px; padding:14px 16px; border-left:4px solid #888; background:#fff; }
+      .hint-card p { margin:5px 0; color:#555; }
+      .pages { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px; margin-top:16px; }
+      .page-link { padding:12px 14px; border:1px solid var(--line); background:#fff; color:var(--ink); text-decoration:none; }
+      .page-link:hover { border-color:var(--accent); color:var(--accent); }
+      .page-link small { display:block; margin-top:4px; color:var(--muted); overflow-wrap:anywhere; }
+      @media(max-width:600px) { main { padding:0 12px; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Customer Sitemap — Coffee House</h1>
+      <p>This map follows the Customer pages and links in the project. Select a box in the diagram to open that page. Authentication screens are shown as the entry point; Customer pages require a Customer session.</p>
+    </header>
+    <main>
+      <div class="toolbar">
+        <p>Solid arrows show navigation. Dashed arrows show where an action returns or appears in another page.</p>
+        <a class="open-home" href="Dashboard/customer1.html">Open Customer home</a>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 1420 790" role="img" aria-labelledby="mapTitle mapDescription">
+          <title id="mapTitle">Coffee House Customer page sitemap</title>
+          <desc id="mapDescription">Login, registration, password recovery, Customer home and its seven navigation pages, with product details and checkout subpages.</desc>
+          <defs>
+            <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#777" /></marker>
+            <marker id="arrow-dash" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#999" /></marker>
+          </defs>
+
+          <!-- Authentication pages and entry to the Customer area -->
+          <rect x="18" y="20" width="610" height="150" rx="5" fill="#f4f4f4" stroke="#b8b8b8" />
+          <text class="edge-label" x="38" y="151">Đăng ký xong và khôi phục mật khẩu xong đều quay về đăng nhập.</text>
+          <path class="edge" d="M628 90 H885" marker-end="url(#arrow)" />
+          <text class="edge-label" x="680" y="78">đăng nhập Customer thành công</text>
+
+          <!-- Customer shell to persistent navigation pages -->
+          <path class="edge" d="M1065 130 V205 H118 V264" />
+          <path class="edge" d="M118 205 H1310" />
+          <path class="edge" d="M118 205 V264" marker-end="url(#arrow)" />
+          <path class="edge" d="M316 205 V264" marker-end="url(#arrow)" />
+          <path class="edge" d="M514 205 V264" marker-end="url(#arrow)" />
+          <path class="edge" d="M712 205 V264" marker-end="url(#arrow)" />
+          <path class="edge" d="M910 205 V264" marker-end="url(#arrow)" />
+          <path class="edge" d="M1108 205 V264" marker-end="url(#arrow)" />
+          <path class="edge" d="M1310 205 V264" marker-end="url(#arrow)" />
+          <text class="edge-label" x="660" y="194">menu điều hướng Customer hiển thị trên các trang</text>
+
+          <!-- Page-to-page customer actions -->
+          <path class="edge" d="M514 412 V498" marker-end="url(#arrow)" />
+          <text class="edge-label" x="525" y="461">chọn món → chi tiết</text>
+          <path class="edge" d="M712 412 V498" marker-end="url(#arrow)" />
+          <text class="edge-label" x="724" y="461">tiến hành đặt hàng</text>
+          <path class="edge" d="M594 555 H615 V388 H632" marker-end="url(#arrow)" />
+          <text class="edge-label" x="597" y="477">thêm món</text>
+          <path class="edge secondary" d="M712 610 V650 H910 V414" marker-end="url(#arrow-dash)" />
+          <text class="edge-label" x="738" y="642">đơn đã lưu, xem tại lịch sử</text>
+          <path class="edge secondary" d="M712 610 V660 H15 V235 H118 V264" marker-end="url(#arrow-dash)" />
+          <text class="edge-label" x="275" y="654">đặt hàng xong quay về trang chủ</text>
+
+          <!-- Entry pages -->
+          <a class="node auth" href="../register/login.html" aria-label="Open login page">
+            <rect x="28" y="52" width="185" height="76" />
+            <text class="node-title" x="48" y="79">Đăng nhập</text>
+            <text class="node-path" x="48" y="101">../register/login.html</text>
+          </a>
+          <a class="node auth" href="../register/register.html" aria-label="Open registration page">
+            <rect x="223" y="52" width="185" height="76" />
+            <text class="node-title" x="243" y="79">Đăng ký tài khoản</text>
+            <text class="node-path" x="243" y="101">../register/register.html</text>
+          </a>
+          <a class="node auth" href="../register/forgot-password.html" aria-label="Open password recovery page">
+            <rect x="418" y="52" width="185" height="76" />
+            <text class="node-title" x="438" y="79">Quên mật khẩu</text>
+            <text class="node-path" x="438" y="101">../register/forgot-password.html</text>
+          </a>
+          <g class="node shell">
+            <rect x="885" y="35" width="360" height="95" />
+            <text class="node-title" x="905" y="64">Customer — khu vực sau đăng nhập</text>
+            <text class="node-detail" x="905" y="87">Dùng chung thanh điều hướng và phiên Customer</text>
+            <text class="node-path" x="905" y="109">auth-session.js kiểm tra vai trò trước khi vào trang</text>
+          </g>
+
+          <!-- Main navigation pages -->
+          <a class="node" href="Dashboard/customer1.html" aria-label="Open Customer home">
+            <rect x="38" y="264" width="160" height="148" />
+            <text class="node-title" x="55" y="293">Trang chủ</text>
+            <text class="node-detail" x="55" y="318">Tổng quan đơn hàng</text>
+            <text class="node-detail" x="55" y="338">Món nổi bật, khuyến mãi</text>
+            <text class="node-path" x="55" y="381">Dashboard/customer1.html</text>
+          </a>
+          <a class="node" href="About/about.html" aria-label="Open about page">
+            <rect x="236" y="264" width="160" height="148" />
+            <text class="node-title" x="253" y="293">Về quán</text>
+            <text class="node-detail" x="253" y="318">Giới thiệu Coffee House</text>
+            <text class="node-detail" x="253" y="338">Không gian / nội dung</text>
+            <text class="node-path" x="253" y="381">About/about.html</text>
+          </a>
+          <a class="node" href="menu/menu.html" aria-label="Open menu page">
+            <rect x="434" y="264" width="160" height="148" />
+            <text class="node-title" x="451" y="293">Thực đơn</text>
+            <text class="node-detail" x="451" y="318">Tìm kiếm, lọc danh mục</text>
+            <text class="node-detail" x="451" y="338">Danh sách món / thêm giỏ</text>
+            <text class="node-path" x="451" y="381">menu/menu.html</text>
+          </a>
+          <a class="node" href="GioHang/cart.html" aria-label="Open cart page">
+            <rect x="632" y="264" width="160" height="148" />
+            <text class="node-title" x="649" y="293">Giỏ hàng</text>
+            <text class="node-detail" x="649" y="318">Sửa số lượng / xóa món</text>
+            <text class="node-detail" x="649" y="338">Xem tạm tính, ưu đãi</text>
+            <text class="node-path" x="649" y="381">GioHang/cart.html</text>
+          </a>
+          <a class="node" href="History/history.html" aria-label="Open order history page">
+            <rect x="830" y="264" width="160" height="148" />
+            <text class="node-title" x="847" y="293">Lịch sử đơn hàng</text>
+            <text class="node-detail" x="847" y="318">Theo dõi trạng thái</text>
+            <text class="node-detail" x="847" y="338">Đơn mới ở trên cùng</text>
+            <text class="node-path" x="847" y="381">History/history.html</text>
+          </a>
+          <a class="node" href="Account/profile.html" aria-label="Open profile page">
+            <rect x="1028" y="264" width="160" height="148" />
+            <text class="node-title" x="1045" y="293">Hồ sơ cá nhân</text>
+            <text class="node-detail" x="1045" y="318">Ảnh đại diện, liên hệ</text>
+            <text class="node-detail" x="1045" y="338">Bảo mật / đổi mật khẩu</text>
+            <text class="node-path" x="1045" y="381">Account/profile.html</text>
+          </a>
+          <a class="node" href="Account/contact.html" aria-label="Open contact page">
+            <rect x="1230" y="264" width="160" height="148" />
+            <text class="node-title" x="1247" y="293">Liên hệ</text>
+            <text class="node-detail" x="1247" y="318">Gửi góp ý / câu hỏi</text>
+            <text class="node-detail" x="1247" y="338">Góp ý / câu hỏi</text>
+            <text class="node-path" x="1247" y="381">Account/contact.html</text>
+          </a>
+
+          <!-- Nested pages -->
+          <a class="node sub" href="menu/product-details.html" aria-label="Open product details page">
+            <rect x="434" y="498" width="160" height="112" />
+            <text class="node-title" x="451" y="528">Chi tiết món</text>
+            <text class="node-detail" x="451" y="551">Mô tả, giá, số lượng</text>
+            <text class="node-detail" x="451" y="571">Thêm món vào giỏ</text>
+            <text class="node-path" x="451" y="594">menu/product-details.html</text>
+          </a>
+          <a class="node sub" href="GioHang/order.html" aria-label="Open checkout page">
+            <rect x="632" y="498" width="160" height="112" />
+            <text class="node-title" x="649" y="528">Xác nhận đặt hàng</text>
+            <text class="node-detail" x="649" y="551">Thông tin nhận món / bàn</text>
+            <text class="node-detail" x="649" y="571">Thanh toán / ghi chú</text>
+            <text class="node-path" x="649" y="594">GioHang/order.html</text>
+          </a>
+
+          <g>
+            <rect x="38" y="680" width="1352" height="58" rx="5" fill="#fff" stroke="#b8b8b8" />
+            <text class="node-detail" x="58" y="705">Luồng đặt hàng: menu → chi tiết món → giỏ hàng → xác nhận đơn.</text>
+            <text class="node-detail" x="58" y="725">Đặt hàng xong quay về trang chủ; khách có thể mở Lịch sử đơn hàng để theo dõi.</text>
+          </g>
+        </svg>
+      </div>
+
+      <section class="hint-card">
+        <strong>Customer pages shown from the current project</strong>
+        <p>The seven main navigation items are taken from the Customer sidebar. Product details and checkout are secondary pages reached through the menu and cart. The register pages are included because the Customer area redirects unauthenticated visitors to login.</p>
+      </section>
+
+      <nav class="pages" aria-label="Direct links to Customer pages">
+        <a class="page-link" href="../register/login.html">Login<small>register/login.html</small></a>
+        <a class="page-link" href="../register/register.html">Register<small>register/register.html</small></a>
+        <a class="page-link" href="../register/forgot-password.html">Forgot password<small>register/forgot-password.html</small></a>
+        <a class="page-link" href="Dashboard/customer1.html">Customer home<small>customer/Dashboard/customer1.html</small></a>
+        <a class="page-link" href="About/about.html">About<small>customer/About/about.html</small></a>
+        <a class="page-link" href="menu/menu.html">Menu<small>customer/menu/menu.html</small></a>
+        <a class="page-link" href="menu/product-details.html">Product details<small>customer/menu/product-details.html</small></a>
+        <a class="page-link" href="GioHang/cart.html">Cart<small>customer/GioHang/cart.html</small></a>
+        <a class="page-link" href="GioHang/order.html">Checkout<small>customer/GioHang/order.html</small></a>
+        <a class="page-link" href="History/history.html">Order history<small>customer/History/history.html</small></a>
+        <a class="page-link" href="Account/profile.html">Profile and security<small>customer/Account/profile.html</small></a>
+        <a class="page-link" href="Account/contact.html">Contact<small>customer/Account/contact.html</small></a>
+      </nav>
+    </main>
+  </body>
+</html>

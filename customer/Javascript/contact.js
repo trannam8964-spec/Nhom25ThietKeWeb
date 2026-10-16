@@ -45,6 +45,5 @@ contactForm.addEventListener("submit", function (event) {
   messages.unshift(message);
   localStorage.setItem("contactMessages", JSON.stringify(messages));
   contactForm.elements.message.value = "";
-  contactStatus.innerText =
-    "Lời nhắn đã được lưu trên trình duyệt này, chưa được gửi đến cửa hàng.";
+  contactStatus.innerText = "Lời nhắn đã được lưu.";
 });

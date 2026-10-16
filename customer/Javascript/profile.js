@@ -145,5 +145,123 @@ profileForm.addEventListener("submit", function (event) {
   }
   document.getElementById("customerName").innerText = updatedProfile.fullName;
   window.refreshCustomerAvatar?.();
-  profileStatus.innerText = "Thông tin đã được lưu trên trình duyệt này.";
+  profileStatus.innerText = "Thông tin đã được cập nhật.";
+});
+
+const passwordForm = document.getElementById("passwordForm");
+const passwordStatus = document.getElementById("passwordStatus");
+
+function showPasswordMessage(message, type = "error") {
+  passwordStatus.classList.toggle("success", type === "success");
+  passwordStatus.classList.toggle("error", type === "error");
+  passwordStatus.textContent = message;
+}
+
+function createPasswordSalt() {
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+async function hashCustomerPassword(password, salt) {
+  const keyMaterial = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(password),
+    "PBKDF2",
+    false,
+    ["deriveBits"],
+  );
+  const bits = await crypto.subtle.deriveBits(
+    {
+      name: "PBKDF2",
+      salt: new TextEncoder().encode(salt),
+      iterations: 120000,
+      hash: "SHA-256",
+    },
+    keyMaterial,
+    256,
+  );
+  return Array.from(new Uint8Array(bits), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
+}
+
+passwordForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  showPasswordMessage("");
+
+  const currentPassword = document.getElementById("currentPassword").value;
+  const newPassword = document.getElementById("newPassword").value;
+  const confirmNewPassword = document.getElementById(
+    "confirmNewPassword",
+  ).value;
+  if (newPassword !== confirmNewPassword) {
+    showPasswordMessage("Mật khẩu mới nhập lại chưa khớp.");
+    return;
+  }
+  if (newPassword.length < 6) {
+    showPasswordMessage("Mật khẩu mới cần có ít nhất 6 ký tự.");
+    return;
+  }
+
+  let session = {};
+  try {
+    session = JSON.parse(localStorage.getItem("authSession") || "{}");
+  } catch {
+    session = {};
+  }
+  if (session.role !== "customer" || !session.username) {
+    showPasswordMessage("Không tìm thấy tài khoản Customer đang đăng nhập.");
+    return;
+  }
+
+  let accounts = [];
+  try {
+    const storedAccounts = JSON.parse(
+      localStorage.getItem("registeredCustomers") || "[]",
+    );
+    accounts = Array.isArray(storedAccounts) ? storedAccounts : [];
+  } catch {
+    accounts = [];
+  }
+  const accountIndex = accounts.findIndex(
+    (account) =>
+      String(account.username || "").toLowerCase() ===
+      String(session.username).toLowerCase(),
+  );
+  if (
+    accountIndex < 0 ||
+    !accounts[accountIndex].salt ||
+    !accounts[accountIndex].passwordHash
+  ) {
+    showPasswordMessage(
+      "Tài khoản này chưa có mật khẩu đăng ký. Hãy tạo tài khoản trước khi đổi mật khẩu.",
+    );
+    return;
+  }
+
+  try {
+    const account = accounts[accountIndex];
+    const currentHash = await hashCustomerPassword(
+      currentPassword,
+      account.salt,
+    );
+    if (currentHash !== account.passwordHash) {
+      showPasswordMessage("Mật khẩu hiện tại không đúng.");
+      return;
+    }
+
+    const salt = createPasswordSalt();
+    account.salt = salt;
+    account.passwordHash = await hashCustomerPassword(newPassword, salt);
+    localStorage.setItem("registeredCustomers", JSON.stringify(accounts));
+    passwordForm.reset();
+    showPasswordMessage(
+      "Đổi mật khẩu thành công. Hãy dùng mật khẩu mới ở lần đăng nhập tiếp theo.",
+      "success",
+    );
+  } catch {
+    showPasswordMessage(
+      "Không thể đổi mật khẩu ở môi trường này. Hãy mở website bằng localhost hoặc HTTPS.",
+    );
+  }
 });

@@ -152,8 +152,7 @@ a {
   outline: 3px solid rgba(119, 71, 47, 0.14);
 }
 
-.field small,
-.prototype-note {
+.field small {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.5;
@@ -224,11 +223,6 @@ a {
   font-weight: 700;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-}
-
-.prototype-note {
-  margin: 18px 0 0;
-  text-align: center;
 }
 
 .role-page {

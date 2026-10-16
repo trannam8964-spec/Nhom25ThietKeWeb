@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sitemap Manager | Coffee House</title>
+    <style>
+      :root{--ink:#252525;--muted:#686868;--line:#b8b8b8;--paper:#fff;--canvas:#f4f4f4;--accent:#80543d}*{box-sizing:border-box}body{margin:0;background:#e9e9e9;color:var(--ink);font:15px/1.5 Arial,sans-serif}header{padding:30px max(22px,calc((100vw - 1240px)/2));background:var(--paper);border-bottom:1px solid #d0d0d0}h1{margin:0 0 7px;font-size:clamp(26px,4vw,38px)}header p{max-width:900px;margin:0;color:var(--muted)}main{max-width:1500px;margin:26px auto 50px;padding:0 20px}.toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.toolbar p{margin:0;color:var(--muted)}.open-home{display:inline-block;padding:9px 13px;border:1px solid #8b8b8b;background:#fff;color:var(--ink);text-decoration:none}.open-home:hover{background:#eee}.diagram-wrap{overflow:auto;border:1px solid var(--line);background:var(--paper)}svg{display:block;width:100%;min-width:1200px;height:auto;background:var(--canvas)}.edge{fill:none;stroke:#777;stroke-width:2}.edge.secondary{stroke:#999;stroke-dasharray:7 6}.edge-label{fill:#5c5c5c;font-size:13px}.node rect{fill:#fff;stroke:#777;stroke-width:1.5;rx:5}.node.auth rect{fill:#ededed}.node.shell rect{fill:#dedede;stroke:#555;stroke-width:2}.node.sub rect{fill:#f8f8f8}.node:hover rect,.node:focus rect{fill:#e8ded8;stroke:var(--accent);stroke-width:2.5}.node-title{fill:var(--ink);font-size:16px;font-weight:700}.node-path{fill:#666;font-size:11px}.node-detail{fill:#555;font-size:12px}.hint-card{margin-top:16px;padding:14px 16px;border-left:4px solid #888;background:#fff}.hint-card p{margin:5px 0;color:#555}.pages{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:16px}.page-link{padding:12px 14px;border:1px solid var(--line);background:#fff;color:var(--ink);text-decoration:none}.page-link:hover{border-color:var(--accent);color:var(--accent)}.page-link small{display:block;margin-top:4px;color:var(--muted);overflow-wrap:anywhere}@media(max-width:600px){main{padding:0 12px}}
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Manager Sitemap — Coffee House</h1>
+      <p>Sơ đồ thể hiện trang đăng nhập, khu vực Manager và các trang mở từ menu quản lý. Chọn một ô trong sơ đồ để mở trang tương ứng.</p>
+    </header>
+    <main>
+      <div class="toolbar">
+        <p>Mũi tên liền thể hiện luồng truy cập và các trang trong menu Manager.</p>
+        <a class="open-home" href="coffe.html">Mở trang tổng quan Manager</a>
+      </div>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 1640 820" role="img" aria-labelledby="mapTitle mapDescription">
+          <title id="mapTitle">Sitemap các trang Manager của Coffee House</title>
+          <desc id="mapDescription">Từ đăng nhập chung vào khu vực Manager, sau đó điều hướng tới mười trang quản lý và các chức năng trong từng trang.</desc>
+          <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 z" fill="#777" /></marker></defs>
+
+          <!-- Login and Manager entry -->
+          <rect x="18" y="18" width="740" height="145" rx="5" fill="#f4f4f4" stroke="#b8b8b8" />
+          <text class="edge-label" x="38" y="151">Tạo tài khoản hoặc khôi phục mật khẩu xong quay lại đăng nhập.</text>
+          <path class="edge" d="M758 88 H962" marker-end="url(#arrow)" />
+          <text class="edge-label" x="475" y="76">Đăng nhập tài khoản quản trị</text>
+          <a class="node auth" href="../../../register/login.html" aria-label="Mở trang đăng nhập">
+            <rect x="28" y="47" width="210" height="78" />
+            <text class="node-title" x="48" y="76">Đăng nhập</text>
+            <text class="node-path" x="48" y="101">register/login.html</text>
+          </a>
+          <a class="node auth" href="../../../register/register.html" aria-label="Mở trang đăng ký">
+            <rect x="258" y="47" width="210" height="78" />
+            <text class="node-title" x="278" y="76">Đăng ký tài khoản</text>
+            <text class="node-path" x="278" y="101">register/register.html</text>
+          </a>
+          <a class="node auth" href="../../../register/forgot-password.html" aria-label="Mở trang quên mật khẩu">
+            <rect x="488" y="47" width="250" height="78" />
+            <text class="node-title" x="508" y="76">Quên mật khẩu</text>
+            <text class="node-path" x="508" y="101">register/forgot-password.html</text>
+          </a>
+          <g class="node shell">
+            <rect x="962" y="34" width="480" height="105" />
+            <text class="node-title" x="985" y="64">Manager — khu vực sau đăng nhập</text>
+            <text class="node-detail" x="985" y="88">Thanh menu điều hướng tới các chức năng quản lý</text>
+            <text class="node-path" x="985" y="113">coffe.html · trang tổng quan</text>
+          </g>
+
+          <!-- Persistent Manager navigation branching to all ten pages -->
+          <path class="edge" d="M1202 139 V216 H160 V263" />
+          <path class="edge" d="M160 216 H1440" />
+          <path class="edge" d="M160 216 V263" marker-end="url(#arrow)" />
+          <path class="edge" d="M480 216 V263" marker-end="url(#arrow)" />
+          <path class="edge" d="M800 216 V263" marker-end="url(#arrow)" />
+          <path class="edge" d="M1120 216 V263" marker-end="url(#arrow)" />
+          <path class="edge" d="M1440 216 V263" marker-end="url(#arrow)" />
+          <text class="edge-label" x="665" y="205">các mục trong menu bên Manager</text>
+          <path class="edge" d="M1440 395 V440 H160 V487" />
+          <path class="edge" d="M160 440 H1440" />
+          <path class="edge" d="M160 440 V487" marker-end="url(#arrow)" />
+          <path class="edge" d="M480 440 V487" marker-end="url(#arrow)" />
+          <path class="edge" d="M800 440 V487" marker-end="url(#arrow)" />
+          <path class="edge" d="M1120 440 V487" marker-end="url(#arrow)" />
+          <path class="edge" d="M1440 440 V487" marker-end="url(#arrow)" />
+
+          <!-- Main navigation pages, row one -->
+          <a class="node" href="coffe.html" aria-label="Mở trang tổng quan Manager">
+            <rect x="25" y="263" width="270" height="132" />
+            <text class="node-title" x="43" y="292">Trang tổng quan</text>
+            <text class="node-detail" x="43" y="317">Doanh thu, đơn, khách, sản phẩm</text>
+            <text class="node-detail" x="43" y="337">Biểu đồ theo ngày và danh mục</text>
+            <text class="node-path" x="43" y="372">coffe.html</text>
+          </a>
+          <a class="node" href="products.html" aria-label="Mở quản lý sản phẩm">
+            <rect x="345" y="263" width="270" height="132" />
+            <text class="node-title" x="363" y="292">Sản phẩm</text>
+            <text class="node-detail" x="363" y="317">Danh sách, tìm kiếm, lọc danh mục</text>
+            <text class="node-detail" x="363" y="337">Thêm / sửa, hình ảnh, xuất CSV</text>
+            <text class="node-path" x="363" y="372">products.html</text>
+          </a>
+          <a class="node" href="orders.html" aria-label="Mở quản lý đơn hàng">
+            <rect x="665" y="263" width="270" height="132" />
+            <text class="node-title" x="683" y="292">Đơn hàng</text>
+            <text class="node-detail" x="683" y="317">Danh sách đơn mới ở đầu</text>
+            <text class="node-detail" x="683" y="337">Tạo / sửa và cập nhật trạng thái</text>
+            <text class="node-path" x="683" y="372">orders.html</text>
+          </a>
+          <a class="node" href="customers.html" aria-label="Mở quản lý khách hàng">
+            <rect x="985" y="263" width="270" height="132" />
+            <text class="node-title" x="1003" y="292">Khách hàng</text>
+            <text class="node-detail" x="1003" y="317">Hồ sơ và thông tin liên hệ</text>
+            <text class="node-detail" x="1003" y="337">Số đơn và tổng chi tiêu</text>
+            <text class="node-path" x="1003" y="372">customers.html</text>
+          </a>
+          <a class="node" href="employees.html" aria-label="Mở quản lý nhân viên">
+            <rect x="1305" y="263" width="270" height="132" />
+            <text class="node-title" x="1323" y="292">Nhân viên</text>
+            <text class="node-detail" x="1323" y="317">Danh sách và thông tin nhân viên</text>
+            <text class="node-detail" x="1323" y="337">Chức vụ, ca, trạng thái làm việc</text>
+            <text class="node-path" x="1323" y="372">employees.html</text>
+          </a>
+
+          <!-- Main navigation pages, row two -->
+          <a class="node" href="tables.html" aria-label="Mở quản lý bàn">
+            <rect x="25" y="487" width="270" height="132" />
+            <text class="node-title" x="43" y="516">Bàn</text>
+            <text class="node-detail" x="43" y="541">12 bàn dùng chung các khu vực</text>
+            <text class="node-detail" x="43" y="561">Trống, đặt trước, đang sử dụng</text>
+            <text class="node-path" x="43" y="596">tables.html</text>
+          </a>
+          <a class="node" href="inventory.html" aria-label="Mở quản lý kho">
+            <rect x="345" y="487" width="270" height="132" />
+            <text class="node-title" x="363" y="516">Kho</text>
+            <text class="node-detail" x="363" y="541">Danh sách nguyên liệu</text>
+            <text class="node-detail" x="363" y="561">Số lượng tồn và cảnh báo sắp hết</text>
+            <text class="node-path" x="363" y="596">inventory.html</text>
+          </a>
+          <a class="node" href="promotions.html" aria-label="Mở quản lý khuyến mãi">
+            <rect x="665" y="487" width="270" height="132" />
+            <text class="node-title" x="683" y="516">Khuyến mãi</text>
+            <text class="node-detail" x="683" y="541">Chương trình và điều kiện áp dụng</text>
+            <text class="node-detail" x="683" y="561">Mức giảm, thời hạn</text>
+            <text class="node-path" x="683" y="596">promotions.html</text>
+          </a>
+          <a class="node" href="statistics.html" aria-label="Mở thống kê">
+            <rect x="985" y="487" width="270" height="132" />
+            <text class="node-title" x="1003" y="516">Thống kê</text>
+            <text class="node-detail" x="1003" y="541">Doanh thu, số đơn theo thời gian</text>
+            <text class="node-detail" x="1003" y="561">Sản phẩm bán chạy</text>
+            <text class="node-path" x="1003" y="596">statistics.html</text>
+          </a>
+          <a class="node" href="settings.html" aria-label="Mở cài đặt">
+            <rect x="1305" y="487" width="270" height="132" />
+            <text class="node-title" x="1323" y="516">Cài đặt</text>
+            <text class="node-detail" x="1323" y="541">Thông tin quán và thuế</text>
+            <text class="node-detail" x="1323" y="561">Thanh toán và hóa đơn</text>
+            <text class="node-path" x="1323" y="596">settings.html</text>
+          </a>
+
+          <g>
+            <rect x="25" y="672" width="1550" height="92" rx="5" fill="#fff" stroke="#b8b8b8" />
+            <text class="node-detail" x="45" y="702">Luồng quản lý: đơn hàng mới và trạng thái đơn được theo dõi trong Đơn hàng, Khách hàng và Thống kê.</text>
+            <text class="node-detail" x="45" y="729">Các thao tác thêm / sửa mở biểu mẫu ngay trong trang tương ứng; đăng xuất quay về đăng nhập chung.</text>
+          </g>
+        </svg>
+      </div>
+
+      <section class="hint-card">
+        <strong>Các trang trong sitemap</strong>
+        <p>Trang đăng nhập là điểm vào khu vực quản trị. Sau khi vào Manager, các mục chính được mở từ menu bên. Những biểu mẫu thêm và sửa nằm bên trong trang chức năng tương ứng.</p>
+      </section>
+      <nav class="pages" aria-label="Liên kết trực tiếp tới các trang Manager">
+        <a class="page-link" href="../../../register/login.html">Đăng nhập<small>register/login.html</small></a>
+        <a class="page-link" href="../../../register/register.html">Đăng ký tài khoản<small>register/register.html</small></a>
+        <a class="page-link" href="../../../register/forgot-password.html">Quên mật khẩu<small>register/forgot-password.html</small></a>
+        <a class="page-link" href="coffe.html">Trang tổng quan<small>manager/lyna7200/coffe/coffe.html</small></a>
+        <a class="page-link" href="products.html">Sản phẩm<small>manager/lyna7200/coffe/products.html</small></a>
+        <a class="page-link" href="orders.html">Đơn hàng<small>manager/lyna7200/coffe/orders.html</small></a>
+        <a class="page-link" href="customers.html">Khách hàng<small>manager/lyna7200/coffe/customers.html</small></a>
+        <a class="page-link" href="employees.html">Nhân viên<small>manager/lyna7200/coffe/employees.html</small></a>
+        <a class="page-link" href="tables.html">Bàn<small>manager/lyna7200/coffe/tables.html</small></a>
+        <a class="page-link" href="inventory.html">Kho<small>manager/lyna7200/coffe/inventory.html</small></a>
+        <a class="page-link" href="promotions.html">Khuyến mãi<small>manager/lyna7200/coffe/promotions.html</small></a>
+        <a class="page-link" href="statistics.html">Thống kê<small>manager/lyna7200/coffe/statistics.html</small></a>
+        <a class="page-link" href="settings.html">Cài đặt<small>manager/lyna7200/coffe/settings.html</small></a>
+      </nav>
+    </main>
+  </body>
+</html>

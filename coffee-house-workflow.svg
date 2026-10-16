@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="158mm" height="221.2mm" viewBox="0 0 800 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Quy trình hoạt động hệ thống Coffee House</title>
+  <desc id="desc">Quy trình đăng ký và đăng nhập, phân luồng khách hàng, nhân viên, quản trị viên, sau đó cập nhật dữ liệu dùng chung.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L9,5 L0,10 z" fill="#222" />
+    </marker>
+    <style>
+      text{font-family:Arial,sans-serif;fill:#111;text-anchor:middle}
+      .title{font-size:23px;font-weight:700}
+      .label{font-size:16px}
+      .small{font-size:14px}
+      .shape{fill:#fff;stroke:#222;stroke-width:2}
+      .line{fill:none;stroke:#222;stroke-width:2;marker-end:url(#arrow)}
+      .plain-line{fill:none;stroke:#222;stroke-width:2}
+    </style>
+  </defs>
+
+  <text class="title" x="400" y="29">QUY TRÌNH HOẠT ĐỘNG HỆ THỐNG COFFEE HOUSE</text>
+
+  <!-- Bắt đầu và xác định tài khoản -->
+  <ellipse class="shape" cx="400" cy="68" rx="80" ry="24" />
+  <text class="label" x="400" y="74">Bắt đầu</text>
+  <path class="line" d="M400 92 V120" />
+
+  <path class="shape" d="M400 120 L500 165 L400 210 L300 165 Z" />
+  <text class="label" x="400" y="160">Đã có</text>
+  <text class="label" x="400" y="181">tài khoản?</text>
+
+  <path class="line" d="M300 165 H190" />
+  <text class="small" x="242" y="153">Chưa</text>
+  <rect class="shape" x="38" y="136" width="152" height="58" />
+  <text class="label" x="114" y="171">Đăng ký</text>
+  <path class="plain-line" d="M114 194 V276 H310" />
+  <path d="M301 271 L310 276 L301 281" fill="none" stroke="#222" stroke-width="2" />
+
+  <path class="line" d="M400 210 V250" />
+  <text class="small" x="423" y="235">Có</text>
+  <rect class="shape" x="310" y="250" width="180" height="55" />
+  <text class="label" x="400" y="284">Đăng nhập</text>
+
+  <!-- Kiểm tra đăng nhập và khôi phục mật khẩu -->
+  <path class="line" d="M400 305 V345" />
+  <path class="shape" d="M400 345 L500 390 L400 435 L300 390 Z" />
+  <text class="label" x="400" y="385">Đăng nhập</text>
+  <text class="label" x="400" y="406">thành công?</text>
+
+  <path class="line" d="M500 390 H560" />
+  <text class="small" x="530" y="378">Không</text>
+  <path class="shape" d="M640 350 L720 390 L640 430 L560 390 Z" />
+  <text class="small" x="640" y="386">Quên mật</text>
+  <text class="small" x="640" y="404">khẩu?</text>
+
+  <path class="line" d="M640 430 V465" />
+  <text class="small" x="660" y="452">Có</text>
+  <rect class="shape" x="560" y="465" width="160" height="55" />
+  <text class="small" x="640" y="488">Khôi phục</text>
+  <text class="small" x="640" y="506">mật khẩu</text>
+
+  <path class="plain-line" d="M720 390 H760 V278 H490" />
+  <path d="M499 273 L490 278 L499 283" fill="none" stroke="#222" stroke-width="2" />
+  <text class="small" x="743" y="377">Không</text>
+  <path class="plain-line" d="M720 492 H760 V278" />
+  <text class="small" x="690" y="542">Khôi phục xong: đăng nhập lại</text>
+
+  <!-- Phân quyền và ba khu vực sử dụng -->
+  <path class="line" d="M400 435 V465" />
+  <text class="small" x="424" y="455">Có</text>
+  <path class="shape" d="M400 465 L510 515 L400 565 L290 515 Z" />
+  <text class="label" x="400" y="510">Vai trò</text>
+  <text class="label" x="400" y="531">tài khoản?</text>
+
+  <path class="plain-line" d="M400 565 V600 H135 M400 600 H665" />
+  <path class="line" d="M135 600 V630" />
+  <path class="line" d="M400 600 V630" />
+  <path class="line" d="M665 600 V630" />
+
+  <!-- Khách hàng: hình bình hành cho thao tác nhập / gửi đơn -->
+  <path class="shape" d="M45 630 H225 L240 760 H30 Z" />
+  <text class="label" x="135" y="660" font-weight="700">Khách hàng</text>
+  <text class="small" x="135" y="687">Xem thực đơn, chọn món,</text>
+  <text class="small" x="135" y="708">gửi đơn và xem lịch sử</text>
+  <text class="small" x="135" y="733">(nhập / tra cứu dữ liệu)</text>
+
+  <!-- Nhân viên -->
+  <rect class="shape" x="295" y="630" width="210" height="130" />
+  <text class="label" x="400" y="660" font-weight="700">Nhân viên</text>
+  <text class="small" x="400" y="687">Tiếp nhận đơn, cập nhật</text>
+  <text class="small" x="400" y="708">trạng thái, xác nhận</text>
+  <text class="small" x="400" y="729">thanh toán</text>
+
+  <!-- Quản trị viên -->
+  <rect class="shape" x="560" y="630" width="210" height="130" />
+  <text class="label" x="665" y="660" font-weight="700">Quản trị viên</text>
+  <text class="small" x="665" y="687">Quản lý sản phẩm, khách,</text>
+  <text class="small" x="665" y="708">nhân viên, bàn, khuyến mãi</text>
+  <text class="small" x="665" y="729">và xem thống kê</text>
+
+  <!-- Dữ liệu được dùng giữa các khu vực -->
+  <path class="line" d="M135 760 V790 L315 820" />
+  <path class="line" d="M400 760 V810" />
+  <path class="line" d="M665 760 V790 L485 820" />
+
+  <path class="shape" d="M285 825 C285 805 515 805 515 825 V875 C515 895 285 895 285 875 Z" />
+  <ellipse cx="400" cy="825" rx="115" ry="20" fill="none" stroke="#222" stroke-width="2" />
+  <path d="M285 875 C285 895 515 895 515 875" fill="none" stroke="#222" stroke-width="2" />
+  <text class="label" x="400" y="852" font-weight="700">Dữ liệu dùng chung</text>
+  <text class="small" x="400" y="873">Đơn hàng · bàn · sản phẩm · khách hàng</text>
+
+  <path class="line" d="M400 895 V930" />
+  <path class="shape" d="M190 930 H610 L625 995 H175 Z" />
+  <text class="small" x="400" y="956">Cập nhật trạng thái vào lịch sử đơn của khách</text>
+  <text class="small" x="400" y="978">và tổng hợp đơn hàng, thanh toán, doanh thu</text>
+
+  <path class="line" d="M400 995 V1030" />
+  <ellipse class="shape" cx="400" cy="1053" rx="100" ry="25" />
+  <text class="label" x="400" y="1059">Kết thúc / Đăng xuất</text>
+
+  <text class="small" x="400" y="1100">Hình bầu dục: bắt đầu / kết thúc · Hình thoi: điều kiện · Chữ nhật: xử lý</text>
+  <text class="small" x="400" y="1118">Bình hành: nhập / xuất dữ liệu · Hình trụ: dữ liệu dùng chung</text>
+</svg>

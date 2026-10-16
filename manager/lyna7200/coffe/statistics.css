@@ -120,12 +120,6 @@
 .statistics-category .category-legend b {
   font-size: 11px;
 }
-.statistics-footnote {
-  margin: 16px 0 0;
-  color: #8296b2;
-  font-size: 11px;
-  line-height: 1.6;
-}
 @media (max-width: 1050px) {
   .statistics-grid {
     grid-template-columns: 1fr;
@@ -284,11 +278,6 @@
   color: #8191a8;
   min-width: 30px;
   text-align: right;
-}
-.statistics-footnote {
-  font-size: 12px;
-  color: #8191a8;
-  margin: 16px 2px;
 }
 /* ===== HỘI AN COFFEE: TÔNG XANH ĐẬM ĐỒNG BỘ ===== */
 :root {

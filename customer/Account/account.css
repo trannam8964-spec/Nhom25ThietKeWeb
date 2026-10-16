@@ -153,6 +153,10 @@ a {
   margin-bottom: 22px;
 }
 
+.security-section {
+  margin-top: 34px;
+}
+
 .page-intro h2 {
   margin-bottom: 7px;
   color: var(--coffee);
@@ -372,6 +376,14 @@ a {
   color: #376a4a;
   font-size: 13px;
   line-height: 1.5;
+}
+
+.form-status.error {
+  color: #a12e26;
+}
+
+.form-status.success {
+  color: #376a4a;
 }
 
 .contact-layout {
