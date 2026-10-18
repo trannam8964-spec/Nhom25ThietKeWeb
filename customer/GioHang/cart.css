@@ -296,6 +296,14 @@ header p {
   color: #8a5435;
 }
 
+.cart-options {
+  display: block;
+  margin-top: 6px;
+  color: #77543d;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 /* =========================
    QUANTITY
 ========================= */

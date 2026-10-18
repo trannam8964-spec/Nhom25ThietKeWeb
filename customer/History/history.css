@@ -272,6 +272,13 @@ body {
   font-size: 14px;
 }
 
+.order-customization {
+  display: block;
+  margin-top: 5px;
+  color: #77543d;
+  font-size: 12px;
+}
+
 .product-quantity {
   font-weight: bold;
 }

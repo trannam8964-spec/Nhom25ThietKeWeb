@@ -3,145 +3,203 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Chi tiết sản phẩm</title>
-
+    <title>Chi tiết món | Coffee House</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-
     <link rel="stylesheet" href="/customer/menu/product-details.css" />
   </head>
 
   <body data-required-role="customer">
     <div class="layout">
-      <!-- SIDEBAR -->
       <aside class="sidebar">
-        <div class="logo">
-          <i class="fa-solid fa-mug-hot"></i>
+        <a class="logo" href="/customer/Dashboard/customer1.html">
+          <i class="fa-solid fa-mug-hot" aria-hidden="true"></i>
           <span>Coffee House</span>
-        </div>
+        </a>
 
-        <nav class="sidebar-menu">
+        <nav class="sidebar-menu" aria-label="Điều hướng chính">
           <a href="/customer/Dashboard/customer1.html" class="menu-item">
-            <i class="fa-solid fa-house"></i>
-            <span>Trang chủ</span>
+            <i class="fa-solid fa-house" aria-hidden="true"></i><span>Trang chủ</span>
           </a>
-
           <a href="/customer/About/about.html" class="menu-item">
-            <i class="fa-solid fa-store"></i>
-            <span>Về quán</span>
+            <i class="fa-solid fa-store" aria-hidden="true"></i><span>Về quán</span>
           </a>
-
-          <a href="/customer/menu/menu.html" class="menu-item active">
-            <i class="fa-solid fa-mug-hot"></i>
-            <span>Menu</span>
+          <a href="/customer/menu/menu.html" class="menu-item active" aria-current="page">
+            <i class="fa-solid fa-mug-hot" aria-hidden="true"></i><span>Menu</span>
           </a>
-
           <a href="/customer/GioHang/cart.html" class="menu-item">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Giỏ hàng</span>
-            <span class="cart-count" id="cartCount">0</span>
+            <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+            <span>Giỏ hàng</span><span class="cart-count" id="cartCount">0</span>
           </a>
-
           <a href="/customer/History/history.html" class="menu-item">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-            <span>Lịch sử đơn hàng</span>
+            <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i><span>Lịch sử đơn</span>
           </a>
-
           <a href="/customer/Account/profile.html" class="menu-item">
-            <i class="fa-solid fa-user"></i>
-            <span>Thông tin cá nhân</span>
+            <i class="fa-solid fa-user" aria-hidden="true"></i><span>Thông tin cá nhân</span>
           </a>
-
           <a href="/customer/Account/contact.html" class="menu-item">
-            <i class="fa-solid fa-envelope"></i>
-            <span>Liên hệ</span>
-          </a>
-
-          <a href="/register/login.html" class="menu-item logout">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Đăng xuất</span>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i><span>Liên hệ</span>
           </a>
         </nav>
+
+        <div class="sidebar-bottom">
+          <a href="/register/login.html" class="menu-item logout">
+            <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Đăng xuất</span>
+          </a>
+        </div>
       </aside>
 
-      <!-- MAIN -->
       <main class="main">
-        <!-- HEADER -->
         <header class="header">
           <div>
-            <h1>Chi tiết sản phẩm</h1>
-            <p>Thông tin chi tiết món</p>
+            <p class="eyebrow">COFFEE HOUSE · THỰC ĐƠN</p>
+            <h1>Chi tiết món</h1>
           </div>
-
           <div class="user">
-            <i class="fa-solid fa-circle-user"></i>
-
-            <span id="customerName"> Khách hàng </span>
+            <i class="fa-solid fa-circle-user" aria-hidden="true"></i>
+            <span id="customerName">Khách hàng</span>
           </div>
         </header>
 
-        <!-- PRODUCT DETAIL -->
-        <section class="detail-container">
-          <div class="detail-card">
-            <!-- ẢNH -->
+        <div class="detail-container">
+          <nav class="breadcrumb" aria-label="Đường dẫn">
+            <a href="/customer/menu/menu.html">Thực đơn</a>
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            <span id="breadcrumbProduct">Chi tiết món</span>
+          </nav>
+
+          <section class="product-overview" aria-labelledby="productName">
             <div class="detail-image">
               <img id="productImage" src="" alt="" />
+              <span class="image-caption"><i class="fa-solid fa-mug-hot" aria-hidden="true"></i> Pha chế tại quán</span>
             </div>
 
-            <!-- THÔNG TIN -->
             <div class="detail-info">
-              <span class="product-category" id="productCategory">
-                Danh mục
-              </span>
+              <span class="product-category" id="productCategory">Danh mục</span>
+              <h2 id="productName">Tên món</h2>
 
-              <h2 id="productName">Tên sản phẩm</h2>
+              <div class="rating-summary">
+                <span class="rating-stars" id="productStars" aria-label="Đánh giá"></span>
+                <strong id="productRating">0,0</strong>
+                <span class="rating-divider" aria-hidden="true">·</span>
+                <a href="#customerReviews" id="reviewJump">Xem nhận xét</a>
+              </div>
 
-              <div class="product-price" id="productPrice">0đ</div>
+              <p class="product-description" id="productDescription"></p>
+              <div class="flavor-tags" id="flavorTags" aria-label="Đặc trưng hương vị"></div>
 
-              <div class="product-rating" id="productRating"></div>
+              <div class="product-meta">
+                <span><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i> <strong id="productSold">0</strong> lượt bán</span>
+                <span><i class="fa-solid fa-comment-dots" aria-hidden="true"></i> <strong id="reviewCount">0</strong> nhận xét</span>
+              </div>
 
-              <p class="product-description" id="productDescription">
-                Thông tin sản phẩm
-              </p>
+              <div class="customization" id="drinkCustomization">
+                <fieldset class="choice-group">
+                  <legend>Độ ngọt</legend>
+                  <div class="choice-list">
+                    <label class="choice"><input type="radio" name="sweetness" value="Ít đường" /><span>Ít</span></label>
+                    <label class="choice"><input type="radio" name="sweetness" value="Vừa đường" checked /><span>Vừa</span></label>
+                    <label class="choice"><input type="radio" name="sweetness" value="Nhiều đường" /><span>Nhiều</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="choice-group">
+                  <legend>Lượng đá</legend>
+                  <div class="choice-list">
+                    <label class="choice"><input type="radio" name="ice" value="Ít đá" /><span>Ít đá</span></label>
+                    <label class="choice"><input type="radio" name="ice" value="Vừa đá" checked /><span>Vừa đá</span></label>
+                    <label class="choice"><input type="radio" name="ice" value="Nhiều đá" /><span>Nhiều đá</span></label>
+                  </div>
+                </fieldset>
+              </div>
 
-              <!-- SỐ LƯỢNG -->
-              <div class="quantity-box">
-                <span>Số lượng:</span>
-
-                <div class="quantity">
-                  <button id="decreaseBtn">-</button>
-
-                  <span id="quantity"> 1 </span>
-
-                  <button id="increaseBtn">+</button>
+              <div class="purchase-row">
+                <div>
+                  <span class="price-caption">Giá bán</span>
+                  <strong class="product-price" id="productPrice">0đ</strong>
+                </div>
+                <div class="quantity-control" aria-label="Số lượng">
+                  <button id="decreaseBtn" type="button" aria-label="Giảm số lượng">−</button>
+                  <output id="quantity" aria-live="polite">1</output>
+                  <button id="increaseBtn" type="button" aria-label="Tăng số lượng">+</button>
                 </div>
               </div>
 
-              <!-- NÚT -->
-              <button class="add-cart-btn" id="addCartBtn">
-                <i class="fa-solid fa-cart-plus"></i>
-
-                Thêm vào giỏ hàng
+              <button class="add-cart-btn" id="addCartBtn" type="button">
+                <i class="fa-solid fa-cart-plus" aria-hidden="true"></i> Thêm vào giỏ hàng
               </button>
-
-              <button class="back-btn" onclick="quayLaiMenu()">
-                <i class="fa-solid fa-arrow-left"></i>
-
-                Quay lại Menu
-              </button>
+              <p class="cart-feedback" id="cartFeedback" role="status" aria-live="polite"></p>
             </div>
-          </div>
-        </section>
+          </section>
+
+          <section class="details-grid" aria-label="Thông tin món">
+            <article class="info-card">
+              <span class="section-icon"><i class="fa-solid fa-leaf" aria-hidden="true"></i></span>
+              <div>
+                <h3>Hương vị & thành phần nổi bật</h3>
+                <p id="ingredientDescription"></p>
+                <div class="ingredient-tags" id="ingredientTags"></div>
+              </div>
+            </article>
+            <article class="info-card serving-card">
+              <span class="section-icon"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i></span>
+              <div>
+                <h3>Gợi ý thưởng thức</h3>
+                <p id="pairingSuggestion"></p>
+              </div>
+            </article>
+          </section>
+
+          <section class="reviews-section" id="customerReviews" aria-labelledby="reviewsHeading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">CHIA SẺ TRẢI NGHIỆM</p>
+                <h2 id="reviewsHeading">Nhận xét từ khách hàng</h2>
+              </div>
+              <div class="review-score" aria-live="polite">
+                <strong id="reviewAverage">—</strong>
+                <span><span class="rating-stars" id="reviewAverageStars"></span><small id="reviewAverageCount">Chưa có nhận xét</small></span>
+              </div>
+            </div>
+
+            <div class="reviews-layout">
+              <div class="review-list" id="reviewList"></div>
+
+              <form class="review-form" id="reviewForm">
+                <h3>Để lại nhận xét</h3>
+                <label for="reviewRating">Bạn chấm món này bao nhiêu sao?</label>
+                <select id="reviewRating" name="rating" required>
+                  <option value="5">★★★★★ · Rất ngon</option>
+                  <option value="4">★★★★☆ · Ngon</option>
+                  <option value="3">★★★☆☆ · Bình thường</option>
+                  <option value="2">★★☆☆☆ · Chưa hợp khẩu vị</option>
+                  <option value="1">★☆☆☆☆ · Chưa hài lòng</option>
+                </select>
+                <label for="reviewComment">Cảm nhận của bạn</label>
+                <textarea id="reviewComment" name="comment" rows="4" maxlength="500" placeholder="Chia sẻ hương vị hoặc điều bạn thích ở món này..." required></textarea>
+                <small>Tối đa 500 ký tự. Nhận xét của bạn sẽ xuất hiện trong danh sách bên cạnh.</small>
+                <button class="review-submit" type="submit">Gửi nhận xét</button>
+                <p class="review-feedback" id="reviewFeedback" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+          </section>
+
+          <section class="related-section" aria-labelledby="relatedHeading">
+            <div class="section-heading related-heading">
+              <div>
+                <p class="eyebrow">CÓ THỂ BẠN CŨNG THÍCH</p>
+                <h2 id="relatedHeading">Món liên quan</h2>
+              </div>
+              <a href="/customer/menu/menu.html">Xem toàn bộ thực đơn <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+            <div class="related-grid" id="relatedProducts"></div>
+          </section>
+        </div>
       </main>
     </div>
 
-    <!-- DATA -->
     <script src="/customer/Javascript/data.js"></script>
-
-    <!-- JS CHI TIẾT -->
     <script src="/customer/Javascript/product-details.js"></script>
     <script src="/customer/Javascript/cart-count.js"></script>
     <script src="/customer/Javascript/auth-session.js"></script>

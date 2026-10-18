@@ -1,4 +1,38 @@
 const STORAGE_KEY = "hoianCoffeeProducts";
+const productDescriptions = {
+  P001: "Americano có hương cà phê rang rõ, vị đắng vừa và hậu vị gọn. Đây là lựa chọn nhẹ nhàng cho người thích cà phê nguyên vị mà không muốn uống quá đậm.",
+  P002: "Bạc xỉu kết hợp vị cà phê thơm dịu với sữa béo ngọt, tạo cảm giác mềm mại và dễ uống. Món phù hợp với người thích vị sữa nổi bật hơn vị đắng của cà phê.",
+  P003: "Cappuccino có lớp cà phê thơm đậm hòa cùng sữa nóng và bọt sữa mịn. Vị cà phê, vị béo và độ ngọt nhẹ cân bằng trong từng ngụm.",
+  P004: "Cà phê cốt dừa kết hợp hương cà phê rang với vị dừa béo thơm, tạo nên thức uống sánh mượt và dễ thưởng thức. Vị ngọt dịu giúp món này hợp dùng vào những lúc muốn đổi vị.",
+  P005: "Cà phê đen giữ trọn hương rang mộc mạc với vị đắng rõ và hậu vị kéo dài. Món dành cho người yêu thích một ly cà phê đơn giản, đậm vị.",
+  P006: "Espresso có hương rang nồng, vị cà phê cô đọng và hậu vị đậm. Một lựa chọn nhỏ gọn cho người muốn thưởng thức nét nguyên bản của cà phê.",
+  P007: "Cà phê kem trứng kết hợp nền cà phê đậm với lớp kem trứng béo mịn, thơm dịu. Khi dùng cùng nhau, vị đắng nhẹ của cà phê cân bằng độ ngậy của lớp kem.",
+  P008: "Mocha hòa quyện hương cà phê với vị chocolate thơm, thêm nét béo dịu của sữa. Món có vị ngọt vừa phải và hậu vị cacao dễ chịu.",
+  P009: "Cà phê muối có vị cà phê rang đậm, đi cùng lớp kem béo và chút mặn nhẹ. Khi khuấy đều, vị đắng, béo và ngọt hòa quyện, tạo nên hương vị khác lạ mà dễ uống.",
+  P010: "Cà phê nâu kết hợp cà phê đậm đà với sữa đặc thơm béo. Vị ngọt dịu làm mềm vị đắng, để lại hậu vị quen thuộc và tròn vị.",
+  P011: "Bánh bông lan trứng muối có cốt bánh mềm ẩm, vị mặn bùi của trứng muối và lớp sốt béo thơm. Sự cân bằng giữa mặn và ngọt khiến món bánh hợp dùng cùng cà phê hoặc trà.",
+  P012: "Cơm cháy chà bông có phần cơm giòn rụm phủ chà bông đậm vị. Món ăn vặt kết hợp độ giòn, vị mặn thơm và chút béo của phần topping.",
+  P013: "Croissant bơ tỏi có lớp vỏ vàng giòn, phần ruột mềm xốp và hương bơ tỏi thơm rõ. Món bánh mặn này thích hợp dùng cho bữa ăn nhẹ.",
+  P014: "Flan caramel mềm mịn, thơm vị trứng sữa và có lớp caramel ngọt dịu hơi đắng. Kết cấu mềm nhẹ giúp món tráng miệng dễ ăn sau bữa chính.",
+  P015: "Hạt hướng dương rang có độ giòn bùi và hương thơm nhẹ. Đây là món nhâm nhi đơn giản, phù hợp khi trò chuyện hoặc thưởng thức cùng đồ uống.",
+  P016: "Khô bò có thớ dai mềm, vị mặn ngọt đậm đà và chút cay thơm. Món ăn vặt giàu hương vị, hợp dùng cùng các loại nước uống thanh mát.",
+  P017: "Khô gà lá chanh có sợi gà dai mềm, vị đậm vừa và hương lá chanh thơm thoảng. Món nhâm nhi có chút cay nhẹ, hợp dùng trong những buổi gặp gỡ.",
+  P018: "Nước ép cam có vị chua ngọt tươi sáng và hương cam thơm mọng. Thức uống mát lành, dễ kết hợp với món ăn nhẹ.",
+  P019: "Nước ép dứa nổi bật với hương thơm đặc trưng, vị ngọt đậm xen chút chua dịu. Mỗi ngụm đem lại cảm giác tươi mát và sảng khoái.",
+  P020: "Nước ép dưa hấu có vị ngọt thanh, mọng nước và dễ uống. Đây là lựa chọn giải khát nhẹ nhàng trong những ngày nóng.",
+  P021: "Hồng trà việt quất kết hợp hương trà đậm với vị trái cây chua ngọt. Hậu vị tươi mới giúp thức uống vừa thơm trà vừa dễ giải khát.",
+  P022: "Trà sen vàng có hương trà thanh dịu, điểm vị sen nhẹ nhàng và chút bùi thơm. Thức uống mang lại cảm giác thư thái, phù hợp với người thích vị trà êm.",
+  P023: "Trà đào cam sả hòa vị đào ngọt dịu với cam thơm tươi và hương sả thoảng nhẹ. Nền trà thanh giúp tổng thể cân bằng, thơm mát.",
+  P024: "Trà mãng cầu có vị trái cây chua ngọt đặc trưng trên nền trà thanh mát. Hương mãng cầu thơm mềm tạo nên thức uống đậm vị nhưng vẫn dễ uống.",
+  P025: "Trà tắc xí muội kết hợp vị trà thanh với tắc chua thơm và xí muội mặn ngọt. Hương vị đậm đà, sảng khoái và kích thích vị giác.",
+  P026: "Trà vải hoa lài có vị vải ngọt mọng hòa cùng hương hoa lài dịu nhẹ. Thức uống thơm thanh, để lại hậu vị ngọt nhẹ dễ chịu.",
+  P027: "Trà xoài kết hợp nền trà thơm dịu với vị xoài chín ngọt đậm và chút chua thanh. Món uống có hương trái cây nổi bật, thích hợp dùng lạnh.",
+  P028: "Trà sữa trân châu đường đen có vị trà sữa béo dịu, kết hợp trân châu dai mềm và hương đường đen caramel. Món uống có vị ngọt thơm và cảm giác đầy đặn.",
+  P029: "Trà sữa chanh leo kết hợp vị trà sữa béo nhẹ với hương chanh leo chua thơm. Vị chua ngọt cân bằng giúp thức uống tươi mới và không quá ngấy.",
+  P030: "Trà sữa matcha có hương trà xanh đặc trưng, vị hơi đắng thanh hòa cùng sữa béo dịu. Tổng thể thơm mượt và cân bằng giữa đắng, béo, ngọt.",
+  P031: "Trà sữa socola hòa vị trà sữa béo mượt với hương chocolate đậm thơm. Vị ngọt dịu cùng hậu vị cacao tạo cảm giác đậm đà, dễ thưởng thức.",
+  P032: "Trà sữa việt quất kết hợp vị trà sữa dịu béo với hương việt quất chua ngọt. Món có sắc thái trái cây rõ, cân bằng với vị trà thơm nhẹ.",
+};
 const initialProducts = [
   ["P001", "Americano", "Cà phê", 30000, "1_americano.jpg"],
   ["P002", "Bạc Xỉu", "Cà phê", 32000, "2_bacxiu.jpg"],
@@ -50,7 +84,7 @@ const initialProducts = [
   category: item[2],
   price: item[3],
   image: "/manager/lyna7200/coffe/product_images/" + item[4],
-  description: "",
+  description: productDescriptions[item[0]],
   active: true,
 }));
 let products = loadProducts();
@@ -62,7 +96,18 @@ function loadProducts() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     const parsed = saved ? JSON.parse(saved) : null;
-    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      let needsSave = false;
+      const updated = parsed.map((product) => {
+        const description = String(product.description || "").trim()
+          ? product.description
+          : productDescriptions[product.id] || "";
+        if (description !== product.description) needsSave = true;
+        return { ...product, description };
+      });
+      if (needsSave) localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    }
     const seeded = structuredClone(initialProducts);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(seeded));
     return seeded;
@@ -216,8 +261,9 @@ function saveProduct(event) {
   const description = getProductElement("productDescription").value.trim();
   const active = getProductElement("productActive").checked;
 
-  if (!name || !category || !Number.isFinite(price) || price < 0) {
-    getProductElement("formError").textContent = "Vui lòng nhập đầy đủ thông tin hợp lệ.";
+  if (!name || !category || !description || !Number.isFinite(price) || price < 0) {
+    getProductElement("formError").textContent =
+      "Vui lòng nhập tên, danh mục, giá bán hợp lệ và mô tả sản phẩm.";
     return;
   }
 

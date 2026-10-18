@@ -95,11 +95,15 @@ const StaffData = {
   },
 
   orderItems(order) {
-    return (Array.isArray(order.items) ? order.items : []).map((item) =>
-      typeof item === "string"
-        ? item
-        : `${item.name || "Sản phẩm"} x${Number(item.quantity) || 1}`,
-    );
+    return (Array.isArray(order.items) ? order.items : []).map((item) => {
+      if (typeof item === "string") return item;
+      const customization = item.customization || {};
+      const options = [customization.sweetness, customization.ice]
+        .filter(Boolean)
+        .join(" · ");
+      const name = `${item.name || "Sản phẩm"}${options ? ` (${options})` : ""}`;
+      return `${name} x${Number(item.quantity) || 1}`;
+    });
   },
 
   paymentMethod(order) {

@@ -368,11 +368,69 @@ let products = [
   },
 ];
 
+const managerToCustomerProductIds = {
+  P001: "CF10",
+  P002: "CF09",
+  P003: "CF08",
+  P004: "CF07",
+  P005: "CF06",
+  P006: "CF05",
+  P007: "CF04",
+  P008: "CF03",
+  P009: "CF02",
+  P010: "CF01",
+  P011: "DA07",
+  P012: "DA06",
+  P013: "DA05",
+  P014: "DA04",
+  P015: "DA03",
+  P016: "DA02",
+  P017: "DA01",
+  P018: "NE03",
+  P019: "NE02",
+  P020: "NE01",
+  P021: "TR07",
+  P022: "TR06",
+  P023: "TR05",
+  P024: "TR04",
+  P025: "TR03",
+  P026: "TR02",
+  P027: "TR01",
+  P028: "TS05",
+  P029: "TS04",
+  P030: "TS03",
+  P031: "TS02",
+  P032: "TS01",
+};
+
 function loadCoffeeProducts() {
   try {
     const saved = JSON.parse(localStorage.getItem("hoianCoffeeProducts") || "[]");
     if (Array.isArray(saved) && saved.length) {
-      return saved
+      const bundledDescriptions = new Map(
+        products.map((product) => [product.id, product.description]),
+      );
+      let descriptionsUpdated = false;
+      const savedWithDescriptions = saved.map((product) => {
+        const fallbackId = managerToCustomerProductIds[product.id];
+        const description = String(product.description || "").trim()
+          ? product.description
+          : bundledDescriptions.get(fallbackId) || "";
+        if (description !== product.description) descriptionsUpdated = true;
+        return { ...product, description };
+      });
+
+      if (descriptionsUpdated) {
+        try {
+          localStorage.setItem(
+            "hoianCoffeeProducts",
+            JSON.stringify(savedWithDescriptions),
+          );
+        } catch {
+          // The customer menu can still display the fallback descriptions in memory.
+        }
+      }
+      return savedWithDescriptions
         .filter((product) => product.active !== false)
         .map((product) => ({
           ...product,

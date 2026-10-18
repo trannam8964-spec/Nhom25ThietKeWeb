@@ -26,6 +26,11 @@ document.getElementById("customerName").innerText = username;
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+function getCustomizationLabel(item) {
+  const customization = item.customization || {};
+  return [customization.sweetness, customization.ice].filter(Boolean).join(" · ");
+}
+
 // HIỂN THỊ ĐƠN HÀNG
 
 function hienThiDonHang() {
@@ -66,6 +71,7 @@ function hienThiDonHang() {
                     <h3>${item.name}</h3>
 
                     <p>${item.category}</p>
+                    ${getCustomizationLabel(item) ? `<small class="order-customization">${getCustomizationLabel(item)}</small>` : ""}
 
                 </div>
 

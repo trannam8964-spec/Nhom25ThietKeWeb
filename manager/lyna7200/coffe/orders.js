@@ -27,6 +27,15 @@ function total(order) {
     )
   );
 }
+function orderItemLabel(item) {
+  if (typeof item === "string") return safe(item);
+  const customization = item.customization || {};
+  const options = [customization.sweetness, customization.ice]
+    .filter(Boolean)
+    .map(safe)
+    .join(" · ");
+  return `${safe(item.name || "Sản phẩm")}${options ? `<br><small>${options}</small>` : ""} × ${Number(item.quantity) || 1}`;
+}
 function orderTimestamp(order) {
   const timestamp = Date.parse(
     order.createdAt || order.orderDate || order.date || order.time || "",
@@ -87,7 +96,7 @@ function render() {
     ? list
         .map(
           (o) =>
-            `<tr><td><strong>${safe(o.id)}</strong></td><td>${safe(o.customerName || "Khách lẻ")}<br><small>${safe(o.customerPhone || "")}</small></td><td>${(o.items || []).map((i) => `${safe(i.name)} × ${Number(i.quantity) || 1}`).join("<br>")}</td><td>${saleTypeLabel(o.orderType || o.saleType)}</td><td>${new Date(o.createdAt).toLocaleString("vi-VN")}</td><td><strong>${money(total(o))}</strong></td><td><select aria-label="Trạng thái ${safe(o.id)}" data-status-id="${safe(o.id)}" class="status-pill ${statusClass(o.status)}">${[
+            `<tr><td><strong>${safe(o.id)}</strong></td><td>${safe(o.customerName || "Khách lẻ")}<br><small>${safe(o.customerPhone || "")}</small></td><td>${(o.items || []).map(orderItemLabel).join("<br>")}</td><td>${saleTypeLabel(o.orderType || o.saleType)}</td><td>${new Date(o.createdAt).toLocaleString("vi-VN")}</td><td><strong>${money(total(o))}</strong></td><td><select aria-label="Trạng thái ${safe(o.id)}" data-status-id="${safe(o.id)}" class="status-pill ${statusClass(o.status)}">${[
               ["pending", "Chờ nhân viên xác nhận"],
               ["preparing", "Đang chuẩn bị"],
               ["delivering", "Đang giao"],

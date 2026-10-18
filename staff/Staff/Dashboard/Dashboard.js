@@ -39,7 +39,7 @@ function refreshStaffPage() {
             <tr>
               <td>${StaffData.escape(order.id)}</td>
               <td>${StaffData.escape(StaffData.orderCustomer(order))}</td>
-              <td>${(order.items || []).map((item) => StaffData.escape(typeof item === "string" ? item : item.name)).join(", ")}</td>
+              <td>${StaffData.orderItems(order).map(StaffData.escape).join(", ")}</td>
               <td>${StaffData.money(order.total)}</td>
               <td>${StaffData.badge(order.status)}</td>
             </tr>`,

@@ -120,6 +120,10 @@ function hienThiLichSu() {
       }
 
       let thanhTien = price * item.quantity;
+      let customization = item.customization || {};
+      let customizationLabel = [customization.sweetness, customization.ice]
+        .filter(Boolean)
+        .join(" · ");
 
       productsHTML += `
 
@@ -135,6 +139,7 @@ function hienThiLichSu() {
                         <h3>${item.name}</h3>
 
                         <p>${category || "Không có danh mục"}</p>
+                        ${customizationLabel ? `<small class="order-customization">${escapeHtml(customizationLabel)}</small>` : ""}
 
                     </div>
 

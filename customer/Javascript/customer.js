@@ -93,12 +93,17 @@ featuredProducts.addEventListener("click", function (event) {
     cart = [];
   }
 
-  const cartItem = cart.find((item) => String(item.id) === String(product.id));
+  const cartItem = cart.find(
+    (item) =>
+      String(item.id) === String(product.id) &&
+      String(item.cartKey || item.id) === String(product.id),
+  );
   if (cartItem) {
     cartItem.quantity = (Number(cartItem.quantity) || 0) + 1;
   } else {
     cart.push({
       id: product.id,
+      cartKey: String(product.id),
       name: product.name,
       price: product.price,
       category: product.category,

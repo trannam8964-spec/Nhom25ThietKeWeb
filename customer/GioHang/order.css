@@ -211,6 +211,13 @@ header h1 {
   font-size: 14px;
 }
 
+.order-customization {
+  display: block;
+  margin-top: 5px;
+  color: #77543d;
+  font-size: 12px;
+}
+
 .order-quantity {
   width: 80px;
   text-align: center;
