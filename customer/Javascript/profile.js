@@ -157,6 +157,75 @@ function showPasswordMessage(message, type = "error") {
   passwordStatus.textContent = message;
 }
 
+function getProfilePasswordError(input) {
+  const value = input.value;
+  if (input.required && !value) return "Vui lòng nhập mật khẩu.";
+  if (input.id === "currentPassword") return "";
+  if (value.length < 6) return "Mật khẩu phải có ít nhất 6 ký tự.";
+  if (!/[A-Z]/.test(value)) return "Mật khẩu cần có ít nhất một chữ hoa.";
+  if (!/[a-z]/.test(value)) return "Mật khẩu cần có ít nhất một chữ thường.";
+  if (!/[0-9]/.test(value)) return "Mật khẩu cần có ít nhất một chữ số.";
+  if (!/[^A-Za-z0-9\s]/.test(value)) {
+    return "Mật khẩu cần có ít nhất một ký tự đặc biệt, ví dụ: !, @, #.";
+  }
+  if (
+    input.id === "confirmNewPassword" &&
+    value !== document.getElementById("newPassword").value
+  ) {
+    return "Mật khẩu nhập lại chưa khớp.";
+  }
+  return "";
+}
+
+function setProfilePasswordError(input, message) {
+  let field = input.closest(".field");
+  let error = field.querySelector(".field-error");
+  if (!error) {
+    error = document.createElement("small");
+    error.className = "field-error";
+    error.id = `${input.id}Error`;
+    error.setAttribute("role", "alert");
+    input.insertAdjacentElement("afterend", error);
+  }
+  error.textContent = message;
+  input.setAttribute("aria-invalid", "true");
+  input.setAttribute("aria-describedby", error.id);
+}
+
+function clearProfilePasswordError(input) {
+  input.removeAttribute("aria-invalid");
+  input.removeAttribute("aria-describedby");
+  input.closest(".field")?.querySelector(".field-error")?.remove();
+}
+
+passwordForm.addEventListener("focusout", (event) => {
+  const input = event.target;
+  if (!(input instanceof HTMLInputElement)) return;
+  const message = getProfilePasswordError(input);
+  if (message) setProfilePasswordError(input, message);
+  else clearProfilePasswordError(input);
+});
+
+passwordForm.addEventListener("input", (event) => {
+  const input = event.target;
+  if (!(input instanceof HTMLInputElement)) return;
+  showPasswordMessage("");
+  if (input.getAttribute("aria-invalid") === "true") {
+    const message = getProfilePasswordError(input);
+    if (message) setProfilePasswordError(input, message);
+    else clearProfilePasswordError(input);
+  }
+  const confirmation = document.getElementById("confirmNewPassword");
+  if (
+    input.id === "newPassword" &&
+    confirmation.getAttribute("aria-invalid") === "true"
+  ) {
+    const message = getProfilePasswordError(confirmation);
+    if (message) setProfilePasswordError(confirmation, message);
+    else clearProfilePasswordError(confirmation);
+  }
+});
+
 function createPasswordSalt() {
   const bytes = crypto.getRandomValues(new Uint8Array(16));
   return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
@@ -191,15 +260,23 @@ passwordForm.addEventListener("submit", async function (event) {
 
   const currentPassword = document.getElementById("currentPassword").value;
   const newPassword = document.getElementById("newPassword").value;
-  const confirmNewPassword = document.getElementById(
-    "confirmNewPassword",
-  ).value;
-  if (newPassword !== confirmNewPassword) {
-    showPasswordMessage("Mật khẩu mới nhập lại chưa khớp.");
-    return;
-  }
-  if (newPassword.length < 6) {
-    showPasswordMessage("Mật khẩu mới cần có ít nhất 6 ký tự.");
+  const currentInput = document.getElementById("currentPassword");
+  const newInput = document.getElementById("newPassword");
+  const confirmationInput = document.getElementById("confirmNewPassword");
+  const inputs = [currentInput, newInput, confirmationInput];
+  let firstInvalid = null;
+
+  inputs.forEach((input) => {
+    clearProfilePasswordError(input);
+    const message = getProfilePasswordError(input);
+    if (message) {
+      setProfilePasswordError(input, message);
+      firstInvalid ||= input;
+    }
+  });
+  if (firstInvalid) {
+    firstInvalid.focus();
+    showPasswordMessage("Vui lòng kiểm tra lại thông tin được đánh dấu.");
     return;
   }
 
@@ -246,7 +323,12 @@ passwordForm.addEventListener("submit", async function (event) {
       account.salt,
     );
     if (currentHash !== account.passwordHash) {
+      setProfilePasswordError(
+        currentInput,
+        "Mật khẩu hiện tại không đúng. Vui lòng thử lại.",
+      );
       showPasswordMessage("Mật khẩu hiện tại không đúng.");
+      currentInput.focus();
       return;
     }
 
@@ -255,6 +337,7 @@ passwordForm.addEventListener("submit", async function (event) {
     account.passwordHash = await hashCustomerPassword(newPassword, salt);
     localStorage.setItem("registeredCustomers", JSON.stringify(accounts));
     passwordForm.reset();
+    inputs.forEach(clearProfilePasswordError);
     showPasswordMessage(
       "Đổi mật khẩu thành công. Hãy dùng mật khẩu mới ở lần đăng nhập tiếp theo.",
       "success",

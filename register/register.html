@@ -30,7 +30,7 @@
           <h2>Tạo tài khoản</h2>
           <p class="auth-subtitle">Điền thông tin bên dưới để đăng ký.</p>
 
-          <form id="registerForm">
+          <form id="registerForm" novalidate>
             <div class="field">
               <label for="registerName">Họ và tên</label>
               <input
@@ -38,6 +38,8 @@
                 name="fullName"
                 type="text"
                 autocomplete="name"
+                minlength="2"
+                maxlength="80"
                 required
               />
             </div>
@@ -49,6 +51,7 @@
                 type="text"
                 autocomplete="username"
                 minlength="3"
+                maxlength="30"
                 pattern="[A-Za-z0-9_.-]+"
                 required
               />
@@ -61,6 +64,7 @@
                 name="email"
                 type="email"
                 autocomplete="email"
+                maxlength="254"
                 required
               />
             </div>
@@ -71,8 +75,11 @@
                 name="phone"
                 type="tel"
                 autocomplete="tel"
-                pattern="(0[0-9]{9}|\+84[0-9]{9})"
-                title="Nhập số điện thoại Việt Nam gồm 10 chữ số"
+                inputmode="numeric"
+                minlength="10"
+                maxlength="10"
+                pattern="0[0-9]{9}"
+                title="Nhập đúng 10 chữ số, bắt đầu bằng số 0"
                 required
               />
             </div>
@@ -84,8 +91,11 @@
                 type="password"
                 autocomplete="new-password"
                 minlength="6"
+                pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9\s]).{6,}"
+                title="Ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt"
                 required
               />
+              <small class="field-hint">Ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt.</small>
             </div>
             <div class="field">
               <label for="confirmPassword">Nhập lại mật khẩu</label>
@@ -95,6 +105,8 @@
                 type="password"
                 autocomplete="new-password"
                 minlength="6"
+                pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9\s]).{6,}"
+                title="Ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt"
                 required
               />
             </div>

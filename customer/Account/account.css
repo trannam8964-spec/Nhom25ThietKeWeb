@@ -343,6 +343,23 @@ a {
   outline: 3px solid rgba(138, 84, 53, 0.14);
 }
 
+.field input[aria-invalid="true"] {
+  border-color: #a12e26;
+}
+
+.field-error {
+  color: #a12e26;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.field-hint {
+  color: #77716d;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .form-actions {
   display: flex;
   align-items: center;

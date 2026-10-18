@@ -33,17 +33,20 @@
           <p class="eyebrow">CHÀO MỪNG TRỞ LẠI</p>
           <h2>Đăng nhập</h2>
           <p class="auth-subtitle">
-            Dùng tài khoản của bạn hoặc vào nhanh với tên khách.
+            Nhập tên đăng nhập và mật khẩu để truy cập tài khoản.
           </p>
 
-          <form id="loginForm">
+          <form id="loginForm" novalidate>
             <div class="field">
-              <label for="loginUsername">Tên đăng nhập hoặc tên khách</label>
+              <label for="loginUsername">Tên đăng nhập</label>
               <input
                 id="loginUsername"
                 name="username"
                 type="text"
                 autocomplete="username"
+                minlength="3"
+                maxlength="30"
+                pattern="[A-Za-z0-9_.-]+"
                 required
               />
             </div>
@@ -54,11 +57,12 @@
                 name="password"
                 type="password"
                 autocomplete="current-password"
+                minlength="6"
+                pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9\s]).{6,}"
+                title="Ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt"
+                required
               />
-              <small
-                >Để trống mật khẩu nếu bạn chỉ muốn vào nhanh với tên
-                khách.</small
-              >
+              <small class="field-hint">Ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt.</small>
             </div>
             <button class="primary-button" type="submit">Đăng nhập</button>
             <p
@@ -75,8 +79,8 @@
 
           <details class="demo-accounts">
             <summary>Tài khoản dùng thử cho vai trò</summary>
-            <p>Quản lý: <code>admin</code> / <code>123456</code></p>
-            <p>Nhân viên: <code>staff</code> / <code>staff123</code></p>
+            <p>Quản lý: <code>admin</code> / <code>Admin@123</code></p>
+            <p>Nhân viên: <code>staff</code> / <code>Staff@123</code></p>
           </details>
 
           <p class="auth-footer">

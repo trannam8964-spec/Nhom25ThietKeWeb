@@ -192,7 +192,7 @@
               <p>Đổi mật khẩu đăng nhập cho tài khoản Customer của bạn.</p>
             </div>
 
-            <form class="form-panel" id="passwordForm">
+            <form class="form-panel" id="passwordForm" novalidate>
               <div class="form-grid">
                 <div class="field field-full">
                   <label for="currentPassword">Mật khẩu hiện tại</label>
@@ -212,8 +212,11 @@
                     type="password"
                     autocomplete="new-password"
                     minlength="6"
+                    pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9\s]).{6,}"
+                    title="Ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt"
                     required
                   />
+                  <small class="field-hint">Ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt.</small>
                 </div>
                 <div class="field">
                   <label for="confirmNewPassword">Nhập lại mật khẩu mới</label>
@@ -223,6 +226,8 @@
                     type="password"
                     autocomplete="new-password"
                     minlength="6"
+                    pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9\s]).{6,}"
+                    title="Ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt"
                     required
                   />
                 </div>
@@ -241,7 +246,7 @@
                 ></p>
               </div>
               <p class="form-note">
-                Dùng tài khoản đã đăng ký để đổi mật khẩu. Mật khẩu mới cần có ít nhất 6 ký tự.
+                Mật khẩu mới cần có ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt.
               </p>
             </form>
           </section>
