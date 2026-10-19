@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Tải cấu hình từ LocalStorage
   const defaultSettings = {
-    storeName: "Hội An Coffee",
+    storeName: "Coffee House",
     storePhone: "0905 123 456",
     storeAddress: "123 Phố Cổ, Hội An, Quảng Nam",
     storeWifi: "hoiancoffee2026",
@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let settings =
     JSON.parse(localStorage.getItem("coffee_settings")) || defaultSettings;
+  if (/^(hội an coffee|coffee[- ]shop)$/i.test(settings.storeName || "")) {
+    settings.storeName = "Coffee House";
+  }
 
   // Load dữ liệu lên giao diện
   function loadSettings() {

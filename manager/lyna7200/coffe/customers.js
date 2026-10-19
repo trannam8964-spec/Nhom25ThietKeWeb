@@ -233,7 +233,7 @@ document.getElementById("exportCustomers").addEventListener("click", () => {
       ];
     }),
   ];
-  downloadCSV("khach-hang-hoi-an-coffee.csv", rows);
+  downloadCSV("khach-hang-coffee-house.csv", rows);
 });
 
 window.addEventListener("storage", (event) => {

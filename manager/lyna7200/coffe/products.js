@@ -372,7 +372,7 @@ function exportCSV() {
   const link = document.createElement("a");
 
   link.href = url;
-  link.download = "danh-sach-san-pham-hoi-an-coffee.csv";
+  link.download = "danh-sach-san-pham-coffee-house.csv";
   document.body.appendChild(link);
   link.click();
   link.remove();
