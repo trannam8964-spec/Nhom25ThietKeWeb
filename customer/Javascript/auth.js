@@ -4,8 +4,26 @@ const demoRoleAccounts = {
 };
 
 const usernamePattern = /^[A-Za-z0-9_.-]{3,30}$/;
-const emailPattern = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
 const phonePattern = /^0[0-9]{9}$/;
+const authEmailPattern =
+  /^[A-Z0-9.!#$%&'*+/=?^_{|}~-]+@(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,24}$/i;
+
+function isValidAuthEmail(value) {
+  const email = String(value || "").trim();
+  if (!email || email.length > 254 || !authEmailPattern.test(email)) {
+    return false;
+  }
+
+  const [localPart, domain] = email.split("@");
+  return Boolean(
+    localPart &&
+      localPart.length <= 64 &&
+      !localPart.startsWith(".") &&
+      !localPart.endsWith(".") &&
+      !localPart.includes("..") &&
+      !domain.toLowerCase().endsWith(".con"),
+  );
+}
 
 function passwordValidationMessage(password) {
   if (password.length < 6) return "Mật khẩu phải có ít nhất 6 ký tự.";
@@ -189,7 +207,7 @@ function getAuthFieldError(input) {
       break;
     case "registerEmail":
     case "recoveryEmail":
-      if (!emailPattern.test(trimmed)) {
+      if (!isValidAuthEmail(trimmed)) {
         return "Nhập email đúng định dạng, ví dụ: abc@gmail.com.";
       }
       break;
@@ -428,6 +446,16 @@ if (registerForm) {
     let phone = String(formData.get("phone") || "").trim();
     let password = String(formData.get("password") || "");
     let customers = readRegisteredCustomers();
+
+    if (!isValidAuthEmail(email)) {
+      setFieldError(
+        document.getElementById("registerEmail"),
+        "Email chưa đúng định dạng. Ví dụ hợp lệ: abc@gmail.com.",
+      );
+      showAuthMessage(registerMessage, "Vui lòng nhập email hợp lệ để đăng ký.");
+      document.getElementById("registerEmail").focus();
+      return;
+    }
 
     if (demoRoleAccounts[normalizedUsername]) {
       setFieldError(

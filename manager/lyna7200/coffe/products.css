@@ -66,7 +66,7 @@ body {
   border-radius: 8px;
   transition: 0.2s;
 }
-.menu a span {
+.menu a .nav-icon {
   width: 20px;
   text-align: center;
 }
@@ -628,8 +628,8 @@ body.sidebar-collapsed .logout {
   padding-left: 0;
   padding-right: 0;
 }
-body.sidebar-collapsed .menu a span,
-body.sidebar-collapsed .logout span {
+body.sidebar-collapsed .menu a .nav-icon,
+body.sidebar-collapsed .logout .nav-icon {
   font-size: 18px;
 }
 body.sidebar-collapsed .brand {
