@@ -1,4 +1,4 @@
-// ================= TÊN KHÁCH HÀNG =================
+//  TÊN KHÁCH HÀNG
 
 let username = localStorage.getItem("username");
 
@@ -10,7 +10,7 @@ document.getElementById("customerName").innerText = username;
 
 document.getElementById("welcomeName").innerText = username;
 
-// ================= MÓN NỔI BẬT =================
+//  MÓN NỔI BẬT
 
 // Lấy khu vực hiển thị món nổi bật
 
@@ -116,7 +116,7 @@ featuredProducts.addEventListener("click", function (event) {
   window.location.href = "/customer/GioHang/cart.html";
 });
 
-// ================= THỐNG KÊ ĐƠN HÀNG =================
+//  THỐNG KÊ ĐƠN HÀNG
 
 // Lấy danh sách đơn hàng từ localStorage
 

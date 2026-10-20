@@ -28,7 +28,9 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 function getCustomizationLabel(item) {
   const customization = item.customization || {};
-  return [customization.sweetness, customization.ice].filter(Boolean).join(" · ");
+  return [customization.sweetness, customization.ice]
+    .filter(Boolean)
+    .join(" · ");
 }
 
 // HIỂN THỊ ĐƠN HÀNG
