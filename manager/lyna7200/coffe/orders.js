@@ -4,7 +4,7 @@ let orders = read(KEYS.orders),
 const dialog = $("orderDialog"),
   form = $("orderForm");
 const saleTypeLabel = (type) =>
-  type === "takeaway" ? "Mang về" : "Bán tại chỗ";
+  type === "takeaway" ? "Mang đi – nhận tại quầy" : "Dùng tại quán";
 function releaseTableForOrder(order) {
   if (!order?.tableNumber || !window.CoffeeData) return;
   const tables = window.CoffeeData.readArray("tables");
